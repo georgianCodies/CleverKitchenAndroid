@@ -10,4 +10,10 @@
         android:name="com.mdev.cleverkitchenandroid.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/addRecipeFragment"
+        android:name="com.mdev.cleverkitchenandroid.AddRecipeFragment"
+        android:label="fragment_add_recipe"
+        tools:layout="@layout/fragment_add_recipe" />
 </navigation>
