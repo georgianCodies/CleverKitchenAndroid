@@ -1,4 +1,4 @@
-package com.mdev.cleverkitchen
+package com.mdev.cleverkitchenandroid
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
