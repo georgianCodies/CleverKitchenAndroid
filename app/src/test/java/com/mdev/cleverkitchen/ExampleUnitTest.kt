@@ -1,4 +1,4 @@
-package com.example.cleverkitchen
+package com.mdev.cleverkitchen
 
 import org.junit.Test
 
