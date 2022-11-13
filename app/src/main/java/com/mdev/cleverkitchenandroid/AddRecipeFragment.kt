@@ -21,7 +21,7 @@ class AddRecipeFragment : Fragment() {
     private lateinit var recipeName: TextView
     private lateinit var ingredients: TextView
     private lateinit var description: TextView
-    private lateinit var video: TextView
+
 
     var part_image: String? = null
 
@@ -46,9 +46,9 @@ class AddRecipeFragment : Fragment() {
 
         var isAllFieldsChecked = false
 
-        video.setOnClickListener {
-            println("clicked on video upload!");
-        }
+//        video.setOnClickListener {
+//            println("clicked on video upload!");
+//        }
 
 
         submitButton.setOnClickListener(View.OnClickListener { // store the returned value of the dedicated function which checks
