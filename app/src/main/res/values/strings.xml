@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">CleverKitchenAndroid</string>
+    <string name="app_name">CleverKitchen</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home_fragment_text">In Home Fragment</string>
+    <string name="ViewRecipesText">View recipes </string>
+    <string name="AddRecipesText">Add recipes   </string>
+    <string name="ShoppingListText">Shopping list</string>
+    <string name="HomeText">\"A recipe has no soul.\n You,as a cook, must \n bring the soul to the recipe\"\n - \n Thomas Keller"</string>
 </resources>
