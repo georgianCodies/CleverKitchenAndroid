@@ -42,7 +42,7 @@ class AddRecipeFragment : Fragment() {
         recipeName = view.findViewById<TextView>(R.id.recipeNameEditText);
         ingredients = view.findViewById<TextView>(R.id.ingredientsEditText)
         description = view.findViewById<TextView>(R.id.descriptionEditText)
-        video = view.findViewById<Button>(R.id.videoInputButton);
+        //video = view.findViewById<Button>(R.id.videoInputButton);
 
         var isAllFieldsChecked = false
 
