@@ -13,6 +13,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import java.io.File
 
 class AddRecipeFragment : Fragment() {
@@ -81,6 +82,7 @@ class AddRecipeFragment : Fragment() {
                 println("Saved data is:")
                 val savedRecipeName = sharedPreferences.getString("recipeName","no values")
                 println(savedRecipeName)
+                view.findNavController().navigate(R.id.action_addRecipeFragment_to_homeFragment)
             }
         })
 
