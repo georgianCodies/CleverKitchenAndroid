@@ -3,4 +3,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home_fragment_text">In Home Fragment</string>
+    <string name="mar_25_2022">Mar 25, 2022</string>
+    <string name="micheal">Micheal</string>
+    <string name="indian_creamy_butter_chicken_curry_recipie">Indian Creamy butter chicken curry recipie</string>
+    <string name="hashtag1_hashtag2">#hashtag1 #hashtag2</string>
 </resources>
