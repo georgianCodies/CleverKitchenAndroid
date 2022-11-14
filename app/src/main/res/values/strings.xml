@@ -1,9 +1,5 @@
 <resources>
     <string name="app_name">Clever Kitchen</string>
-<<<<<<< Updated upstream
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-=======
     <string name="intial_screen_text">Making your kitchen Smarter</string>
     <string name="signin">SignIn</string>
     <string name="signup">Signup</string>
@@ -21,7 +17,6 @@
     <string name ="emailtext">Email</string>
     <string name ="passwordtext">Password</string>
     <string name="profile_fragment">Profile fragment</string>
->>>>>>> Stashed changes
     <string name="home_fragment_text">In Home Fragment</string>
     <string name="ViewRecipesText">View recipes </string>
     <string name="AddRecipesText">Add recipes   </string>
@@ -36,17 +31,12 @@
     <string name="video_text">Video:</string>
     <string name="video_hint">Upload a video</string>
     <string name="submit_button_text">Submit</string>
-<<<<<<< Updated upstream
-</resources>
-=======
-    <string name="mar_25_2022">Mar 25, 2022</string>
+     <string name="mar_25_2022">Mar 25, 2022</string>
     <string name="micheal">Micheal</string>
     <string name="indian_creamy_butter_chicken_curry_recipie">Indian Creamy butter chicken curry recipie</string>
     <string name="hashtag1_hashtag2">#hashtag1 #hashtag2</string>
     <string name="view_recipies">View Recipies</string>
     <string name="text_label_1">Home</string>
     <string name="text_label_2">Profile</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
->>>>>>> Stashed changes
