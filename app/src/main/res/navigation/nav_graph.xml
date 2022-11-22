@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_addRecipeFragment"
             app:destination="@id/addRecipeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/viewRecipeFragment"
@@ -40,4 +43,9 @@
         android:name="com.mdev.cleverkitchenandroid.RecipeDetailsFragment"
         android:label="fragment_recipe_details"
         tools:layout="@layout/fragment_recipe_details" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.mdev.cleverkitchenandroid.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
