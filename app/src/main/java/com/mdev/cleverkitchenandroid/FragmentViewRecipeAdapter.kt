@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 
 class FragmentViewRecipeAdapter(private val recipiesList: List<RecipiesModel>) :
@@ -15,6 +16,9 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<RecipiesModel>) :
         // that is used to hold list item
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_recipe, parent, false)
+        view.setOnClickListener{
+            view.findNavController().navigate(R.id.action_viewRecipeFragment_to_recipeDetailsFragment)
+        }
         return ViewHolder(view)
     }
 

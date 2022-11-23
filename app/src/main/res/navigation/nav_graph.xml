@@ -55,12 +55,19 @@
         <action
             android:id="@+id/action_homeFragment_to_addRecipeFragment"
             app:destination="@id/addRecipeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/viewRecipeFragment"
         android:name="com.mdev.cleverkitchenandroid.ViewRecipeFragment"
         android:label="fragment_view_recipe"
-        tools:layout="@layout/fragment_view_recipe" />
+        tools:layout="@layout/fragment_view_recipe" >
+        <action
+            android:id="@+id/action_viewRecipeFragment_to_recipeDetailsFragment"
+            app:destination="@id/recipeDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addRecipeFragment"
         android:name="com.mdev.cleverkitchenandroid.AddRecipeFragment"
@@ -70,4 +77,14 @@
             android:id="@+id/action_addRecipeFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/recipeDetailsFragment"
+        android:name="com.mdev.cleverkitchenandroid.RecipeDetailsFragment"
+        android:label="fragment_recipe_details"
+        tools:layout="@layout/fragment_recipe_details" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.mdev.cleverkitchenandroid.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

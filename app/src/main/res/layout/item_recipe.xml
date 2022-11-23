@@ -73,13 +73,6 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/iv_option"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_baseline_more_vert_24" />
 
 
         </RelativeLayout>
