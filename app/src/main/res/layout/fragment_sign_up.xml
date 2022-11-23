@@ -49,15 +49,7 @@
                     android:layout_weight="1"
                     android:text="@string/createaccounttext" />
 
-                <TextView
-                    android:id="@+id/nameTextViewsignUp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="1"
-                    android:text="@string/nametext"
-                    android:textStyle="bold" />
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutNameSignUp"
@@ -76,15 +68,7 @@
                     android:text="" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/emailTextViewSignUp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="1"
-                    android:text="@string/emailtext"
-                    android:textStyle="bold" />
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutEmailSignUp"
@@ -104,15 +88,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/passwordTextViewSignUp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="1"
-                    android:text="@string/passwordtext"
-                    android:textStyle="bold" />
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutPasswordSignUp"
@@ -134,15 +110,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/comfirmPasswordTextViewSignUp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="1"
-                    android:text="@string/confirmpassword"
-                    android:textStyle="bold" />
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutConfirmPasswordSignUp"
@@ -177,13 +145,13 @@
                 android:gravity="left"
                 android:text=""
                 android:textColor="@color/errortextcolor"
-                app:layout_constraintBottom_toTopOf="@id/signUpScreensignUpButton"
+                app:layout_constraintBottom_toTopOf="@id/signUpScreenSignUpButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
             <Button
-                android:id="@+id/signUpScreensignUpButton"
+                android:id="@+id/signUpScreenSignUpButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -205,10 +173,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signUpScreensignUpButton">
+                app:layout_constraintTop_toBottomOf="@+id/signUpScreenSignUpButton">
 
                 <TextView
-                    android:id="@+id/alreadyaccountTextView"
+                    android:id="@+id/alreadyAccountTextView"
                     android:layout_width="wrap_content"
                     android:gravity="center_vertical|right"
                     android:layout_height="wrap_content"

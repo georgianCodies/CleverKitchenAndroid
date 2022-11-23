@@ -1,8 +1,5 @@
 package com.mdev.cleverkitchenandroid
 
-import android.app.AlertDialog
-import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.findNavController
+import com.mdev.cleverkitchenandroid.database.UserDetailsDatabase
 
 
 class SignUpFragment : Fragment() {
@@ -31,9 +29,9 @@ class SignUpFragment : Fragment() {
         val passwordTextView = view.findViewById<TextView>(R.id.inputPasswordSignUp)
         val confirmPasswordTextView = view.findViewById<TextView>(R.id.inputConfirmPasswordSignUp)
         val errorTextView = view.findViewById<TextView>(R.id.errorTextViewSignUp)
-        val database = DatabaseClass(requireActivity())
+        val database = UserDetailsDatabase(requireActivity())
 
-        val signUpButton =  view.findViewById<Button>(R.id.signUpScreensignUpButton)
+        val signUpButton =  view.findViewById<Button>(R.id.signUpScreenSignUpButton)
         signUpButton.setOnClickListener{
             errorTextView.text=""
             name = nameTextView.text.toString()
@@ -41,8 +39,8 @@ class SignUpFragment : Fragment() {
             password = passwordTextView.text.toString()
             confirmpassword = confirmPasswordTextView.text.toString()
             if(validateFields()){
-                if(database.CheckEmail(email)) {
-                    database.Insert(email, name, password)
+                if(database.checkEmail(email)) {
+                    database.insertUser(email, name, password)
                     view.findNavController().popBackStack()
                 }
                 else{

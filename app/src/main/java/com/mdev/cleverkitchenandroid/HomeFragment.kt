@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.google.android.material.navigation.NavigationView
 
 
 class HomeFragment : Fragment() {
@@ -21,12 +20,12 @@ class HomeFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        val viewRecipeButton =  view.findViewById<Button>(R.id.ViewRecipes)
+        val viewRecipeButton =  view.findViewById<Button>(R.id.viewRecipes)
 
         viewRecipeButton.setOnClickListener{
             view.findNavController().navigate(R.id.action_homeFragment_to_viewRecipeFragment)
         }
-        val addRecipeButton =  view.findViewById<Button>(R.id.AddRecipes)
+        val addRecipeButton =  view.findViewById<Button>(R.id.addRecipes)
         addRecipeButton.setOnClickListener{
             view.findNavController().navigate(R.id.action_homeFragment_to_addRecipeFragment)
         }

@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.findNavController
 
 
@@ -32,13 +30,13 @@ class IntialFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_intial, container, false);
 
-        val signInButton =  view.findViewById<Button>(R.id.intialsignin)
+        val signInButton =  view.findViewById<Button>(R.id.intialSignIn)
 
         signInButton.setOnClickListener{
             view.findNavController().navigate(R.id.action_intialFragment_to_SignInFragment)
 
         }
-        val signUpButton =  view.findViewById<Button>(R.id.intialsignup)
+        val signUpButton =  view.findViewById<Button>(R.id.intialSignUp)
         signUpButton.setOnClickListener{
             view.findNavController().navigate(R.id.action_intialFragment_to_signUpFragment)
         }

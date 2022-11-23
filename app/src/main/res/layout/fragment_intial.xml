@@ -7,14 +7,14 @@
     tools:context=".IntialFragment">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/mainguideline"
+        android:id="@+id/mainGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/secondguideline"
+        android:id="@+id/secondGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -22,27 +22,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintGuide_percent="0.75"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/mainguideline" />
+        app:layout_constraintTop_toTopOf="@id/mainGuideline" />
 
     <TextView
-        android:id="@+id/intialcleverkitchen"
+        android:id="@+id/intialCleverKitchen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
-        app:layout_constraintBottom_toTopOf="@+id/mainguideline"
+        app:layout_constraintBottom_toTopOf="@+id/mainGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/intialcleverkitchendesc"
+        android:id="@+id/intialCleverKitchenDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/intial_screen_text"
-        app:layout_constraintBottom_toTopOf="@+id/secondguideline"
+        android:text="@string/intialscreentext"
+        app:layout_constraintBottom_toTopOf="@+id/secondGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mainguideline" />
+        app:layout_constraintTop_toTopOf="@+id/mainGuideline" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -50,10 +50,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/secondguideline">
+        app:layout_constraintTop_toBottomOf="@+id/secondGuideline">
 
         <Button
-            android:id="@+id/intialsignin"
+            android:id="@+id/intialSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -64,7 +64,7 @@
             android:textColor="@color/white" />
 
         <Button
-            android:id="@+id/intialsignup"
+            android:id="@+id/intialSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"

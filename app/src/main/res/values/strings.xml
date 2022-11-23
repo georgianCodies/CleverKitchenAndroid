@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Clever Kitchen</string>
-    <string name="intial_screen_text">Making your kitchen Smarter</string>
-    <string name="signin">SignIn</string>
-    <string name="signup">Signup</string>
+    <string name="intialscreentext">Making your kitchen Smarter</string>
+    <string name="signin">Sign In</string>
+    <string name="signup">Sign Up</string>
     <string name="hellotext">Hello.</string>
     <string name="welcomebacktext">Welcome Back</string>
     <string name="welcometext">Welcome.</string>

@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.mdev.cleverkitchenandroid.database.UserDetailsDatabase
 
 
 class SignInFragment : Fragment() {
@@ -25,15 +26,15 @@ class SignInFragment : Fragment() {
         val emailTextView = view.findViewById<TextView>(R.id.inputEmailSignIn)
         val passwordTextView = view.findViewById<TextView>(R.id.inputPasswordSignIn)
         val errorTextView = view.findViewById<TextView>(R.id.errorTextViewSignIn)
-        val database = DatabaseClass(requireActivity())
+        val database = UserDetailsDatabase(requireActivity())
 
-        val signInButton =  view.findViewById<Button>(R.id.signInScreensignInButton)
+        val signInButton =  view.findViewById<Button>(R.id.signInScreenSignInButton)
         signInButton.setOnClickListener{
             email = emailTextView.text.toString()
             password = passwordTextView.text.toString()
             errorTextView.text=""
             if(validateFields()){
-                if(database.CheckLogin(email,password)){
+                if(database.checkLogin(email,password)){
                     view.findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
 
                 }
