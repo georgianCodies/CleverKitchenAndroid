@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="button_orange">#FF5722</color>
     <color name="themecolor">#FF5722</color>
+    <color name="errortextcolor">#E94057</color>
 </resources>
