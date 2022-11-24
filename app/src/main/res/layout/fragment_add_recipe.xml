@@ -47,7 +47,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="30dp"
                 android:hint="@string/recipe_ingredients_hint"
-                app:startIconDrawable="@drawable/ic_recipe_ingList"
+                app:startIconDrawable="@drawable/ic_recipe_inglist"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recipeNameContainer">
