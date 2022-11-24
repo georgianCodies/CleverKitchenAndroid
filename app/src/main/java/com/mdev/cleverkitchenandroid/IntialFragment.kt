@@ -5,18 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.findNavController
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-const val ARG_PARAM1 = "param1"
-const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [RecipeDetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class RecipeDetailsFragment : Fragment() {
+class IntialFragment : Fragment() {
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -34,7 +30,19 @@ class RecipeDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipe_details, container, false)
+        val view = inflater.inflate(R.layout.fragment_intial, container, false);
+
+        val signInButton =  view.findViewById<Button>(R.id.intialsignin)
+
+        signInButton.setOnClickListener{
+            view.findNavController().navigate(R.id.action_intialFragment_to_SignInFragment)
+
+        }
+        val signUpButton =  view.findViewById<Button>(R.id.intialsignup)
+        signUpButton.setOnClickListener{
+            view.findNavController().navigate(R.id.action_intialFragment_to_signUpFragment)
+        }
+        return view
     }
 
     companion object {

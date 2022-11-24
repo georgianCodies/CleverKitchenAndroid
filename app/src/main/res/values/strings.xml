@@ -1,8 +1,27 @@
 <resources>
-    <string name="app_name">CleverKitchenAndroid</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Clever Kitchen</string>
+    <string name="intial_screen_text">Making your kitchen Smarter</string>
+    <string name="signin">SignIn</string>
+    <string name="signup">Signup</string>
+    <string name="hellotext">Hello.</string>
+    <string name="welcomebacktext">Welcome Back</string>
+    <string name="welcometext">Welcome.</string>
+    <string name="createaccounttext">Create an account</string>
+    <string name="accountexists">Already have an account</string>
+    <string name="noaccountexists">Don\'t have an Account?</string>
+    <string name="enteremail">Enter email</string>
+    <string name="enterpassword">Enter password</string>
+    <string name="entername">Enter name</string>
+    <string name="confirmpassword">Confirm Password</string>
+    <string name ="nametext">Name</string>
+    <string name ="emailtext">Email</string>
+    <string name ="passwordtext">Password</string>
+    <string name="profile_fragment">Profile fragment</string>
     <string name="home_fragment_text">In Home Fragment</string>
+    <string name="ViewRecipesText">View recipes </string>
+    <string name="AddRecipesText">Add recipes   </string>
+    <string name="ShoppingListText">Shopping list</string>
+    <string name="HomeText">\"A recipe has no soul.\n You,as a cook, must \n bring the soul to the recipe\"\n - \n Thomas Keller"</string>
     <string name="recipe_name_text">Recipe Name:</string>
     <string name="recipe_name_hint">Enter Recipe Name</string>
     <string name="ingredients_text">Ingredients:</string>
@@ -12,4 +31,12 @@
     <string name="video_text">Video:</string>
     <string name="video_hint">Upload a video</string>
     <string name="submit_button_text">Submit</string>
+     <string name="mar_25_2022">Mar 25, 2022</string>
+    <string name="micheal">Micheal</string>
+    <string name="indian_creamy_butter_chicken_curry_recipie">Indian Creamy butter chicken curry recipie</string>
+    <string name="hashtag1_hashtag2">#hashtag1 #hashtag2</string>
+    <string name="view_recipies">View Recipies</string>
+    <string name="text_label_1">Home</string>
+    <string name="text_label_2">Profile</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
