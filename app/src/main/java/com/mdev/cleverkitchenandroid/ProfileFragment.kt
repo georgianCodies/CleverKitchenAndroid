@@ -25,7 +25,7 @@ class ProfileFragment : Fragment() {
         val logoutButton =  view.findViewById<Button>(R.id.logout)
         val database = CleverKitchenDatabase(requireActivity())
         val sharedPreferences =  activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
-        val emailId = sharedPreferences?.getString("emailId","defaultName")
+        val emailId = sharedPreferences?.getString("emailId","")
 
         val emailIdView = view.findViewById<TextView>(R.id.profile_emailId)
         val userNameView = view.findViewById<TextView>(R.id.profile_userName)
