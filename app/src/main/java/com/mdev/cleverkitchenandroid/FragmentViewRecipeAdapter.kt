@@ -5,20 +5,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.mdev.cleverkitchenandroid.model.Recipe
 
-class FragmentViewRecipeAdapter(private val recipiesList: List<RecipiesModel>) :
+class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>) :
     RecyclerView.Adapter<FragmentViewRecipeAdapter.ViewHolder>() {
     // create new views
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflates the card_view_design view
         // that is used to hold list item
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_recipe, parent, false)
-        view.setOnClickListener{
-            view.findNavController().navigate(R.id.action_viewRecipeFragment_to_recipeDetailsFragment)
-        }
+//        view.setOnClickListener{
+//            val bundle = bundleOf("SOME_BUNDLE_KEY" to recipiesList)
+//            view.findNavController().navigate(R.id.action_viewRecipeFragment_to_recipeDetailsFragment)
+//        }
         return ViewHolder(view)
     }
 
@@ -27,9 +31,10 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<RecipiesModel>) :
         val recipiesModelList = recipiesList[position]
         // sets the image to the imageview from our itemHolder class
         // sets the text to the textview from our itemHolder class
-        holder.tvDesc.text = recipiesModelList.desc
-        holder.ivDish.setImageResource(recipiesModelList.image)
-        holder.tvTag.text = recipiesModelList.tags
+//        holder.
+        holder.tvDesc.text = recipiesModelList.description
+        holder.ivDish.setImageResource(R.drawable.ic_dish2)
+        holder.tvTag.text = recipiesModelList.ingredients
     }
 
     // return the number of the items in the list
