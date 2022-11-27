@@ -15,20 +15,22 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-
-
         val view = inflater.inflate(R.layout.fragment_home, container, false);
 
         val viewRecipeButton =  view.findViewById<Button>(R.id.viewRecipes)
+        val addRecipeButton =  view.findViewById<Button>(R.id.addRecipes)
+        val shoppingListButton =  view.findViewById<Button>(R.id.shoppingListFragment)
 
         viewRecipeButton.setOnClickListener{
             view.findNavController().navigate(R.id.action_homeFragment_to_viewRecipeFragment)
         }
-        val addRecipeButton =  view.findViewById<Button>(R.id.addRecipes)
         addRecipeButton.setOnClickListener{
             view.findNavController().navigate(R.id.action_homeFragment_to_addRecipeFragment)
         }
+        shoppingListButton.setOnClickListener{
+            view.findNavController().navigate(R.id.action_homeFragment_to_shoppingListFragment)
+        }
+
         return view
     }
 

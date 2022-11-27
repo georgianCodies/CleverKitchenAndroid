@@ -5,7 +5,17 @@ import android.database.sqlite.SQLiteDatabase
 import android.content.ContentValues
 import android.content.Context
 
-class UserDetailsDatabase(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
+class UserDetailsDatabase(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+
+    companion object{
+        private const val DATABASE_NAME = "clever_kitchen.db"
+        private const val DATABASE_VERSION = 1
+        private const val USER_DETAILS_TABLE = "user"
+        private const val COL_USER_NAME = "user_name"
+        private const val COL_PASSWORD = "password"
+        private const val COL_EMAIL_ID = "email_id"
+    }
+
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE $USER_DETAILS_TABLE($COL_EMAIL_ID TEXT PRIMARY KEY , $COL_USER_NAME TEXT, $COL_PASSWORD TEXT)")
     }
@@ -44,13 +54,4 @@ class UserDetailsDatabase(context: Context?) : SQLiteOpenHelper(context, DATABAS
         return !result.equals(-1)
     }
 
-    companion object{
-        private const val DATABASE_NAME = "clever_kitchen.db"
-        private const val DATABASE_VERSION = 1
-        private const val USER_DETAILS_TABLE = "user"
-        private const val COL_USER_NAME = "user_name"
-        private const val COL_PASSWORD = "password"
-        private const val COL_EMAIL_ID = "email_id"
-
-    }
 }
