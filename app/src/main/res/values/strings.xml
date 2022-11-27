@@ -20,7 +20,7 @@
     <string name="ViewRecipesText">View recipes </string>
     <string name="AddRecipesText">Add recipes</string>
     <string name="ShoppingListText">Shopping list</string>
-    <string name="HomeText">\"A recipe has no soul.\n You,as a cook, must \n bring the soul to the recipe\"\n - \n Thomas Keller"</string>
+    <string name="HomeText">\"A recipe has no soul.\n You, as a cook, must \n bring the soul to the recipe\"\n - \n Thomas Keller"</string>
     <string name="recipe_name_text">Recipe Name:</string>
     <string name="recipe_name_hint">Enter Recipe Name</string>
     <string name="ingredients_text">Ingredients:</string>
