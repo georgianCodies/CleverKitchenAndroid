@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:hint="@string/enterEmail"
-                    app:startIconDrawable="@drawable/email">
+                    app:startIconDrawable="@drawable/ic_recipe_name">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/inputEmailSignIn"

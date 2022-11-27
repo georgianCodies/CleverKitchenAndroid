@@ -58,36 +58,12 @@ class AddRecipeFragment : Fragment() {
             // the boolean variable turns to be true then
             // only the user must be proceed to the activity2
             if (isAllFieldsChecked) {
-               // val i = Intent(this@AddRecipeFragment, AddRecipeFragment::class.java)
-               // startActivity(i)
-                println("all feild are available")
-                println(recipeName.text)
-                println(ingredients.text)
-                println(description.text)
-
-                val sharedPreferences: SharedPreferences =
-                    context?.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)!!
-                    //val id:Int = Integer.parseInt(inputId.text.toString())
-                   // val name:String = inputName.text.toString()
-                val editor:SharedPreferences.Editor =  sharedPreferences.edit()
-
-                editor.putString("recipeName",recipeName.text.toString())
-                editor.putString("ingredients",ingredients.text.toString())
-                editor.putString("description",description.text.toString())
-
-                editor.apply()
-                val commit = editor.commit()
 
                 // initialise db
                 val databaseClass = CleverKitchenDatabase(requireActivity())
 
-                println("Saved data is:")
-                val savedRecipeName = sharedPreferences.getString("recipeName","no values")
-                println(savedRecipeName)
-
-
                 //insertion
-                val insertRecipe = databaseClass.insertRecipe("Chicken","masalas","prep chicken","../images","ch")
+                val insertRecipe = databaseClass.insert(recipeName.text.toString(),ingredients.text.toString(),description.text.toString(),"../images","ch")
                 Log.d("insert", insertRecipe.toString())
 
                 //getRecipe Details
@@ -101,7 +77,6 @@ class AddRecipeFragment : Fragment() {
 //                view.findNavController().navigate(R.id.action_addRecipeFragment_to_homeFragment)
             }
         })
-
 
         return view
     }
