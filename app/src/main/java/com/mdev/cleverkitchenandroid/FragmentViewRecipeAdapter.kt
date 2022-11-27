@@ -1,5 +1,6 @@
 package com.mdev.cleverkitchenandroid
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +17,11 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<RecipiesModel>) :
         // that is used to hold list item
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_recipe, parent, false)
+        val recipiesModelList = recipiesList[viewType]
         view.setOnClickListener{
-            view.findNavController().navigate(R.id.action_viewRecipeFragment_to_recipeDetailsFragment)
+            view.findNavController().navigate(R.id.action_viewRecipeFragment_to_recipeDetailsFragment, Bundle().apply {
+                putString("recipe_name", recipiesModelList.desc)
+            })
         }
         return ViewHolder(view)
     }
