@@ -24,23 +24,24 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
 
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_recipe, parent, false)
-//        val recipiesModelList = recipiesList[viewType]
-        for (recipe in recipiesList) {
-            //Set recipe here
-            view.setOnClickListener{
-                view.findNavController().navigate(R.id.action_viewRecipeFragment_to_recipeDetailsFragment, Bundle().apply {
-                    recipe.recipe_id?.let { it1 -> putInt("recipe_id", it1) }
-                    putString("recipe_name", recipe.recipe_name)
-                    putString("ingredients", recipe.ingredients)
-                    putString("description", recipe.description)
-                    putString("img_location", recipe.img_location)
-                    putString("email_id", recipe.email_id)
-                })
-            }
-        }
+//        for (recipe in recipiesList) {
+//            //Set recipe here
+//            view.setOnClickListener{
+//                view.findNavController().navigate(R.id.action_viewRecipeFragment_to_recipeDetailsFragment, Bundle().apply {
+//                    recipe.recipe_id?.let { it1 -> putInt("recipe_id", it1) }
+//                    putString("recipe_name", recipe.recipe_name)
+//                    putString("ingredients", recipe.ingredients)
+//                    putString("description", recipe.description)
+//                    putString("img_location", recipe.img_location)
+//                    putString("email_id", recipe.email_id)
+//                })
+//            }
+//        }
 
         return ViewHolder(view)
     }
+
+
 
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -53,6 +54,16 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
         holder.tvTag.text = recipiesModelList.ingredients
         holder.tvDate.text = getCurrentDate()
         holder.tvName.text = profileDetails.name
+
+        holder.itemView.setOnClickListener{
+                holder.itemView.findNavController().navigate(R.id.action_viewRecipeFragment_to_recipeDetailsFragment, Bundle().apply {
+                    putString("recipe_name", recipiesModelList.recipe_name)
+                    putString("chip", recipiesModelList.ingredients)
+                    putString("description", recipiesModelList.description)
+//                    putString("img_location", recipiesModelList.img_location)
+//                    putString("email_id", recipiesModelList.email_id)
+                })
+            }
 
     }
 

@@ -81,24 +81,10 @@
                         android:padding="8dp">
 
                         <com.google.android.material.chip.Chip
+                            android:id="@+id/chip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Butter"
-                            app:chipCornerRadius="5sp"
-                            android:layout_marginRight="5dp"/>
-
-                        <com.google.android.material.chip.Chip
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Chicken"
-                            app:chipCornerRadius="5sp"
-                            android:layout_marginRight="5dp"/>
-
-                        <com.google.android.material.chip.Chip
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Chillies"
-                            android:textColor="@color/black"
                             app:chipCornerRadius="5sp"
                             android:layout_marginRight="5dp"/>
 
@@ -145,6 +131,7 @@
                         android:padding="8dp">
 
                         <TextView
+                            android:id="@+id/how_to"
                             android:text="How to make butter chicken?"
                             android:textSize="14sp"
                             android:textStyle="bold"
