@@ -3,23 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.1555" />
-        <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.1555" />
-        <entry key="app/src/main/res/drawable/ic_baseline_event_note_24.xml" value="0.1555" />
         <entry key="app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1555" />
         <entry key="app/src/main/res/layout/activity_bottom_navigation_view.xml" value="0.1887031408308004" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20512237548828133" />
-        <entry key="app/src/main/res/layout/fragment_add_recipe.xml" value="0.18548387096774194" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.16096191406250002" />
-        <entry key="app/src/main/res/layout/fragment_intial.xml" value="0.10106382978723404" />
-        <entry key="app/src/main/res/layout/fragment_landing_page.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.4867355346679687" />
+        <entry key="app/src/main/res/layout/fragment_add_recipe.xml" value="0.246875" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.10005065856129686" />
         <entry key="app/src/main/res/layout/fragment_recipe_details.xml" value="0.2736842105263158" />
-        <entry key="app/src/main/res/layout/fragment_shopping_list.xml" value="0.6982101440429688" />
-        <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.4154238761739528" />
-        <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.2078125" />
         <entry key="app/src/main/res/layout/fragment_view_recipe.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/item_recipe.xml" value="0.27379868118851275" />
+        <entry key="app/src/main/res/layout/item_recipe.xml" value="0.1" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.2037037037037037" />
       </map>
     </option>

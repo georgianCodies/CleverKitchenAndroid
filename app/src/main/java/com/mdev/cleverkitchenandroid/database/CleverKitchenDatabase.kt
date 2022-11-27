@@ -41,7 +41,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
                 "$COL_IMG_LOCATION TEXT, " +
                 "$COL_EMAIL_ID TEXT, " +
                 " FOREIGN KEY($COL_EMAIL_ID) REFERENCES $USER_DETAILS_TABLE($COL_EMAIL_ID))")
-        db.execSQL("CREATE TABLE ${USER_DETAILS_TABLE}(${COL_EMAIL_ID} TEXT PRIMARY KEY , ${COL_USER_NAME} TEXT, ${COL_PASSWORD} TEXT)")
+        db.execSQL("CREATE TABLE ${USER_DETAILS_TABLE}(${COL_EMAIL_ID} TEXT PRIMARY KEY , $COL_USER_NAME TEXT, $COL_PASSWORD TEXT)")
 
     }
 

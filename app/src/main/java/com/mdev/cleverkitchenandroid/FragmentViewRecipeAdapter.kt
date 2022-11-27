@@ -1,5 +1,6 @@
 package com.mdev.cleverkitchenandroid
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,10 +24,21 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
 
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_recipe, parent, false)
-//        view.setOnClickListener{
-//            val bundle = bundleOf("SOME_BUNDLE_KEY" to recipiesList)
-//            view.findNavController().navigate(R.id.action_viewRecipeFragment_to_recipeDetailsFragment)
-//        }
+//        val recipiesModelList = recipiesList[viewType]
+        for (recipe in recipiesList) {
+            //Set recipe here
+            view.setOnClickListener{
+                view.findNavController().navigate(R.id.action_viewRecipeFragment_to_recipeDetailsFragment, Bundle().apply {
+                    recipe.recipe_id?.let { it1 -> putInt("recipe_id", it1) }
+                    putString("recipe_name", recipe.recipe_name)
+                    putString("ingredients", recipe.ingredients)
+                    putString("description", recipe.description)
+                    putString("img_location", recipe.img_location)
+                    putString("email_id", recipe.email_id)
+                })
+            }
+        }
+
         return ViewHolder(view)
     }
 
