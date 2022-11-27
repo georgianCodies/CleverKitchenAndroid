@@ -63,7 +63,7 @@ class AddRecipeFragment : Fragment() {
                 val databaseClass = CleverKitchenDatabase(requireActivity())
 
                 //insertion
-                val insertRecipe = databaseClass.insert(recipeName.text.toString(),ingredients.text.toString(),description.text.toString(),"../images","ch")
+                val insertRecipe = databaseClass.insertRecipe(recipeName.text.toString(),ingredients.text.toString(),description.text.toString(),"../images","ch")
                 Log.d("insert", insertRecipe.toString())
 
                 //getRecipe Details
