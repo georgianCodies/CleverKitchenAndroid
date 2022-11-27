@@ -7,19 +7,24 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.mdev.cleverkitchenandroid.model.Recipe
 
-
-class RecipeDatabase(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object{
         private const val DATABASE_NAME = "clever_kitchen.db"
         private const val DATABASE_VERSION = 1
+
+        //recipe-details table
         private const val RECIPE_TABLE = "recipe_details"
-        private const val USER_DETAILS_TABLE = "user"
         private const val COL_RECIPE_ID = "recipe_id"
         private const val COL_RECIPE_NAME = "recipe_name"
         private const val COL_INGREDIENTS = "ingredients"
         private const val COL_DESCRIPTION = "description"
         private const val COL_IMG_LOCATION = "img_location"
+
+        //user-details table
+        private const val USER_DETAILS_TABLE = "user"
+        private const val COL_USER_NAME = "user_name"
+        private const val COL_PASSWORD = "password"
         private const val COL_EMAIL_ID = "email_id"
 
     }
@@ -35,13 +40,16 @@ class RecipeDatabase(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME,
                 "$COL_IMG_LOCATION TEXT, " +
                 "$COL_EMAIL_ID TEXT, " +
                 " FOREIGN KEY($COL_EMAIL_ID) REFERENCES $USER_DETAILS_TABLE($COL_EMAIL_ID))")
+        db.execSQL("CREATE TABLE ${USER_DETAILS_TABLE}(${COL_EMAIL_ID} TEXT PRIMARY KEY , ${COL_USER_NAME} TEXT, ${COL_PASSWORD} TEXT)")
+
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-                db.execSQL("DROP TABLE IF EXISTS $RECIPE_TABLE")
+        db.execSQL("DROP TABLE IF EXISTS $RECIPE_TABLE")
+        db.execSQL("DROP TABLE IF EXISTS $USER_DETAILS_TABLE")
     }
 
-    fun insert(recipe_name: String?, ingredients: String?, description: String?,img_location:String?, email_id:String?): Boolean {
+    fun insertRecipe(recipe_name: String?, ingredients: String?, description: String?,img_location:String?, email_id:String?): Boolean {
         val sqLiteDatabase = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(COL_RECIPE_NAME, recipe_name)
@@ -79,6 +87,32 @@ class RecipeDatabase(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME,
         sqliteDatabase.close()
         Log.d("recipeList", recipeList.toString())
         return recipeList;
+    }
 
+
+    fun insertUser(email:String?, username: String?, password: String?): Boolean {
+        val sqLiteDatabase = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(COL_EMAIL_ID,email)
+        contentValues.put(COL_USER_NAME, username)
+        contentValues.put(COL_PASSWORD, password)
+        Log.d("recipeList", contentValues.toString())
+        val result = sqLiteDatabase.insert(USER_DETAILS_TABLE, null, contentValues)
+        return !result.equals(-1)
+    }
+
+    fun checkEmail(email: String): Boolean {
+        val sqLiteDatabase = this.writableDatabase
+        val result = sqLiteDatabase.rawQuery("SELECT * FROM $USER_DETAILS_TABLE WHERE $COL_EMAIL_ID=?", arrayOf(email))
+        return !result.equals(-1)
+    }
+
+    fun checkLogin(email: String, password: String): Boolean {
+        val sqLiteDatabase = this.readableDatabase
+        val result = sqLiteDatabase.rawQuery(
+            "SELECT * FROM $USER_DETAILS_TABLE WHERE $COL_EMAIL_ID=? AND $COL_PASSWORD=?",
+            arrayOf(email, password)
+        )
+        return result.count > 0
     }
 }

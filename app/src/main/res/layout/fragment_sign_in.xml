@@ -92,20 +92,6 @@
 
             </LinearLayout>
 
-                <TextView
-                    android:id="@+id/errorTextViewSignIn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:gravity="left"
-                    android:text=""
-                    android:textColor="@color/errortextcolor"
-                    app:layout_constraintBottom_toTopOf="@id/signInScreenSignInButton"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
-
-
                 <Button
                 android:id="@+id/signInScreenSignInButton"
                 android:layout_width="match_parent"

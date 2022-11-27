@@ -12,8 +12,7 @@ import android.webkit.ValueCallback
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import java.io.File
-import com.mdev.cleverkitchenandroid.database.RecipeDatabase
+import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
 import com.mdev.cleverkitchenandroid.model.Recipe
 
 class AddRecipeFragment : Fragment() {
@@ -80,7 +79,7 @@ class AddRecipeFragment : Fragment() {
                 val commit = editor.commit()
 
                 // initialise db
-                val databaseClass = RecipeDatabase(requireActivity())
+                val databaseClass = CleverKitchenDatabase(requireActivity())
 
                 println("Saved data is:")
                 val savedRecipeName = sharedPreferences.getString("recipeName","no values")
@@ -88,7 +87,7 @@ class AddRecipeFragment : Fragment() {
 
 
                 //insertion
-                val insertRecipe = databaseClass.insert("Chicken","masalas","prep chicken","../images","ch")
+                val insertRecipe = databaseClass.insertRecipe("Chicken","masalas","prep chicken","../images","ch")
                 Log.d("insert", insertRecipe.toString())
 
                 //getRecipe Details
