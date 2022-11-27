@@ -9,14 +9,18 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.mdev.cleverkitchenandroid.model.Recipe
+import com.mdev.cleverkitchenandroid.model.User
+import java.text.SimpleDateFormat
+import java.util.*
 
-class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>) :
+class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  val profileDetails : User) :
     RecyclerView.Adapter<FragmentViewRecipeAdapter.ViewHolder>() {
     // create new views
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflates the card_view_design view
         // that is used to hold list item
+
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_recipe, parent, false)
 //        view.setOnClickListener{
@@ -35,11 +39,19 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>) :
         holder.tvDesc.text = recipiesModelList.description
         holder.ivDish.setImageResource(R.drawable.ic_dish2)
         holder.tvTag.text = recipiesModelList.ingredients
+        holder.tvDate.text = getCurrentDate()
+        holder.tvName.text = profileDetails.name
+
     }
 
     // return the number of the items in the list
     override fun getItemCount(): Int {
         return recipiesList.size
+    }
+
+    fun getCurrentDate():String{
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        return sdf.format(Date())
     }
 
     // Holds the views for adding it to image and text
@@ -48,6 +60,7 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>) :
         val tvDesc: TextView = itemView.findViewById(R.id.tv_desc)
         val tvDate: TextView = itemView.findViewById(R.id.tv_date)
         val tvTag: TextView = itemView.findViewById(R.id.tv_tag)
+        val tvName:TextView = itemView.findViewById(R.id.tv_name)
 
     }
 }
