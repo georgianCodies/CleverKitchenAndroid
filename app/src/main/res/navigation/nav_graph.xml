@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/viewRecipeFragment">
+    app:startDestination="@id/intialFragment">
     <fragment
         android:id="@+id/intialFragment"
         android:name="com.mdev.cleverkitchenandroid.IntialFragment"
