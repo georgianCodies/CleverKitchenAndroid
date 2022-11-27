@@ -64,8 +64,9 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         return !cursor.equals(-1)
     }
 
-    fun getRecipeDetails(email_id: String): ArrayList<Recipe> {
-        val sqliteDatabase = this.writableDatabase
+    fun getRecipeDetails(email_id: String?): ArrayList<Recipe> {
+        val sqliteDatabase = this.readableDatabase
+        Log.d("email in db", email_id.toString())
         val cursor =  sqliteDatabase.rawQuery("SELECT * FROM $RECIPE_TABLE WHERE $COL_EMAIL_ID=?", arrayOf(email_id))
         val recipeList: ArrayList<Recipe> = ArrayList()
 

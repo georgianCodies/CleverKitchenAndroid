@@ -1,7 +1,6 @@
 package com.mdev.cleverkitchenandroid
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +11,7 @@ import android.webkit.ValueCallback
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
 import com.mdev.cleverkitchenandroid.model.Recipe
 
@@ -61,20 +61,13 @@ class AddRecipeFragment : Fragment() {
 
                 // initialise db
                 val databaseClass = CleverKitchenDatabase(requireActivity())
-
+                val sharedPreferences =  activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
+                val emailId = sharedPreferences?.getString("emailId","")
                 //insertion
-                val insertRecipe = databaseClass.insertRecipe(recipeName.text.toString(),ingredients.text.toString(),description.text.toString(),"../images","ch")
+                val insertRecipe = databaseClass.insertRecipe(recipeName.text.toString(),ingredients.text.toString(),description.text.toString(),"../images",emailId)
                 Log.d("insert", insertRecipe.toString())
 
-                //getRecipe Details
-                val recipes:ArrayList<Recipe> = databaseClass.getRecipeDetails("ch")
-                Log.d("recipe",recipes.toString());
-
-                for(element in recipes){
-                    Log.d("element-email",element.email_id)
-                    Log.d("element-item",element.recipe_name)
-                }
-//                view.findNavController().navigate(R.id.action_addRecipeFragment_to_homeFragment)
+                view.findNavController().navigate(R.id.action_addRecipeFragment_to_homeFragment)
             }
         })
 

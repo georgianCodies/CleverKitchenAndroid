@@ -1,6 +1,8 @@
 package com.mdev.cleverkitchenandroid
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,18 +19,17 @@ class ViewRecipeFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_view_recipe, container, false)
         val databaseClass = CleverKitchenDatabase(requireActivity())
-        val dataBaseArrayList:ArrayList<Recipe> =  databaseClass.getRecipeDetails("ch")
+        val sharedPreferences =  activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
+        val emailId = sharedPreferences?.getString("emailId","")
+        println("emailId:  "+emailId)
+        val dataBaseArrayList:ArrayList<Recipe> =  databaseClass.getRecipeDetails(emailId.toString())
         println(dataBaseArrayList.toString())
-        val arrayList = ArrayList<Recipe>()
-        arrayList.add(Recipe(1,"Indian Creamy butter chicken curry recipe","#hasttag1, #hashtag2", "R.drawable.ic_dish","R","ch"))
-        arrayList.add(Recipe(2,"Italian tomato pasta recipe","#hasttag1, #hashtag2", "R.drawable.ic_dish2","R","ch"))
-
 
 
         val rvRecipies: RecyclerView = view.findViewById(R.id.rv_recipies)
 //        rvRecipies.setHasFixedSize(true);
         rvRecipies.layoutManager = LinearLayoutManager(view.context)
-        val receipiesAdapter = FragmentViewRecipeAdapter(arrayList)
+        val receipiesAdapter = FragmentViewRecipeAdapter(dataBaseArrayList)
         rvRecipies.adapter =receipiesAdapter
 
         return view
