@@ -1,7 +1,6 @@
 package com.mdev.cleverkitchenandroid
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -12,8 +11,8 @@ import android.webkit.ValueCallback
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import java.io.File
-import com.mdev.cleverkitchenandroid.database.RecipeDatabase
+import androidx.navigation.findNavController
+import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
 import com.mdev.cleverkitchenandroid.model.Recipe
 
 class AddRecipeFragment : Fragment() {
@@ -59,50 +58,18 @@ class AddRecipeFragment : Fragment() {
             // the boolean variable turns to be true then
             // only the user must be proceed to the activity2
             if (isAllFieldsChecked) {
-               // val i = Intent(this@AddRecipeFragment, AddRecipeFragment::class.java)
-               // startActivity(i)
-                println("all feild are available")
-                println(recipeName.text)
-                println(ingredients.text)
-                println(description.text)
-
-                val sharedPreferences: SharedPreferences =
-                    context?.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)!!
-                    //val id:Int = Integer.parseInt(inputId.text.toString())
-                   // val name:String = inputName.text.toString()
-                val editor:SharedPreferences.Editor =  sharedPreferences.edit()
-
-                editor.putString("recipeName",recipeName.text.toString())
-                editor.putString("ingredients",ingredients.text.toString())
-                editor.putString("description",description.text.toString())
-
-                editor.apply()
-                val commit = editor.commit()
 
                 // initialise db
-                val databaseClass = RecipeDatabase(requireActivity())
-
-                println("Saved data is:")
-                val savedRecipeName = sharedPreferences.getString("recipeName","no values")
-                println(savedRecipeName)
-
-
+                val databaseClass = CleverKitchenDatabase(requireActivity())
+                val sharedPreferences =  activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
+                val emailId = sharedPreferences?.getString("emailId","")
                 //insertion
-                val insertRecipe = databaseClass.insert("Chicken","masalas","prep chicken","../images","ch")
+                val insertRecipe = databaseClass.insertRecipe(recipeName.text.toString(),ingredients.text.toString(),description.text.toString(),"../images",emailId)
                 Log.d("insert", insertRecipe.toString())
 
-                //getRecipe Details
-                val recipes:ArrayList<Recipe> = databaseClass.getRecipeDetails("ch")
-                Log.d("recipe",recipes.toString());
-
-                for(element in recipes){
-                    Log.d("element-email",element.email_id)
-                    Log.d("element-item",element.recipe_name)
-                }
-//                view.findNavController().navigate(R.id.action_addRecipeFragment_to_homeFragment)
+                view.findNavController().navigate(R.id.action_addRecipeFragment_to_homeFragment)
             }
         })
-
 
         return view
     }

@@ -58,6 +58,7 @@
                         android:padding="8dp">
 
                         <TextView
+                            android:id="@+id/recipe_sub_name"
                             android:text="Butter Chicken: A classic Indian dish"
                             android:textSize="14sp"
                             android:textStyle="bold"
@@ -152,6 +153,7 @@
                             android:layout_height="wrap_content"/>
 
                         <TextView
+                            android:id="@+id/description"
                             android:text="Tender and juicy chicken thanks to a deliciously spiced yogurt marinade, Butter Chicken is ridiculously easy to make. The curry sauce is out of this world!
 I know you all love food with beautiful, bold flavours, and nothing beats sitting down to a good great curry to finish off a chaotic day. The aromas alone transport you to a completely different world.
 The best part about cooking up Butter Chicken at home is the ingredients list. Every ingredient is easy to find from any grocery store or supermarket."

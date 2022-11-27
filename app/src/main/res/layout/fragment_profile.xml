@@ -36,7 +36,7 @@
                     android:layout_height="306dp"
                     android:layout_marginTop="20dp"
                     android:layout_weight="1"
-                    tools:src="@tools:sample/avatars" />
+                    android:src="@drawable/profile_picture" />
 
                 <TextView
                     android:id="@+id/profile_userName"
@@ -57,6 +57,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_weight="1"
                     android:text="chandraprakashb15@gmail.com"
+                    android:textAlignment="center"
                     android:textSize="20sp" />
 
 
