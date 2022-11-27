@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.mdev.cleverkitchenandroid.model.Recipe
+import com.mdev.cleverkitchenandroid.model.User
 
 class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -58,10 +59,9 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         contentValues.put(COL_IMG_LOCATION, img_location)
         contentValues.put(COL_EMAIL_ID, email_id)
 
-        val result = sqLiteDatabase.insert(RECIPE_TABLE, null, contentValues)
-        Log.d("recipeList", result.toString())
-        sqLiteDatabase.close()
-        return !result.equals(-1)
+        val cursor = sqLiteDatabase.insert(RECIPE_TABLE, null, contentValues)
+        Log.d("recipeList", cursor.toString())
+        return !cursor.equals(-1)
     }
 
     fun getRecipeDetails(email_id: String): ArrayList<Recipe> {
@@ -84,35 +84,47 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
             } while (cursor.moveToNext())
 
         }
-        sqliteDatabase.close()
         Log.d("recipeList", recipeList.toString())
         return recipeList;
     }
 
 
     fun insertUser(email:String?, username: String?, password: String?): Boolean {
-        val sqLiteDatabase = this.writableDatabase
+        val sqliteDatabase = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(COL_EMAIL_ID,email)
         contentValues.put(COL_USER_NAME, username)
         contentValues.put(COL_PASSWORD, password)
         Log.d("recipeList", contentValues.toString())
-        val result = sqLiteDatabase.insert(USER_DETAILS_TABLE, null, contentValues)
-        return !result.equals(-1)
+        val cursor = sqliteDatabase.insert(USER_DETAILS_TABLE, null, contentValues)
+        return !cursor.equals(-1)
+    }
+
+    fun deleteUser(email: String): Boolean {
+        val sqliteDatabase = this.writableDatabase
+        Log.d("email",email)
+        val cursor  = sqliteDatabase.execSQL("DELETE FROM $USER_DETAILS_TABLE WHERE $COL_EMAIL_ID=?", arrayOf(email))
+        return !cursor.equals(-1)
     }
 
     fun checkEmail(email: String): Boolean {
-        val sqLiteDatabase = this.writableDatabase
-        val result = sqLiteDatabase.rawQuery("SELECT * FROM $USER_DETAILS_TABLE WHERE $COL_EMAIL_ID=?", arrayOf(email))
-        return !result.equals(-1)
+        val sqliteDatabase = this.writableDatabase
+        val cursor = sqliteDatabase.rawQuery("SELECT * FROM $USER_DETAILS_TABLE WHERE $COL_EMAIL_ID=?", arrayOf(email))
+        return !cursor.equals(-1)
+    }
+
+    fun getUser(email: String): User {
+        val sqliteDatabase = this.readableDatabase
+        val cursor = sqliteDatabase.rawQuery("SELECT * FROM $USER_DETAILS_TABLE WHERE $COL_EMAIL_ID=?", arrayOf(email))
+        cursor.moveToFirst()
+        val user = User(cursor.getString(0), cursor.getString(1), cursor.getString(2))
+        Log.d("logged-in user", cursor.getString(0).toString())
+        return user
     }
 
     fun checkLogin(email: String, password: String): Boolean {
-        val sqLiteDatabase = this.readableDatabase
-        val result = sqLiteDatabase.rawQuery(
-            "SELECT * FROM $USER_DETAILS_TABLE WHERE $COL_EMAIL_ID=? AND $COL_PASSWORD=?",
-            arrayOf(email, password)
-        )
-        return result.count > 0
+        val sqliteDatabase = this.readableDatabase
+        val cursor = sqliteDatabase.rawQuery("SELECT * FROM $USER_DETAILS_TABLE WHERE $COL_EMAIL_ID=? AND $COL_PASSWORD=?", arrayOf(email, password))
+        return cursor.count > 0
     }
 }

@@ -51,7 +51,6 @@ class SignUpFragment : Fragment() {
         val signInTextview =  view.findViewById<TextView>(R.id.signInInSignUpTextView)
         signInTextview.setOnClickListener{
             view.findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
-
         }
         return view
     }

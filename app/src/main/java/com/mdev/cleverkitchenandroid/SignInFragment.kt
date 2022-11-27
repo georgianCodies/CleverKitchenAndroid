@@ -1,5 +1,6 @@
 package com.mdev.cleverkitchenandroid
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -33,6 +34,10 @@ class SignInFragment : Fragment() {
             password = passwordTextView.text.toString()
             if(validateFields()){
                 if(database.checkLogin(email,password)){
+                    val sharedPreference =  activity?.getSharedPreferences("userDetails",Context.MODE_PRIVATE)
+                    var editor = sharedPreference?.edit()
+                    editor?.putString("emailId",email)
+                    editor?.commit()
                     view.findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
                 }
                 else{
