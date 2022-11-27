@@ -9,7 +9,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1555" />
         <entry key="app/src/main/res/layout/activity_bottom_navigation_view.xml" value="0.1887031408308004" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20512237548828133" />
-        <entry key="app/src/main/res/layout/fragment_add_recipe.xml" value="0.246875" />
+        <entry key="app/src/main/res/layout/fragment_add_recipe.xml" value="0.18548387096774194" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.16096191406250002" />
         <entry key="app/src/main/res/layout/fragment_intial.xml" value="0.10106382978723404" />
         <entry key="app/src/main/res/layout/fragment_landing_page.xml" value="0.1" />

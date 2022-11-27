@@ -17,18 +17,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/addRecipeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/AddRecipesText"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/recipeNameContainer"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="24dp"
                 android:hint="@string/recipe_name_hint"
-                app:startIconDrawable="@drawable/ic_recipe_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/addRecipeTitle"
+                app:startIconDrawable="@drawable/ic_recipe_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/recipeNameEditText"
@@ -45,12 +58,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="24dp"
                 android:hint="@string/recipe_ingredients_hint"
-                app:startIconDrawable="@drawable/ic_recipe_inglist"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recipeNameContainer">
+                app:layout_constraintTop_toBottomOf="@+id/recipeNameContainer"
+                app:startIconDrawable="@drawable/ic_recipe_inglist">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ingredientsEditText"
@@ -67,19 +80,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="24dp"
                 android:hint="@string/recipe_description_hint"
-                app:startIconDrawable="@drawable/ic_recipe_description"
-                android:gravity="top"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ingredientsContainer">
+                app:layout_constraintTop_toBottomOf="@+id/ingredientsContainer"
+                app:startIconDrawable="@drawable/ic_recipe_description">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/descriptionEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="top"
+                    android:gravity="center|left"
                     android:inputType="textMultiLine"
                     android:minLines="10" />
 

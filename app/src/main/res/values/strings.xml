@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Clever Kitchen</string>
-    <string name="intialScreenText">Making your kitchen smarter</string>
+    <string name="intialScreenText">Make your kitchen smarter</string>
     <string name="signIn"> Sign In</string>
     <string name="signup">Sign Up</string>
     <string name="helloText">Hello</string>
@@ -18,15 +18,15 @@
     <string name="profile_fragment">Profile fragment</string>
     <string name="home_fragment_text">In Home Fragment</string>
     <string name="ViewRecipesText">View recipes </string>
-    <string name="AddRecipesText">Add recipes   </string>
+    <string name="AddRecipesText">Add recipes</string>
     <string name="ShoppingListText">Shopping list</string>
     <string name="HomeText">\"A recipe has no soul.\n You,as a cook, must \n bring the soul to the recipe\"\n - \n Thomas Keller"</string>
     <string name="recipe_name_text">Recipe Name:</string>
     <string name="recipe_name_hint">Enter Recipe Name</string>
     <string name="ingredients_text">Ingredients:</string>
-    <string name="recipe_ingredients_hint">Enter Recipe Ingredients</string>
+    <string name="recipe_ingredients_hint">Enter recipe ingredients</string>
     <string name="description_text">Description:</string>
-    <string name="recipe_description_hint">Enter Recipe description</string>
+    <string name="recipe_description_hint">Enter recipe description</string>
     <string name="video_text">Video:</string>
     <string name="video_hint">Upload a video</string>
     <string name="submit_button_text">Submit</string>
