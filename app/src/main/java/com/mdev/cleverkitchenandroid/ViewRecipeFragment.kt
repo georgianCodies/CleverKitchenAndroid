@@ -35,8 +35,6 @@ class ViewRecipeFragment : Fragment() {
         val receipiesAdapter = FragmentViewRecipeAdapter(dataBaseArrayList,userDetails)
         rvRecipies.adapter =receipiesAdapter
 
-//        view.setOnClickListener()
-
         return view
     }
 

@@ -24,20 +24,6 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
 
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_recipe, parent, false)
-//        for (recipe in recipiesList) {
-//            //Set recipe here
-//            view.setOnClickListener{
-//                view.findNavController().navigate(R.id.action_viewRecipeFragment_to_recipeDetailsFragment, Bundle().apply {
-//                    recipe.recipe_id?.let { it1 -> putInt("recipe_id", it1) }
-//                    putString("recipe_name", recipe.recipe_name)
-//                    putString("ingredients", recipe.ingredients)
-//                    putString("description", recipe.description)
-//                    putString("img_location", recipe.img_location)
-//                    putString("email_id", recipe.email_id)
-//                })
-//            }
-//        }
-
         return ViewHolder(view)
     }
 
@@ -48,7 +34,6 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
         val recipiesModelList = recipiesList[position]
         // sets the image to the imageview from our itemHolder class
         // sets the text to the textview from our itemHolder class
-//        holder.
         holder.tvDesc.text = recipiesModelList.description
         holder.ivDish.setImageResource(R.drawable.ic_dish2)
         holder.tvTag.text = recipiesModelList.ingredients
