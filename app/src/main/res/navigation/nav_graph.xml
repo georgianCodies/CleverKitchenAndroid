@@ -6,7 +6,7 @@
     app:startDestination="@id/intialFragment">
     <fragment
         android:id="@+id/intialFragment"
-        android:name="com.mdev.cleverkitchenandroid.IntialFragment"
+        android:name="com.mdev.cleverkitchenandroid.fragments.landing.IntialFragment"
         android:label="fragment_intial"
         tools:layout="@layout/fragment_intial">
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.mdev.cleverkitchenandroid.SignInFragment"
+        android:name="com.mdev.cleverkitchenandroid.fragments.auth.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in">
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.mdev.cleverkitchenandroid.SignUpFragment"
+        android:name="com.mdev.cleverkitchenandroid.fragments.auth.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up">
         <action
@@ -46,7 +46,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.mdev.cleverkitchenandroid.HomeFragment"
+        android:name="com.mdev.cleverkitchenandroid.fragments.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
 
@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/viewRecipeFragment"
-        android:name="com.mdev.cleverkitchenandroid.ViewRecipeFragment"
+        android:name="com.mdev.cleverkitchenandroid.fragments.viewrecipe.ViewRecipeFragment"
         android:label="fragment_view_recipe"
         tools:layout="@layout/fragment_view_recipe">
         <action
@@ -71,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/addRecipeFragment"
-        android:name="com.mdev.cleverkitchenandroid.AddRecipeFragment"
+        android:name="com.mdev.cleverkitchenandroid.fragments.addrecipe.AddRecipeFragment"
         android:label="fragment_add_recipe"
         tools:layout="@layout/fragment_add_recipe">
         <action
@@ -80,12 +80,12 @@
     </fragment>
     <fragment
         android:id="@+id/recipeDetailsFragment"
-        android:name="com.mdev.cleverkitchenandroid.RecipeDetailsFragment"
+        android:name="com.mdev.cleverkitchenandroid.fragments.recipedetails.RecipeDetailsFragment"
         android:label="fragment_recipe_details"
         tools:layout="@layout/fragment_recipe_details" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.mdev.cleverkitchenandroid.ProfileFragment"
+        android:name="com.mdev.cleverkitchenandroid.fragments.auth.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
         <action
@@ -97,7 +97,7 @@
     </fragment>
     <fragment
         android:id="@+id/shoppingListFragment"
-        android:name="com.mdev.cleverkitchenandroid.ShoppingListFragment"
+        android:name="com.mdev.cleverkitchenandroid.fragments.shoppinglist.ShoppingListFragment"
         android:label="fragment_shopping_list"
         tools:layout="@layout/fragment_shopping_list" />
 </navigation>

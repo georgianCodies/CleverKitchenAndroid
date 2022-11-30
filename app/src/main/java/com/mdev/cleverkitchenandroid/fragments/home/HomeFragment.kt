@@ -1,4 +1,4 @@
-package com.mdev.cleverkitchenandroid
+package com.mdev.cleverkitchenandroid.fragments.home
 
 import android.content.Context
 import android.os.Bundle
@@ -9,8 +9,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.mdev.cleverkitchenandroid.R
 import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
 import com.mdev.cleverkitchenandroid.model.Recipe
 

@@ -1,4 +1,4 @@
-package com.mdev.cleverkitchenandroid
+package com.mdev.cleverkitchenandroid.fragments.viewrecipe
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.mdev.cleverkitchenandroid.R
 import com.mdev.cleverkitchenandroid.model.Recipe
 import com.mdev.cleverkitchenandroid.model.User
 import java.text.SimpleDateFormat

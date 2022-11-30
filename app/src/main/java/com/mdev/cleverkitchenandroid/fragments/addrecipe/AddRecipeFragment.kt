@@ -1,4 +1,4 @@
-package com.mdev.cleverkitchenandroid
+package com.mdev.cleverkitchenandroid.fragments.addrecipe
 
 import android.content.Context
 import android.net.Uri
@@ -12,8 +12,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.mdev.cleverkitchenandroid.R
 import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
-import com.mdev.cleverkitchenandroid.model.Recipe
 
 class AddRecipeFragment : Fragment() {
 

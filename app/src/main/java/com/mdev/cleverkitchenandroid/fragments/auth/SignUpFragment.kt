@@ -1,4 +1,4 @@
-package com.mdev.cleverkitchenandroid
+package com.mdev.cleverkitchenandroid.fragments.auth
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.findNavController
+import com.mdev.cleverkitchenandroid.R
 import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
 
 
