@@ -30,5 +30,8 @@ class RecipeDetailsFragment : Fragment() {
         view.findViewById<TextView>(R.id.recipe_name).text = requireArguments().getString("recipe_name")
         view.findViewById<TextView>(R.id.description).text = requireArguments().getString("description")
         view.findViewById<TextView>(R.id.recipe_sub_name).text = requireArguments().getString("recipe_name") + ": A classic Indian dish"
+        view.findViewById<TextView>(R.id.chip).text = requireArguments().getString("chip")
+        view.findViewById<TextView>(R.id.how_to).text = "How to make " + requireArguments().getString("recipe_name")+"?"
+
     }
 }
