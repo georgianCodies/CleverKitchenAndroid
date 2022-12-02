@@ -123,6 +123,18 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         return user
     }
 
+    fun updateUser(email: String,userName: String): Boolean {
+        Log.d("logged-in user", userName)
+        Log.d("logged-in email", email)
+        val sqliteDatabase = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(COL_USER_NAME, userName)
+        Log.d("recipeList", contentValues.toString())
+        val cursor = sqliteDatabase.update(USER_DETAILS_TABLE, contentValues,"$COL_EMAIL_ID=?", arrayOf(email))
+        Log.d("logged-in email", cursor.toString())
+        return cursor != -1
+    }
+
     fun checkLogin(email: String, password: String): Boolean {
         val sqliteDatabase = this.readableDatabase
         val cursor = sqliteDatabase.rawQuery("SELECT * FROM $USER_DETAILS_TABLE WHERE $COL_EMAIL_ID=? AND $COL_PASSWORD=?", arrayOf(email, password))

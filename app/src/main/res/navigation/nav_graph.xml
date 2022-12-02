@@ -85,7 +85,7 @@
         tools:layout="@layout/fragment_recipe_details" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.mdev.cleverkitchenandroid.fragments.auth.ProfileFragment"
+        android:name="com.mdev.cleverkitchenandroid.fragments.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
         <action
