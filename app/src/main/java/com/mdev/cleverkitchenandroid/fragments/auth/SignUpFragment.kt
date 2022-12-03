@@ -17,11 +17,6 @@ import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
 import cz.msebera.android.httpclient.Header
 import org.json.JSONObject
 
-
-interface OnJSONResponseCallback {
-    fun onJSONResponse(success: Boolean, response: Boolean)
-}
-
 class SignUpFragment : Fragment() {
     var name:String = ""
     var email:String = ""
