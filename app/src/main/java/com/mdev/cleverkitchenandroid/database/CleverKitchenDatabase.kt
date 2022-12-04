@@ -11,8 +11,12 @@ import com.mdev.cleverkitchenandroid.model.User
 class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object{
-        private const val DATABASE_NAME = "clever_kitchen.db"
+        private const val DATABASE_NAME = "clever_kitchen1.db"
         private const val DATABASE_VERSION = 1
+
+        //shopping-list table
+        private const val SHOPPING_LIST_TABLE = "shopping_list"
+        private const val COL_ITEMS = "items"
 
         //recipe-details table
         private const val RECIPE_TABLE = "recipe_details"
@@ -43,12 +47,15 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
                 " FOREIGN KEY($COL_EMAIL_ID) REFERENCES $USER_DETAILS_TABLE($COL_EMAIL_ID))")
         db.execSQL("CREATE TABLE ${USER_DETAILS_TABLE}(${COL_EMAIL_ID} TEXT PRIMARY KEY , $COL_USER_NAME TEXT, " +
                 "$COL_PASSWORD TEXT)")
+        db.execSQL("CREATE TABLE ${SHOPPING_LIST_TABLE}($COL_ITEMS TEXT, $COL_EMAIL_ID TEXT, " +
+                "FOREIGN KEY($COL_EMAIL_ID) REFERENCES $USER_DETAILS_TABLE($COL_EMAIL_ID))")
 
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $RECIPE_TABLE")
         db.execSQL("DROP TABLE IF EXISTS $USER_DETAILS_TABLE")
+        db.execSQL("DROP TABLE IF EXISTS $SHOPPING_LIST_TABLE")
     }
 
     fun insertRecipe(recipe_name: String?, ingredients: String?, description: String?,img_location:String?, email_id:String?): Boolean {
@@ -90,6 +97,28 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         return recipeList;
     }
 
+    fun insertShoppingList(shoppingList:String?,email:String?): Boolean {
+        val sqliteDatabase = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(COL_ITEMS,shoppingList)
+        contentValues.put(COL_EMAIL_ID,email)
+
+        Log.d("shoppingList", contentValues.toString())
+        val cursor = sqliteDatabase.insertWithOnConflict(SHOPPING_LIST_TABLE, null, contentValues,SQLiteDatabase.CONFLICT_IGNORE)
+        return !cursor.equals(-1)
+    }
+
+    fun getShoppingList(email: String): String {
+        val sqliteDatabase = this.readableDatabase
+        val cursor = sqliteDatabase.rawQuery("SELECT * FROM $SHOPPING_LIST_TABLE WHERE $COL_EMAIL_ID=?", arrayOf(email))
+        cursor.moveToFirst()
+        return if (cursor.count > 0){
+            Log.d("logged-in user", cursor.getString(0))
+            cursor.getString(0)
+        }else{
+            ""
+        }
+    }
 
     fun insertUser(email:String?, username: String?, password: String?): Boolean {
         val sqliteDatabase = this.writableDatabase

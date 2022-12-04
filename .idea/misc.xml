@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_baseline_android_24.xml" value="0.2545" />
         <entry key="app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1555" />
         <entry key="app/src/main/res/layout/activity_bottom_navigation_view.xml" value="0.1887031408308004" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20512237548828133" />
@@ -12,6 +13,7 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.3378894036784844" />
         <entry key="app/src/main/res/layout/fragment_recipe_details.xml" value="0.2736842105263158" />
+        <entry key="app/src/main/res/layout/fragment_shopping_list.xml" value="0.1887031408308004" />
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.12001811594202899" />
         <entry key="app/src/main/res/layout/fragment_view_recipe.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_recipe.xml" value="0.1" />
