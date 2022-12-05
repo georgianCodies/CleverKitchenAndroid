@@ -80,38 +80,37 @@ class SignUpFragment : Fragment() {
                 "api_key=c085091fd2434a3ea2bf6c0c19e97c14&" +
                 "email="+email;
         var isEmailValid = false
-        callback.invoke(true);
 
-//        AsyncHttpClient().get(url, object : AsyncHttpResponseHandler() {
-//            override fun onSuccess(statusCode: Int, headers: Array<Header?>?, responseBody: ByteArray?) {
-//                val response = String(responseBody!!)
-//
-//                val obj = JSONObject(response)
-//                isEmailValid = obj.getJSONObject("is_valid_format").getBoolean("value")
-//                callback.invoke(isEmailValid);
-//                if(!isEmailValid) {
-//                    Toast.makeText(
-//                        this@SignUpFragment.requireActivity(),
-//                        "Please enter valid email id",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//            }
-//
-//            override fun onFailure(
-//                statusCode: Int,
-//                headers: Array<Header?>?,
-//                responseBody: ByteArray?,
-//                error: Throwable?
-//            ) {
-//                Log.d("response",error.toString())
-//                callback.invoke(isEmailValid);
-//                Toast.makeText(
-//                    this@SignUpFragment.requireActivity(),
-//                    "Please enter valid email id",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        })
+        AsyncHttpClient().get(url, object : AsyncHttpResponseHandler() {
+            override fun onSuccess(statusCode: Int, headers: Array<Header?>?, responseBody: ByteArray?) {
+                val response = String(responseBody!!)
+
+                val obj = JSONObject(response)
+                isEmailValid = obj.getJSONObject("is_valid_format").getBoolean("value")
+                callback.invoke(isEmailValid);
+                if(!isEmailValid) {
+                    Toast.makeText(
+                        this@SignUpFragment.requireActivity(),
+                        "Please enter valid email id",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<Header?>?,
+                responseBody: ByteArray?,
+                error: Throwable?
+            ) {
+                Log.d("response",error.toString())
+                callback.invoke(isEmailValid);
+                Toast.makeText(
+                    this@SignUpFragment.requireActivity(),
+                    "Please enter valid email id",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
     }
 }
