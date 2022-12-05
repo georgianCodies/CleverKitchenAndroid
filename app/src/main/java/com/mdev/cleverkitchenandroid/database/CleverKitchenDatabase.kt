@@ -11,7 +11,7 @@ import com.mdev.cleverkitchenandroid.model.User
 class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object{
-        private const val DATABASE_NAME = "clever_kitchen1.db"
+        private const val DATABASE_NAME = "clever_kitchen.db"
         private const val DATABASE_VERSION = 1
 
         //shopping-list table
@@ -120,7 +120,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         val cursor = sqliteDatabase.rawQuery("SELECT * FROM $SHOPPING_LIST_TABLE WHERE $COL_EMAIL_ID=?", arrayOf(email))
         cursor.moveToFirst()
         return if (cursor.count > 0){
-            Log.d("logged-in user", cursor.getString(0))
+            Log.d("shopping-list", cursor.getString(0))
             cursor.getString(0)
         }else{
             ""

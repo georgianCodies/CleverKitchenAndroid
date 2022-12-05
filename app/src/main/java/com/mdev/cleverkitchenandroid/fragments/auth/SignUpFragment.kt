@@ -78,7 +78,7 @@ class SignUpFragment : Fragment() {
     private  fun verifyEmailPattern(email:String, callback: (Boolean?) -> Unit) {
         val url = "https://emailvalidation.abstractapi.com/v1/?" +
                 "api_key=c085091fd2434a3ea2bf6c0c19e97c14&" +
-                "email="+email;
+                "email="+email
         var isEmailValid = false
 
         AsyncHttpClient().get(url, object : AsyncHttpResponseHandler() {

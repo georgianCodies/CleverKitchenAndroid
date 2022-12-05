@@ -70,7 +70,7 @@ class ShoppingListFragment : Fragment() {
         addButton.setOnClickListener{
             if(editText.text.toString().isNotEmpty()){
                 val shoppingList = editText.text.toString()
-                 val shoppingListArray:List<String> = shoppingList.split(",")
+                val shoppingListArray:List<String> = shoppingList.split(",")
                 addChip(shoppingListArray.filter { item -> item.isNotEmpty() })
                 finalShoppingList+=shoppingListArray;
                 Log.d("final Array",finalShoppingList.joinToString())
