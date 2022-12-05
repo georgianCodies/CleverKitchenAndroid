@@ -103,9 +103,16 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         contentValues.put(COL_ITEMS,shoppingList)
         contentValues.put(COL_EMAIL_ID,email)
 
+        val hasShoppingList = sqliteDatabase.rawQuery("SELECT * FROM $SHOPPING_LIST_TABLE WHERE $COL_EMAIL_ID=?", arrayOf(email))
         Log.d("shoppingList", contentValues.toString())
-        val cursor = sqliteDatabase.insertWithOnConflict(SHOPPING_LIST_TABLE, null, contentValues,SQLiteDatabase.CONFLICT_IGNORE)
-        return !cursor.equals(-1)
+
+        return if(hasShoppingList.count==0){
+            val cursor = sqliteDatabase.insert(SHOPPING_LIST_TABLE, null, contentValues)
+            !cursor.equals(-1)
+        } else{
+            val cursor = sqliteDatabase.update(SHOPPING_LIST_TABLE, contentValues,"$COL_EMAIL_ID=?", arrayOf(email))
+            !cursor.equals(-1)
+        }
     }
 
     fun getShoppingList(email: String): String {

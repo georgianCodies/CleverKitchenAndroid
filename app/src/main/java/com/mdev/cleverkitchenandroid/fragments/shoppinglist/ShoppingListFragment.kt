@@ -17,20 +17,31 @@ import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
 class ShoppingListFragment : Fragment() {
 
     private lateinit var chipGroup: ChipGroup
+    private var storedShoppingList: String = "";
+    private lateinit var finalShoppingList: List<String> ;
 
-    private fun addChip(shoppingListArray: Array<String>){
+    private fun addChip(shoppingListArray: List<String>){
+        Log.d("addchip",shoppingListArray.toString())
+
         for(item in shoppingListArray){
             Log.d("element",item)
             val chip = Chip(requireActivity())
             chip.text = item
             chip.isCloseIconVisible = true
             chip.setOnCloseIconClickListener{
+                val database = CleverKitchenDatabase(requireActivity())
+                val sharedPreferences =  activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
+                val emailId = sharedPreferences?.getString("emailId","")
+                val updatedShoppingList = finalShoppingList.filter { item -> item != chip.text.toString() }
+
                 chipGroup.removeView(chip)
+                finalShoppingList = updatedShoppingList
+
+                Log.d("final array",finalShoppingList.joinToString { it })
+                database.insertShoppingList(finalShoppingList.joinToString { it }, emailId)
             }
             chipGroup.addView(chip)
         }
-
-
     }
 
     override fun onCreateView(
@@ -40,21 +51,31 @@ class ShoppingListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_shopping_list, container, false);
         var editText = view.findViewById<TextView>(R.id.listInput)
         var addButton = view.findViewById<Button>(R.id.saveShoppingListBtn)
-        chipGroup = view.findViewById(R.id.chipGroup)
         val database = CleverKitchenDatabase(requireActivity())
         val sharedPreferences =  activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
         val emailId = sharedPreferences?.getString("emailId","")
-        val storedShoppingList = database.getShoppingList(emailId.toString());
-        val storedShoppingListArray:Array<String> = storedShoppingList.split(",").toTypedArray()
-        addChip(storedShoppingListArray)
+
+        chipGroup = view.findViewById(R.id.chipGroup)
+
+        storedShoppingList = database.getShoppingList(emailId.toString());
+        val storedShoppingListArray:List<String> = storedShoppingList.split(",")
+
+        Log.d("Stored",storedShoppingList)
+
+        if(storedShoppingList.isNotEmpty())
+        addChip(storedShoppingListArray.filter { item -> item.isNotEmpty() })
+
+        finalShoppingList = storedShoppingListArray.filter { item -> item.isNotEmpty() }
 
         addButton.setOnClickListener{
-            if(!editText.text.toString().isEmpty()){
+            if(editText.text.toString().isNotEmpty()){
                 val shoppingList = editText.text.toString()
-                 val shoppingListArray:Array<String> = shoppingList.split(",").toTypedArray()
-                addChip(shoppingListArray)
-                database.insertShoppingList(storedShoppingList+shoppingListArray.joinToString { it },emailId.toString())
-                editText.setText("")
+                 val shoppingListArray:List<String> = shoppingList.split(",")
+                addChip(shoppingListArray.filter { item -> item.isNotEmpty() })
+                finalShoppingList+=shoppingListArray;
+                Log.d("final Array",finalShoppingList.joinToString())
+                database.insertShoppingList(finalShoppingList.joinToString { it },emailId)
+                editText.text = ""
             }
         }
         return view

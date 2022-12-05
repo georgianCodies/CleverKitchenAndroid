@@ -2,6 +2,7 @@ package com.mdev.cleverkitchenandroid.fragments.profile
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,17 +31,21 @@ class ProfileFragment : Fragment() {
         val deleteAccountButton =  view.findViewById<Button>(R.id.deleteAccount)
         val logoutButton =  view.findViewById<Button>(R.id.logout)
         val editProfileButton =  view.findViewById<Button>(R.id.modalBottomSheetButton)
-
-        profileViewModel = ViewModelProvider(requireActivity()).get(ProfileViewModel::class.java)
-
         val database = CleverKitchenDatabase(requireActivity())
         val sharedPreferences =  activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
         val emailId = sharedPreferences?.getString("emailId","")
 
         val emailIdView = view.findViewById<TextView>(R.id.profile_emailId)
         val userNameView = view.findViewById<TextView>(R.id.profile_userName)
-        emailIdView.text = emailId
 
+        profileViewModel = ViewModelProvider(requireActivity()).get(ProfileViewModel::class.java)
+
+        emailIdView.text = emailId
+        if (emailId != null) {
+            val userDetails: User = database.getUser(emailId)
+            Log.d("username",userDetails.name)
+            userNameView.text = userDetails.name
+        }
 
         profileViewModel.name.observe(viewLifecycleOwner) {
             if (it.toString().isNotEmpty()) {
@@ -48,12 +53,12 @@ class ProfileFragment : Fragment() {
             } else {
                 if (emailId != null) {
                     val userDetails: User = database.getUser(emailId)
+                    Log.d("username",userDetails.name)
                     userNameView.text = userDetails.name
                 }
             }
         }
         profileViewModel.name.value = userNameView.text.toString()
-
 
         deleteAccountButton.setOnClickListener {
             database.deleteUser(emailId.toString())
