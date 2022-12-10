@@ -92,16 +92,13 @@ class AddRecipeFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == pickImage) {
             imageUri = data?.data
             println(imageUri);
+            imageView.visibility=View.VISIBLE;
             imageView.setImageURI(imageUri)
         }
     }
-
-
-
 
     private fun checkAllFields(): Boolean {
         if (recipeName.length() === 0) {
