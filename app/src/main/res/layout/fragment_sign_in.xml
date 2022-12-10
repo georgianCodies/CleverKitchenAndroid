@@ -6,7 +6,7 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignInFragment">
+    tools:context=".fragments.auth.SignInFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,14 +29,14 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/helloTextView"
+                    android:id="@+id/addRecipeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
                     android:layout_weight="1"
                     android:textSize="24sp"
-                    android:text="@string/hellotext"
+                    android:text="@string/helloText"
                     android:textStyle="bold" />
 
                 <TextView
@@ -47,7 +47,7 @@
                     android:layout_marginTop="20dp"
                     android:textSize="20sp"
                     android:layout_weight="1"
-                    android:text="@string/welcomebacktext" />
+                    android:text="@string/welcomeText" />
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -56,8 +56,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:hint="@string/enteremail"
-                    app:startIconDrawable="@drawable/email">
+                    android:hint="@string/enterEmail"
+                    app:startIconDrawable="@drawable/ic_recipe_name">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/inputEmailSignIn"
@@ -68,15 +68,13 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutPasswordSignIn"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:hint="@string/enterpassword"
+                    android:hint="@string/enterPassword"
                     app:startIconDrawable="@drawable/password"
                     app:endIconMode="password_toggle">
 
@@ -92,27 +90,13 @@
 
             </LinearLayout>
 
-                <TextView
-                    android:id="@+id/errorTextViewSignIn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:gravity="left"
-                    android:text=""
-                    android:textColor="@color/errortextcolor"
-                    app:layout_constraintBottom_toTopOf="@id/signInScreenSignInButton"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
-
-
                 <Button
                 android:id="@+id/signInScreenSignInButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:backgroundTint="@color/button_orange"
-                android:text="@string/signin"
+                android:text="@string/signIn"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -120,37 +104,36 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginTop="50dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signInScreenSignInButton">
-
-                <TextView
-                    android:id="@+id/noAccountTextView"
-                    android:layout_width="wrap_content"
-                    android:gravity="center_vertical|right"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/noaccountexists" />
-
-                <TextView
-                    android:id="@+id/signUpInSignInTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:layout_marginStart="5dp"
                     android:gravity="center_vertical"
-                    android:text="@string/signup"
-                    android:textColor="@color/button_orange"
-                    tools:ignore="TouchTargetSizeCheck" />
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/signInScreenSignInButton">
+
+                    <TextView
+                        android:id="@+id/noAccountTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
+                        android:text="@string/noAccountExists" />
+
+                    <TextView
+                        android:id="@+id/signUpInSignInTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:text="@string/signup"
+                        android:textColor="@color/button_orange"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

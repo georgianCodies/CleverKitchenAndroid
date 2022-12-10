@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IntialFragment">
+    tools:context=".fragments.landing.IntialFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/mainGuideline"
@@ -29,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
+        android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/mainGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +39,7 @@
         android:id="@+id/intialCleverKitchenDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/intialscreentext"
+        android:text="@string/intialScreenText"
         app:layout_constraintBottom_toTopOf="@+id/secondGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +60,7 @@
             android:layout_margin="20dp"
             android:layout_weight="1"
             android:backgroundTint="@color/button_orange"
-            android:text="@string/signin"
+            android:text="@string/signIn"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 

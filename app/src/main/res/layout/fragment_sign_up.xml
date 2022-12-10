@@ -6,7 +6,7 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpFragment">
+    tools:context=".fragments.auth.SignUpFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_weight="1"
                     android:textSize="24sp"
-                    android:text="@string/welcometext"
+                    android:text="@string/welcomeText"
                     android:textStyle="bold" />
 
                 <TextView
@@ -47,7 +47,7 @@
                     android:layout_marginTop="20dp"
                     android:textSize="20sp"
                     android:layout_weight="1"
-                    android:text="@string/createaccounttext" />
+                    android:text="@string/createAccountText" />
 
 
 
@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:hint="@string/entername"
+                    android:hint="@string/enterName"
                     app:startIconDrawable="@drawable/name">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -76,7 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:hint="@string/enteremail"
+                    android:hint="@string/enterEmail"
                     app:startIconDrawable="@drawable/email">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_margin="20dp"
-                    android:hint="@string/enterpassword"
+                    android:hint="@string/enterPassword"
                     app:startIconDrawable="@drawable/password"
                     app:endIconMode="password_toggle">
 
@@ -118,7 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:hint="@string/confirmpassword"
+                    android:hint="@string/confirmPassword"
                     app:startIconDrawable="@drawable/password"
                     app:endIconMode="password_toggle">
 
@@ -131,24 +131,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
-
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/errorTextViewSignUp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:gravity="left"
-                android:text=""
-                android:textColor="@color/errortextcolor"
-                app:layout_constraintBottom_toTopOf="@id/signUpScreenSignUpButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
             <Button
                 android:id="@+id/signUpScreenSignUpButton"
@@ -167,9 +150,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginTop="50dp"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -178,10 +160,11 @@
                 <TextView
                     android:id="@+id/alreadyAccountTextView"
                     android:layout_width="wrap_content"
-                    android:gravity="center_vertical|right"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:text="@string/accountexists" />
+                    android:gravity="center_vertical|right"
+                    android:text="@string/accountExists" />
 
                 <TextView
                     android:id="@+id/signInInSignUpTextView"
@@ -190,7 +173,7 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:text="@string/signin"
+                    android:text="@string/signIn"
                     android:textColor="@color/button_orange"
                     tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
