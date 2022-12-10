@@ -57,6 +57,7 @@ class SignInFragment : Fragment() {
     fun validateFields(): Boolean {
 
       if (email == "") {
+<<<<<<< Updated upstream:app/src/main/java/com/mdev/cleverkitchenandroid/SignInFragment.kt
             errorMessage = "Please enter the email"
             return false
         } else if (password == "") {
@@ -64,6 +65,17 @@ class SignInFragment : Fragment() {
             return false
         }  else {
             return true
+=======
+          Toast.makeText(this@SignInFragment.requireActivity(), "Please enter valid email", Toast.LENGTH_SHORT).show()
+          return false
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+          Toast.makeText(this@SignInFragment.requireActivity(), "Please enter valid email id", Toast.LENGTH_SHORT).show()
+          return false
+      }
+      else if (password == "") {
+          Toast.makeText(this@SignInFragment.requireActivity(), "Please enter your password", Toast.LENGTH_SHORT).show()
+          return false
+>>>>>>> Stashed changes:app/src/main/java/com/mdev/cleverkitchenandroid/fragments/auth/SignInFragment.kt
         }
     }
 }
