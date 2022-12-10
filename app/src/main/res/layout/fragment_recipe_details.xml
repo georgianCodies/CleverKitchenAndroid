@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".RecipeDetailsFragment">
+    tools:context=".fragments.recipedetails.RecipeDetailsFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -58,6 +58,7 @@
                         android:padding="8dp">
 
                         <TextView
+                            android:id="@+id/recipe_sub_name"
                             android:text="Butter Chicken: A classic Indian dish"
                             android:textSize="14sp"
                             android:textStyle="bold"
@@ -80,24 +81,10 @@
                         android:padding="8dp">
 
                         <com.google.android.material.chip.Chip
+                            android:id="@+id/chip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Butter"
-                            app:chipCornerRadius="5sp"
-                            android:layout_marginRight="5dp"/>
-
-                        <com.google.android.material.chip.Chip
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Chicken"
-                            app:chipCornerRadius="5sp"
-                            android:layout_marginRight="5dp"/>
-
-                        <com.google.android.material.chip.Chip
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Chillies"
-                            android:textColor="@color/black"
                             app:chipCornerRadius="5sp"
                             android:layout_marginRight="5dp"/>
 
@@ -144,6 +131,7 @@
                         android:padding="8dp">
 
                         <TextView
+                            android:id="@+id/how_to"
                             android:text="How to make butter chicken?"
                             android:textSize="14sp"
                             android:textStyle="bold"
@@ -152,6 +140,7 @@
                             android:layout_height="wrap_content"/>
 
                         <TextView
+                            android:id="@+id/description"
                             android:text="Tender and juicy chicken thanks to a deliciously spiced yogurt marinade, Butter Chicken is ridiculously easy to make. The curry sauce is out of this world!
 I know you all love food with beautiful, bold flavours, and nothing beats sitting down to a good great curry to finish off a chaotic day. The aromas alone transport you to a completely different world.
 The best part about cooking up Butter Chicken at home is the ingredients list. Every ingredient is easy to find from any grocery store or supermarket."

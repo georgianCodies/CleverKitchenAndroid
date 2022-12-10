@@ -1,10 +1,10 @@
 package com.mdev.cleverkitchenandroid.model
 
 data class Recipe(
-     val recipe_id: Int?,
-     val recipe_name: String,
-     val ingredients: String,
-     val description: String,
-     val img_location: String,
-     val email_id: String
-);
+     var recipe_id: Int?,
+     var recipe_name: String,
+     var ingredients: String,
+     var description: String,
+     var img_location: String,
+     var email_id: String
+){}
