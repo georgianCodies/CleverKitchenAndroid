@@ -11,11 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.ValueCallback
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.mdev.cleverkitchenandroid.R
 import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
+import kotlinx.android.synthetic.main.fragment_add_recipe.*
 import android.content.Intent as Intent
 import java.lang.Override as Override1
 
@@ -25,6 +27,7 @@ class AddRecipeFragment : Fragment() {
     private lateinit var ingredients: TextView
     private lateinit var description: TextView
     private lateinit var video: Button
+    private lateinit var imageView: ImageView
 
     private val pickImage = 100
     private var imageUri: Uri? = null
@@ -49,6 +52,7 @@ class AddRecipeFragment : Fragment() {
         ingredients = view.findViewById<TextView>(R.id.ingredientsEditText)
         description = view.findViewById<TextView>(R.id.descriptionEditText)
         video = view.findViewById<Button>(R.id.videoInputButton);
+        imageView = view.findViewById(R.id.imageView_recipe_view);
 
         var isAllFieldsChecked = false;
 
@@ -92,7 +96,7 @@ class AddRecipeFragment : Fragment() {
         if (resultCode == RESULT_OK && requestCode == pickImage) {
             imageUri = data?.data
             println(imageUri);
-            //imageView.setImageURI(imageUri)
+            imageView.setImageURI(imageUri)
         }
     }
 
