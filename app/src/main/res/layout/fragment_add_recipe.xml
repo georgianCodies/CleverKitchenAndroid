@@ -90,11 +90,35 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/descriptionEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="54dp"
                     android:gravity="center|left"
                     android:inputType="textMultiLine"
                     android:minLines="10" />
 
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/videoContainer"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionContainer">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/videoInputButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:gravity="center"
+                    android:text="UPLOAD vedio"
+                    android:textColor="@color/black"
+                    app:strokeColor="@color/black"
+                    android:clickable="true"
+                    app:strokeWidth="1dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -108,7 +132,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/descriptionContainer" />
+                app:layout_constraintTop_toBottomOf="@+id/videoContainer" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

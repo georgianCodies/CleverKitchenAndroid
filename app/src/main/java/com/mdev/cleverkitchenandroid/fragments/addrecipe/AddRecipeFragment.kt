@@ -1,8 +1,10 @@
 package com.mdev.cleverkitchenandroid.fragments.addrecipe
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,16 +16,20 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.mdev.cleverkitchenandroid.R
 import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
+import android.content.Intent as Intent
+import java.lang.Override as Override1
 
 class AddRecipeFragment : Fragment() {
 
-    private val sharedPrefFile = "kotlinsharedpreference"
     private lateinit var recipeName: TextView
     private lateinit var ingredients: TextView
     private lateinit var description: TextView
+    private lateinit var video: Button
 
+    private val pickImage = 100
+    private var imageUri: Uri? = null
 
-    var part_image: String? = null
+    //var part_image: String? = null
 
 
     var filePath: ValueCallback<Array<Uri>>? = null
@@ -42,14 +48,15 @@ class AddRecipeFragment : Fragment() {
         recipeName = view.findViewById<TextView>(R.id.recipeNameEditText);
         ingredients = view.findViewById<TextView>(R.id.ingredientsEditText)
         description = view.findViewById<TextView>(R.id.descriptionEditText)
-        //video = view.findViewById<Button>(R.id.videoInputButton);
+        video = view.findViewById<Button>(R.id.videoInputButton);
 
-        var isAllFieldsChecked = false
+        var isAllFieldsChecked = false;
 
-//        video.setOnClickListener {
-//            println("clicked on video upload!");
-//        }
-
+        video.setOnClickListener {
+            println("upload image button clicked!")
+            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+            startActivityForResult(gallery, pickImage)
+        }
 
         submitButton.setOnClickListener(View.OnClickListener { // store the returned value of the dedicated function which checks
             // whether the entered data is valid or if any fields are left blank.
@@ -61,10 +68,16 @@ class AddRecipeFragment : Fragment() {
 
                 // initialise db
                 val databaseClass = CleverKitchenDatabase(requireActivity())
-                val sharedPreferences =  activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
-                val emailId = sharedPreferences?.getString("emailId","")
+                val sharedPreferences =
+                    activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
+                val emailId = sharedPreferences?.getString("emailId", "")
                 //insertion
-                val insertRecipe = databaseClass.insertRecipe(recipeName.text.toString(),ingredients.text.toString(),description.text.toString(),"../images",emailId)
+                val insertRecipe = databaseClass.insertRecipe(recipeName.text.toString(),
+                    ingredients.text.toString(),
+                    description.text.toString(),
+                    imageUri.toString(),
+                    emailId)
+                println(insertRecipe.toString())
                 Log.d("insert", insertRecipe.toString())
 
                 view.findNavController().navigate(R.id.action_addRecipeFragment_to_homeFragment)
@@ -73,6 +86,16 @@ class AddRecipeFragment : Fragment() {
 
         return view
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == pickImage) {
+            imageUri = data?.data
+            println(imageUri);
+            //imageView.setImageURI(imageUri)
+        }
+    }
+
 
 
 
