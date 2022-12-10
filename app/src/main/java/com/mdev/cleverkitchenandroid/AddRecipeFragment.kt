@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.ValueCallback
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import java.io.File
@@ -23,12 +22,6 @@ class AddRecipeFragment : Fragment() {
     private lateinit var recipeName: TextView
     private lateinit var ingredients: TextView
     private lateinit var description: TextView
-<<<<<<< Updated upstream:app/src/main/java/com/mdev/cleverkitchenandroid/AddRecipeFragment.kt
-=======
-    private lateinit var video: Button
-    private lateinit var imageView: ImageView
-
->>>>>>> Stashed changes:app/src/main/java/com/mdev/cleverkitchenandroid/fragments/addrecipe/AddRecipeFragment.kt
 
 
     var part_image: String? = null
@@ -47,19 +40,10 @@ class AddRecipeFragment : Fragment() {
 
         val submitButton = view.findViewById<Button>(R.id.submitButton);
 
-<<<<<<< Updated upstream:app/src/main/java/com/mdev/cleverkitchenandroid/AddRecipeFragment.kt
         recipeName = view.findViewById<TextView>(R.id.recipeNameEditText);
         ingredients = view.findViewById<TextView>(R.id.ingredientsEditText)
         description = view.findViewById<TextView>(R.id.descriptionEditText)
         //video = view.findViewById<Button>(R.id.videoInputButton);
-=======
-        recipeName = view.findViewById(R.id.recipeNameEditText);
-        ingredients = view.findViewById(R.id.ingredientsEditText)
-        description = view.findViewById(R.id.descriptionEditText);
-        imageView = view.findViewById(R.id.imageView_recipe_view)
-
-        video = view.findViewById<Button>(R.id.videoInputButton);
->>>>>>> Stashed changes:app/src/main/java/com/mdev/cleverkitchenandroid/fragments/addrecipe/AddRecipeFragment.kt
 
         var isAllFieldsChecked = false
 
@@ -98,19 +82,6 @@ class AddRecipeFragment : Fragment() {
         return view
     }
 
-<<<<<<< Updated upstream:app/src/main/java/com/mdev/cleverkitchenandroid/AddRecipeFragment.kt
-=======
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == pickImage) {
-            imageUri = data?.data
-            println(imageUri);
-            imageView.setImageURI(imageUri)
-        }
-    }
-
-
->>>>>>> Stashed changes:app/src/main/java/com/mdev/cleverkitchenandroid/fragments/addrecipe/AddRecipeFragment.kt
 
 
     private fun checkAllFields(): Boolean {
