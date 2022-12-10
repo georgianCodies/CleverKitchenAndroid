@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import android.webkit.ValueCallback
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.mdev.cleverkitchenandroid.R
@@ -103,14 +105,19 @@ class AddRecipeFragment : Fragment() {
     private fun checkAllFields(): Boolean {
         if (recipeName.length() === 0) {
             recipeName.error = "Recipe Name is required"
-            return false
         }
         if (ingredients.length() === 0) {
             ingredients.error = "Ingredients is required"
-            return false
         }
         if (description.length() === 0) {
             description.error = "Description is required"
+        }
+
+        if (imageUri === null) {
+            Toast.makeText(this@AddRecipeFragment.requireActivity(), "Please Upload an Image!", Toast.LENGTH_SHORT).show()
+        }
+
+        if (description.length() === 0 || recipeName.length() === 0 || ingredients.length() === 0 || imageUri === null) {
             return false
         }
         // after all validation return true.

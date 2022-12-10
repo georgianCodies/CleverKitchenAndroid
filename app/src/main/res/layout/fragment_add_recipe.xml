@@ -47,7 +47,6 @@
                     android:id="@+id/recipeNameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/recipe_name_hint"
                     android:inputType="textPersonName"
                     android:lines="1" />
             </com.google.android.material.textfield.TextInputLayout>
