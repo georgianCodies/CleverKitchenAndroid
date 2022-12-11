@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
                     android:gravity="center"
-                    android:text="UPLOAD vedio"
+                    android:text="Upload Image"
                     android:textColor="@color/black"
                     app:strokeColor="@color/black"
                     android:clickable="true"
