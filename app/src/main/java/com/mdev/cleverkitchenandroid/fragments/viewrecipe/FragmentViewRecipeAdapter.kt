@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.mdev.cleverkitchenandroid.R
@@ -35,18 +36,20 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
         // sets the image to the imageview from our itemHolder class
         // sets the text to the textview from our itemHolder class
         holder.tvDesc.text = recipiesModelList.description
-        holder.ivDish.setImageResource(R.drawable.ic_dish2)
+//        holder.ivDish.setImageResource(R.drawable.ic_dish2)
         holder.tvTag.text = recipiesModelList.ingredients
         holder.tvDate.text = getCurrentDate()
         holder.tvName.text = profileDetails.name
+        holder.ivDish.setImageURI(null)
+        holder.ivDish.setImageURI(recipiesModelList.img_location.toUri())
 
         holder.itemView.setOnClickListener{
                 holder.itemView.findNavController().navigate(R.id.action_viewRecipeFragment_to_recipeDetailsFragment, Bundle().apply {
                     putString("recipe_name", recipiesModelList.recipe_name)
                     putString("chip", recipiesModelList.ingredients)
                     putString("description", recipiesModelList.description)
-//                    putString("img_location", recipiesModelList.img_location)
-//                    putString("email_id", recipiesModelList.email_id)
+                    putString("img_location", recipiesModelList.img_location)
+                    putString("email_id", recipiesModelList.email_id)
                 })
             }
 
