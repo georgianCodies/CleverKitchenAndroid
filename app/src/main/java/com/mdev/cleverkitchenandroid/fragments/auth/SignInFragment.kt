@@ -57,7 +57,7 @@ class SignInFragment : Fragment() {
 
     fun validateFields(): Boolean {
 
-      if (email == "") {
+      if (email == "" && !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
           Toast.makeText(this@SignInFragment.requireActivity(), "Please enter valid email", Toast.LENGTH_SHORT).show()
           return false
         } else if (password == "") {
