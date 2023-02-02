@@ -42,7 +42,7 @@ class SignUpFragment : Fragment() {
             if(validateFields()){
                 if(database.checkEmail(email)) {
 //                    change parameters
-                    database.insertUser(email,name,name,name, name, password)
+                    database.insertUser(email,name,name,name,name,name, password)
                     view.findNavController().popBackStack()
                 }
                 else{
