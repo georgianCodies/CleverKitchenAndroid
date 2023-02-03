@@ -19,6 +19,9 @@ import org.json.JSONObject
 
 class SignUpFragment : Fragment() {
     var name:String = ""
+    var fname:String = ""
+    var lname:String = ""
+    var mobileno:String = ""
     var email:String = ""
     var password:String = ""
     var confirmPassword:String = ""
@@ -27,6 +30,9 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up, container, false);
+        val firstNameTextView = view.findViewById<TextView>(R.id.inputFNameSignUp)
+        val lastNameTextView = view.findViewById<TextView>(R.id.inputLNameSignUp)
+        val mobileTextView = view.findViewById<TextView>(R.id.inputMNOSignUp)
         val nameTextView = view.findViewById<TextView>(R.id.inputNameSignUp)
         val emailTextView = view.findViewById<TextView>(R.id.inputEmailSignUp)
         val passwordTextView = view.findViewById<TextView>(R.id.inputPasswordSignUp)
@@ -36,13 +42,18 @@ class SignUpFragment : Fragment() {
         val signUpButton =  view.findViewById<Button>(R.id.signUpScreenSignUpButton)
         signUpButton.setOnClickListener{
             name = nameTextView.text.toString()
+            fname = firstNameTextView.text.toString()
+            lname = lastNameTextView.text.toString()
+            mobileno = mobileTextView.text.toString()
             email = emailTextView.text.toString()
             password = passwordTextView.text.toString()
             confirmPassword = confirmPasswordTextView.text.toString()
             if(validateFields()){
                 if(database.checkEmail(email)) {
+
 //                    change parameters
-                    database.insertUser(email,name,name,name,name,name, password)
+                    database.insertUser(email,fname,lname,mobileno,"",name, password)
+
                     view.findNavController().popBackStack()
                 }
                 else{
@@ -60,8 +71,17 @@ class SignUpFragment : Fragment() {
 
     private fun validateFields(): Boolean {
 
-        if(name.isEmpty()){
-            Toast.makeText(this@SignUpFragment.requireActivity(), "Please enter your name", Toast.LENGTH_SHORT).show()
+        if(fname.isEmpty()){
+            Toast.makeText(this@SignUpFragment.requireActivity(), "Please enter your first name", Toast.LENGTH_SHORT).show()
+            return false
+        }else if(lname.isEmpty()){
+            Toast.makeText(this@SignUpFragment.requireActivity(), "Please enter your last name", Toast.LENGTH_SHORT).show()
+            return false
+        }else if(mobileno.isEmpty()){
+            Toast.makeText(this@SignUpFragment.requireActivity(), "Please enter your mobile number", Toast.LENGTH_SHORT).show()
+            return false
+        }else if(name.isEmpty()){
+            Toast.makeText(this@SignUpFragment.requireActivity(), "Please enter your user name", Toast.LENGTH_SHORT).show()
             return false
         }else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             Toast.makeText(
@@ -69,6 +89,9 @@ class SignUpFragment : Fragment() {
             return false
         } else if(password.isEmpty()){
             Toast.makeText(this@SignUpFragment.requireActivity(), "Please enter your password", Toast.LENGTH_SHORT).show()
+            return false
+        }else if(confirmPassword.isEmpty()){
+            Toast.makeText(this@SignUpFragment.requireActivity(), "Please confirm your password", Toast.LENGTH_SHORT).show()
             return false
         }
         else if (password.isNotEmpty() && confirmPassword.isNotEmpty() && password != confirmPassword) {

@@ -142,7 +142,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         contentValues.put(COL_EMAIL_ID,email)
         contentValues.put(COL_USER_NAME, username)
         contentValues.put(COL_PASSWORD, password)
-        Log.d("recipeList", contentValues.toString())
+        Log.d("insert user", contentValues.toString())
         val cursor = sqliteDatabase.insert(USER_DETAILS_TABLE, null, contentValues)
         return !cursor.equals(-1)
     }
