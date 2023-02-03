@@ -100,4 +100,13 @@
         android:name="com.mdev.cleverkitchenandroid.fragments.shoppinglist.ShoppingListFragment"
         android:label="fragment_shopping_list"
         tools:layout="@layout/fragment_shopping_list" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.mdev.cleverkitchenandroid.fragments.favorites.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_recipeDetailsFragment"
+            app:destination="@id/recipeDetailsFragment" />
+    </fragment>
 </navigation>

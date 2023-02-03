@@ -1,4 +1,4 @@
-package com.mdev.cleverkitchenandroid.fragments.viewrecipe
+package com.mdev.cleverkitchenandroid.fragments.favorites
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,28 +15,17 @@ import com.mdev.cleverkitchenandroid.model.User
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  val profileDetails : User) :
-    RecyclerView.Adapter<FragmentViewRecipeAdapter.ViewHolder>() {
-    // create new views
+class FavoriteRecipeAdapter(private val recipiesList: List<Recipe>,private  val profileDetails : User) :
+    RecyclerView.Adapter<FavoriteRecipeAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        // inflates the card_view_design view
-        // that is used to hold list item
-
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_recipe, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_recipe, parent, false)
         return ViewHolder(view)
     }
 
-
-
-    // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val recipiesModelList = recipiesList[position]
-        // sets the image to the imageview from our itemHolder class
-        // sets the text to the textview from our itemHolder class
         holder.tvDesc.text = recipiesModelList.description
-//        holder.ivDish.setImageResource(R.drawable.ic_dish2)
         holder.tvTag.text = recipiesModelList.ingredients
         holder.tvDate.text = getCurrentDate()
         holder.tvName.text = profileDetails.name
@@ -44,16 +33,16 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
         holder.ivDish.setImageURI(recipiesModelList.img_location.toUri())
 
         holder.itemView.setOnClickListener{
-                holder.itemView.findNavController().navigate(R.id.action_viewRecipeFragment_to_recipeDetailsFragment, Bundle().apply {
-                    putString("recipe_name", recipiesModelList.recipe_name)
-                    putString("chip", recipiesModelList.ingredients)
-                    putString("description", recipiesModelList.description)
-                    putString("img_location", recipiesModelList.img_location)
-                    putString("email_id", recipiesModelList.email_id)
-                    putInt("recipe_id", recipiesModelList.recipe_id)
-                    putInt("is_fav", recipiesModelList.is_fav)
-                })
-            }
+            holder.itemView.findNavController().navigate(R.id.action_favoritesFragment_to_recipeDetailsFragment, Bundle().apply {
+                putString("recipe_name", recipiesModelList.recipe_name)
+                putString("chip", recipiesModelList.ingredients)
+                putString("description", recipiesModelList.description)
+                putString("img_location", recipiesModelList.img_location)
+                putString("email_id", recipiesModelList.email_id)
+                putInt("recipe_id", recipiesModelList.recipe_id)
+                putInt("is_fav", recipiesModelList.is_fav)
+            })
+        }
 
     }
 
