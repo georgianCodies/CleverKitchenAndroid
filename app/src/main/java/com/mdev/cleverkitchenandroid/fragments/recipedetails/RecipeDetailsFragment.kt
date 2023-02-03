@@ -1,10 +1,12 @@
 package com.mdev.cleverkitchenandroid.fragments.recipedetails
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.mdev.cleverkitchenandroid.R
 
@@ -29,6 +31,7 @@ class RecipeDetailsFragment : Fragment() {
         view.findViewById<TextView>(R.id.recipe_sub_name).text = requireArguments().getString("recipe_name") + ": A classic Indian dish"
         view.findViewById<TextView>(R.id.chip).text = requireArguments().getString("chip")
         view.findViewById<TextView>(R.id.how_to).text = "How to make " + requireArguments().getString("recipe_name")+"?"
-
+        var imageUriValue = Uri.parse(requireArguments().getString("img_location"))
+        view.findViewById<ImageView>(R.id.imageView_recipe_view).setImageURI(imageUriValue)
     }
 }

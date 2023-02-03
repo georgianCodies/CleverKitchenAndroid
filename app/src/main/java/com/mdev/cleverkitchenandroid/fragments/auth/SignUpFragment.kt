@@ -41,7 +41,8 @@ class SignUpFragment : Fragment() {
             confirmPassword = confirmPasswordTextView.text.toString()
             if(validateFields()){
                 if(database.checkEmail(email)) {
-                    database.insertUser(email, name, password)
+//                    change parameters
+                    database.insertUser(email,name,name,name,name,name, password)
                     view.findNavController().popBackStack()
                 }
                 else{
