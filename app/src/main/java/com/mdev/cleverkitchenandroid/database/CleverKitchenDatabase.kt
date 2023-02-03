@@ -30,8 +30,12 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         //user-details table
         private const val USER_DETAILS_TABLE = "user"
         private const val COL_USER_NAME = "user_name"
+        private const val COL_FIRST_NAME = "first_name"
+        private const val COL_LAST_NAME = "last_name"
         private const val COL_PASSWORD = "password"
         private const val COL_EMAIL_ID = "email_id"
+        private const val COL_PHONE = "phone"
+        private const val COL_USER_IMAGE = "user_img_location"
 
     }
 
@@ -47,7 +51,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
                 "$COL_EMAIL_ID TEXT, " +
                 "$COL_IS_FAVORITE INT DEFAULT 0, " +
                 " FOREIGN KEY($COL_EMAIL_ID) REFERENCES $USER_DETAILS_TABLE($COL_EMAIL_ID))")
-        db.execSQL("CREATE TABLE ${USER_DETAILS_TABLE}(${COL_EMAIL_ID} TEXT PRIMARY KEY , $COL_USER_NAME TEXT, " +
+        db.execSQL("CREATE TABLE ${USER_DETAILS_TABLE}(${COL_EMAIL_ID} TEXT PRIMARY KEY ,$COL_FIRST_NAME TEXT,$COL_LAST_NAME TEXT, $COL_PHONE TEXT, $COL_USER_IMAGE TEXT, $COL_USER_NAME TEXT, " +
                 "$COL_PASSWORD TEXT)")
         db.execSQL("CREATE TABLE ${SHOPPING_LIST_TABLE}($COL_ITEMS TEXT, $COL_EMAIL_ID TEXT, " +
                 "FOREIGN KEY($COL_EMAIL_ID) REFERENCES $USER_DETAILS_TABLE($COL_EMAIL_ID))")
@@ -147,9 +151,14 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         }
     }
 
-    fun insertUser(email:String?, username: String?, password: String?): Boolean {
+    fun insertUser(email:String?,firstName:String?,lastName:String?,phone:String?,userImg:String?,username: String?, password: String?): Boolean {
         val sqliteDatabase = this.writableDatabase
         val contentValues = ContentValues()
+        contentValues.put(COL_EMAIL_ID,email)
+        contentValues.put(COL_FIRST_NAME,firstName)
+        contentValues.put(COL_LAST_NAME,lastName)
+        contentValues.put(COL_PHONE,phone)
+        contentValues.put(COL_USER_IMAGE,userImg)
         contentValues.put(COL_EMAIL_ID,email)
         contentValues.put(COL_USER_NAME, username)
         contentValues.put(COL_PASSWORD, password)
