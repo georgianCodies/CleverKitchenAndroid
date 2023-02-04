@@ -13,23 +13,21 @@ import java.util.*
 class FirebaseStorageManager {
     private var mStorageRef = FirebaseStorage.getInstance().reference
     private lateinit var progressBar: ProgressDialog
-    fun uploadImage(context: Context, imageFileUri: Uri, callback: (Any) -> Unit) {
+    fun uploadImage(context: Context, imageFileUri: Uri,emailId:String, callback: (Any) -> Unit) {
         progressBar = ProgressDialog(context)
-        progressBar.setMessage("Please wait, image being upload")
+        progressBar.setMessage("Please wait, image being uploaded")
         progressBar.show()
         val date = Date()
-        val uploadTask = mStorageRef.child("recipeImages/${date}.png").putFile(imageFileUri)
-        var uploadedURI = "";
+        val uploadTask = mStorageRef.child("recipeImages/${emailId}/${date}.png").putFile(imageFileUri)
         uploadTask.addOnSuccessListener {
             Log.e("Firebase", it.toString())
             progressBar.dismiss()
-            val uploadedURL = mStorageRef.child("recipeImages/${date}.png").downloadUrl.addOnSuccessListener {
-                // Got the download URL for 'users/me/profile.png'
+             mStorageRef.child("recipeImages/${emailId}/${date}.png").downloadUrl.addOnSuccessListener {
+
                 callback(it.toString())
             }.addOnFailureListener {
-
+                 progressBar.dismiss()
             }
-                // Handle any errors
         }.addOnFailureListener {
             Log.e("Firebase", "Image Upload failed")
             progressBar.dismiss()

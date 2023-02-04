@@ -89,7 +89,7 @@ class AddRecipeFragment : Fragment() {
                 if(imgURI == null){
                     Toast.makeText(requireContext(),"Please select image first",Toast.LENGTH_SHORT).show()
                 }else{
-                   val uploadedURI =  FirebaseStorageManager().uploadImage(requireContext(),imgURI){ imageUri ->
+                    FirebaseStorageManager().uploadImage(requireContext(),imgURI,emailId.toString()){ imageUri ->
                        Log.d("Add recipe- uploaded",imageUri.toString())
                        //insertion
                        val insertRecipe = databaseClass.insertRecipe(recipeName.text.toString(),
