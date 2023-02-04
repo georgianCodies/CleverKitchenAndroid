@@ -117,14 +117,42 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         val sqliteDatabase = this.readableDatabase
         val cursor = sqliteDatabase.rawQuery("SELECT * FROM $USER_DETAILS_TABLE WHERE $COL_EMAIL_ID=?", arrayOf(email))
         cursor.moveToFirst()
-        val user = User(cursor.getString(0), cursor.getString(1), cursor.getString(2))
+        Log.d("0",cursor.getString(0))
+        Log.d("1",cursor.getString(1))
+        Log.d("2",cursor.getString(2))
+        Log.d("3",cursor.getString(3))
+        Log.d("4",cursor.getString(4))
+        Log.d("5",cursor.getString(5))
+        Log.d("6",cursor.getString(6))
+
+        val user = User(cursor.getString(1), cursor.getString(2), cursor.getString(5),cursor.getString(0),cursor.getString(6))
         Log.d("logged-in user", cursor.getString(0).toString())
         return user
     }
 
+    fun updateUser(email: String,firstName:String,lastName:String): Boolean {
+        Log.d("logged-in user", firstName)
+        Log.d("logged-in email", email)
+        val sqliteDatabase = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(COL_FIRST_NAME, firstName)
+        contentValues.put(COL_LAST_NAME, lastName)
+        Log.d("recipeList", contentValues.toString())
+        val cursor = sqliteDatabase.update(USER_DETAILS_TABLE, contentValues,"$COL_EMAIL_ID=?", arrayOf(email))
+        Log.d("logged-in email", cursor.toString())
+        return cursor != -1
+    }
+
     fun checkLogin(email: String, password: String): Boolean {
         val sqliteDatabase = this.readableDatabase
-        val cursor = sqliteDatabase.rawQuery("SELECT * FROM $USER_DETAILS_TABLE WHERE $COL_EMAIL_ID=? AND $COL_PASSWORD=?", arrayOf(email, password))
+        val cursor = sqliteDatabase.rawQuery("SELECT * FROM $USER_DETAILS_TABLE WHERE ($COL_EMAIL_ID=? OR $COL_USER_NAME=?) AND $COL_PASSWORD=?", arrayOf(email,email, password))
         return cursor.count > 0
+    }
+
+    fun getUserEmail(id: String): String {
+        val sqliteDatabase = this.readableDatabase
+        val cursor = sqliteDatabase.rawQuery("SELECT * FROM $USER_DETAILS_TABLE WHERE $COL_EMAIL_ID=? OR $COL_USER_NAME=?", arrayOf(id,id))
+        cursor.moveToFirst()
+        return cursor.getString(0)
     }
 }

@@ -1,7 +1,9 @@
 package com.mdev.cleverkitchenandroid.model
 
 data class User(
-    val email:String,
-    val name:String,
-    val password:String
+    var firstName:String,
+    var lastName:String,
+    var userName:String,
+    var email:String,
+    var password:String
 )
