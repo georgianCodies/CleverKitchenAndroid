@@ -18,22 +18,38 @@
         style="@style/TextAppearance.AppCompat.Title"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layoutNameSignUp"
+        android:id="@+id/textInputFirstName"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:hint="@string/enterName"
+        android:hint="First Name"
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputName"
+            android:id="@+id/firstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
             android:text="" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputlastName"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="Last Name"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/lastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:text="" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.button.MaterialButton
