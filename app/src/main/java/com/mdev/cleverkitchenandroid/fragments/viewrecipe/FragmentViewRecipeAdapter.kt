@@ -58,6 +58,8 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
                     putString("description", recipiesModelList.description)
                     putString("img_location", recipiesModelList.img_location)
                     putString("email_id", recipiesModelList.email_id)
+                    putInt("recipe_id", recipiesModelList.recipe_id)
+                    putInt("is_fav", recipiesModelList.is_fav)
                 })
             }
 
@@ -79,8 +81,7 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
         val tvDesc: TextView = itemView.findViewById(R.id.tv_desc)
         val tvDate: TextView = itemView.findViewById(R.id.tv_date)
         val tvTag: TextView = itemView.findViewById(R.id.tv_tag)
-        val tvName:TextView = itemView.findViewById(R.id.tv_name)
-
+        val tvName: TextView = itemView.findViewById(R.id.tv_name)
     }
 }
 
