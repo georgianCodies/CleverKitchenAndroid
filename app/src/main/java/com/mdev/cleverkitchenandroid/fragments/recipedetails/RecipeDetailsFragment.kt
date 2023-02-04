@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.mdev.cleverkitchenandroid.R
 
 class RecipeDetailsFragment : Fragment() {
@@ -32,6 +33,10 @@ class RecipeDetailsFragment : Fragment() {
         view.findViewById<TextView>(R.id.chip).text = requireArguments().getString("chip")
         view.findViewById<TextView>(R.id.how_to).text = "How to make " + requireArguments().getString("recipe_name")+"?"
         var imageUriValue = Uri.parse(requireArguments().getString("img_location"))
-        view.findViewById<ImageView>(R.id.imageView_recipe_view).setImageURI(imageUriValue)
+
+        Glide.with(requireContext())
+            .load(requireArguments().getString("img_location")) // firebase url
+            .into(view.findViewById<ImageView>(R.id.imageView_recipe_view));
+
     }
 }
