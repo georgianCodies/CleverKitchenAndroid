@@ -39,7 +39,7 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
 //        holder.ivDish.setImageResource(R.drawable.ic_dish2)
         holder.tvTag.text = recipiesModelList.ingredients
         holder.tvDate.text = getCurrentDate()
-        holder.tvName.text = profileDetails.name
+        holder.tvName.text = profileDetails.userName
         holder.ivDish.setImageURI(null)
         holder.ivDish.setImageURI(recipiesModelList.img_location.toUri())
 

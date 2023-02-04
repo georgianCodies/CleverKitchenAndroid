@@ -12,15 +12,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.mdev.cleverkitchenandroid.model.ProfileViewModel
 import com.mdev.cleverkitchenandroid.R
 import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
+import com.mdev.cleverkitchenandroid.fragments.profile.EditProfileBottomSheetFragment
+import com.mdev.cleverkitchenandroid.model.ProfileViewModel
 import com.mdev.cleverkitchenandroid.model.User
-import com.mdev.cleverkitchenandroid.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.fragment_edit_profile_bottom_sheet.view.*
 
 
 class ProfileFragment : Fragment() {
-    private lateinit var binding: ActivityMainBinding
     private lateinit var profileViewModel: ProfileViewModel
 
     override fun onCreateView(
@@ -30,42 +30,53 @@ class ProfileFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_profile, container, false);
         val deleteAccountButton =  view.findViewById<Button>(R.id.deleteAccount)
         val logoutButton =  view.findViewById<Button>(R.id.logout)
-        val editProfileButton =  view.findViewById<Button>(R.id.modalBottomSheetButton)
+        val editProfileButton = view.findViewById<Button>(R.id.editProfile)
         val database = CleverKitchenDatabase(requireActivity())
         val sharedPreferences =  activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
-        val emailId = sharedPreferences?.getString("emailId","")
+        val emailId = sharedPreferences?.getString("emailId","defaultName")
 
         val emailIdView = view.findViewById<TextView>(R.id.profile_emailId)
         val userNameView = view.findViewById<TextView>(R.id.profile_userName)
-
+        val userDetails: User = database.getUser(emailId.toString())
         profileViewModel = ViewModelProvider(requireActivity()).get(ProfileViewModel::class.java)
 
         emailIdView.text = emailId
-        if (emailId != null) {
-            val userDetails: User = database.getUser(emailId)
-            Log.d("username",userDetails.name)
-            userNameView.text = userDetails.name
-        }
 
-        profileViewModel.name.observe(viewLifecycleOwner) {
+
+        profileViewModel.firstName.observe(viewLifecycleOwner) {
+
+            Log.d("-------fname",it.toString())
             if (it.toString().isNotEmpty()) {
                 userNameView.text = it.toString()
             } else {
                 if (emailId != null) {
                     val userDetails: User = database.getUser(emailId)
-                    Log.d("username",userDetails.name)
-                    userNameView.text = userDetails.name
+                    Log.d("username",userDetails.firstName+" "+ userDetails.lastName)
+                    userNameView.text = userDetails.firstName
                 }
             }
         }
-        profileViewModel.name.value = userNameView.text.toString()
+        profileViewModel.firstName.value = userDetails.firstName
+
+        profileViewModel.lastName.observe(viewLifecycleOwner) {
+            Log.d("-------lname",it.toString())
+            if (it.toString().isNotEmpty()) {
+                userNameView.text =  userNameView.text.toString() +" "+ it.toString()
+            } else {
+                if (emailId != null) {
+                    val userDetails: User = database.getUser(emailId)
+                    Log.d("username",userDetails.firstName+" "+ userDetails.lastName)
+                    userNameView.text = userNameView.text.toString() +" "+ userDetails.lastName
+                }
+            }
+        }
+        profileViewModel.lastName.value = userDetails.lastName
 
         deleteAccountButton.setOnClickListener {
             database.deleteUser(emailId.toString())
             Toast.makeText(this@ProfileFragment.requireActivity(), "Your account has been deleted", Toast.LENGTH_SHORT).show()
             view.findNavController().navigate(R.id.action_profileFragment_to_intialFragment)
         }
-
         logoutButton.setOnClickListener{
             val editor = sharedPreferences?.edit()
             editor?.clear()
@@ -75,8 +86,15 @@ class ProfileFragment : Fragment() {
         }
 
         editProfileButton.setOnClickListener {
-            EditProfileBottomSheetFragment(userNameView.text).show(parentFragmentManager, "editProfile")
+            if (emailId != null) {
+                EditProfileBottomSheetFragment(emailId).show(
+                    parentFragmentManager,
+                    "editProfile"
+                )
+            }
         }
 
         return view
     }
+
+}
