@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.net.toUri
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.mdev.cleverkitchenandroid.R
 import com.mdev.cleverkitchenandroid.model.Recipe
 import com.mdev.cleverkitchenandroid.model.User
@@ -28,9 +28,11 @@ class FavoriteRecipeAdapter(private val recipiesList: List<Recipe>,private  val 
         holder.tvDesc.text = recipiesModelList.description
         holder.tvTag.text = recipiesModelList.ingredients
         holder.tvDate.text = getCurrentDate()
-        holder.tvName.text = profileDetails.name
+        holder.tvName.text = profileDetails.userName
         holder.ivDish.setImageURI(null)
-        holder.ivDish.setImageURI(recipiesModelList.img_location.toUri())
+        Glide.with(holder.itemView.context)
+            .load(recipiesModelList.img_location) // the uri is from Firebase
+            .into(holder.ivDish);
 
         holder.itemView.setOnClickListener{
             holder.itemView.findNavController().navigate(R.id.action_favoritesFragment_to_recipeDetailsFragment, Bundle().apply {

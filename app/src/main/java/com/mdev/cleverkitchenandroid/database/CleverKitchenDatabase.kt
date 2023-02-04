@@ -12,7 +12,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
 
     companion object{
         private const val DATABASE_NAME = "clever_kitchen.db"
-        private const val DATABASE_VERSION = 3
+        private const val DATABASE_VERSION = 1
 
         //shopping-list table
         private const val SHOPPING_LIST_TABLE = "shopping_list"
