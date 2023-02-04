@@ -1,17 +1,21 @@
 package com.mdev.cleverkitchenandroid.fragments.viewrecipe
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.net.toUri
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.mdev.cleverkitchenandroid.R
 import com.mdev.cleverkitchenandroid.model.Recipe
 import com.mdev.cleverkitchenandroid.model.User
+import java.security.AccessController.getContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,8 +44,12 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
         holder.tvTag.text = recipiesModelList.ingredients
         holder.tvDate.text = getCurrentDate()
         holder.tvName.text = profileDetails.userName
-        holder.ivDish.setImageURI(null)
-        holder.ivDish.setImageURI(recipiesModelList.img_location.toUri())
+//        holder.ivDish.setImageURI(null)
+//        "https://firebasestorage.googleapis.com/v0/b/clever-kitchen-eac52.appspot.com/o/recipeImages%2FSat%20Feb%2004%2016%3A26%3A10%20EST%202"
+        Glide.with(holder.itemView.context)
+            .load(recipiesModelList.img_location) // the uri is from Firebase
+            .into(holder.ivDish);
+
 
         holder.itemView.setOnClickListener{
                 holder.itemView.findNavController().navigate(R.id.action_viewRecipeFragment_to_recipeDetailsFragment, Bundle().apply {
