@@ -61,7 +61,7 @@
                     android:textSize="20sp" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/editProfile"
+                    android:id="@+id/modalBottomSheetButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"

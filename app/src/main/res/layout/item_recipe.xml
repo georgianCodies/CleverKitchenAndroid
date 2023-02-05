@@ -107,8 +107,7 @@
         android:layout_below="@id/ll_text"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_dish" />
+        android:scaleType="centerCrop" />
 
     <View
         android:layout_width="match_parent"

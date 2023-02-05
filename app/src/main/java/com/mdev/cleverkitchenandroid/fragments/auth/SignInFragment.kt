@@ -36,7 +36,7 @@ class SignInFragment : Fragment() {
                 if(database.checkLogin(email,password)){
                     val sharedPreference =  activity?.getSharedPreferences("userDetails",Context.MODE_PRIVATE)
                     var editor = sharedPreference?.edit()
-                    editor?.putString("emailId",database.getUserEmail(email))
+                    editor?.putString("emailId",email)
                     editor?.commit()
                     view.findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
                 }
@@ -57,7 +57,7 @@ class SignInFragment : Fragment() {
 
     fun validateFields(): Boolean {
 
-      if (email == "" && !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+      if (email == "") {
           Toast.makeText(this@SignInFragment.requireActivity(), "Please enter valid email", Toast.LENGTH_SHORT).show()
           return false
         } else if (password == "") {

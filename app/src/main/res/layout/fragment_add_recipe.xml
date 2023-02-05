@@ -47,7 +47,6 @@
                     android:id="@+id/recipeNameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/recipe_name_hint"
                     android:inputType="textPersonName"
                     android:lines="1" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -114,11 +113,32 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
                     android:gravity="center"
-                    android:text="Upload Image"
+                    android:text="UPLOAD Image"
                     android:textColor="@color/black"
                     app:strokeColor="@color/black"
                     android:clickable="true"
                     app:strokeWidth="1dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/imageView"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/videoContainer">
+
+                <ImageView
+                    android:id="@+id/imageView_recipe_view"
+                    android:layout_margin="8dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -132,7 +152,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/videoContainer" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

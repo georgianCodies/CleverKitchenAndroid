@@ -24,18 +24,14 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         private const val COL_RECIPE_NAME = "recipe_name"
         private const val COL_INGREDIENTS = "ingredients"
         private const val COL_DESCRIPTION = "description"
+        private const val COL_NOTES = "notes"
         private const val COL_IMG_LOCATION = "img_location"
-        private const val COL_IS_FAVORITE = "is_favorite"
 
         //user-details table
         private const val USER_DETAILS_TABLE = "user"
         private const val COL_USER_NAME = "user_name"
-        private const val COL_FIRST_NAME = "first_name"
-        private const val COL_LAST_NAME = "last_name"
         private const val COL_PASSWORD = "password"
         private const val COL_EMAIL_ID = "email_id"
-        private const val COL_PHONE = "phone"
-        private const val COL_USER_IMAGE = "user_img_location"
 
     }
 
@@ -44,14 +40,14 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         db.execSQL("PRAGMA foreign_keys = ON")
         db.execSQL("CREATE TABLE $RECIPE_TABLE(" +
                 "$COL_RECIPE_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "$COL_RECIPE_NAME TEXT, " +
-                "$COL_INGREDIENTS TEXT, " +
-                "$COL_DESCRIPTION TEXT, " +
+                "$COL_RECIPE_NAME TEXT ," +
+                "$COL_INGREDIENTS TEXT ," +
+                "$COL_DESCRIPTION TEXT , " +
+                "$COL_NOTES TEXT , " +
                 "$COL_IMG_LOCATION TEXT, " +
                 "$COL_EMAIL_ID TEXT, " +
-                "$COL_IS_FAVORITE INT DEFAULT 0, " +
                 " FOREIGN KEY($COL_EMAIL_ID) REFERENCES $USER_DETAILS_TABLE($COL_EMAIL_ID))")
-        db.execSQL("CREATE TABLE ${USER_DETAILS_TABLE}(${COL_EMAIL_ID} TEXT PRIMARY KEY ,$COL_FIRST_NAME TEXT,$COL_LAST_NAME TEXT, $COL_PHONE TEXT, $COL_USER_IMAGE TEXT, $COL_USER_NAME TEXT, " +
+        db.execSQL("CREATE TABLE ${USER_DETAILS_TABLE}(${COL_EMAIL_ID} TEXT PRIMARY KEY , $COL_USER_NAME TEXT, " +
                 "$COL_PASSWORD TEXT)")
         db.execSQL("CREATE TABLE ${SHOPPING_LIST_TABLE}($COL_ITEMS TEXT, $COL_EMAIL_ID TEXT, " +
                 "FOREIGN KEY($COL_EMAIL_ID) REFERENCES $USER_DETAILS_TABLE($COL_EMAIL_ID))")
@@ -64,11 +60,12 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         db.execSQL("DROP TABLE IF EXISTS $SHOPPING_LIST_TABLE")
     }
 
-    fun insertRecipe(recipe_name: String?, ingredients: String?, description: String?,img_location:String?, email_id:String?): Boolean {
+    fun insertRecipe(recipe_name: String?, ingredients: String?, description: String?, img_location:String?, email_id:String?): Boolean {
         val sqLiteDatabase = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(COL_RECIPE_NAME, recipe_name)
         contentValues.put(COL_INGREDIENTS, ingredients)
+        contentValues.put(COL_NOTES, "Not available")
         contentValues.put(COL_DESCRIPTION, description)
         contentValues.put(COL_IMG_LOCATION, img_location)
         contentValues.put(COL_EMAIL_ID, email_id)
@@ -78,27 +75,10 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         return !cursor.equals(-1)
     }
 
-    fun toggleFavorite(recipe_id: String, is_fav: Int): Boolean {
-        val sqLiteDatabase = this.writableDatabase
-        val contentValues = ContentValues()
-        contentValues.put(COL_IS_FAVORITE, is_fav)
-
-        val cursor = sqLiteDatabase.update(RECIPE_TABLE, contentValues, "$COL_RECIPE_ID=?", arrayOf(recipe_id))
-        Log.d("updated recipe", cursor.toString())
-        return !cursor.equals(-1)
-    }
-
-    fun getRecipeDetails(email_id: String?, favorites: String? = null): ArrayList<Recipe> {
+    fun getRecipeDetails(email_id: String?): ArrayList<Recipe> {
         val sqliteDatabase = this.readableDatabase
         Log.d("email in db", email_id.toString())
-
-        var cursor: android.database.Cursor;
-        if(favorites === null) {
-            cursor =  sqliteDatabase.rawQuery("SELECT * FROM $RECIPE_TABLE WHERE $COL_EMAIL_ID=?", arrayOf(email_id))
-        } else {
-            cursor =  sqliteDatabase.rawQuery("SELECT * FROM $RECIPE_TABLE WHERE $COL_EMAIL_ID=? AND $COL_IS_FAVORITE=?", arrayOf(email_id, favorites))
-        }
-
+        val cursor =  sqliteDatabase.rawQuery("SELECT * FROM $RECIPE_TABLE WHERE $COL_EMAIL_ID=?", arrayOf(email_id))
         val recipeList: ArrayList<Recipe> = ArrayList()
 
         if (cursor.moveToFirst()) {
@@ -111,7 +91,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
                         cursor.getString(3),
                         cursor.getString(4),
                         cursor.getString(5),
-                        cursor.getInt(6)
+                        cursor.getString(6)
                     )
                 )
             } while (cursor.moveToNext())
@@ -119,6 +99,18 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         }
         Log.d("recipeList", recipeList.toString())
         return recipeList;
+    }
+
+    fun updateRecipeDetails(recipe_id: String, notes: String): Boolean {
+        Log.d("logged-in user", recipe_id)
+        Log.d("logged-in email", notes)
+        val sqliteDatabase = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(COL_NOTES, notes)
+        Log.d("recipeList", contentValues.toString())
+        val cursor = sqliteDatabase.update(RECIPE_TABLE, contentValues,"$COL_RECIPE_ID=?", arrayOf(recipe_id))
+        Log.d("logged-in email", cursor.toString())
+        return cursor != -1
     }
 
     fun insertShoppingList(shoppingList:String?,email:String?): Boolean {
@@ -151,18 +143,13 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         }
     }
 
-    fun insertUser(email:String?,firstName:String?,lastName:String?,phone:String?,userImg:String?,username: String?, password: String?): Boolean {
+    fun insertUser(email:String?, username: String?, password: String?): Boolean {
         val sqliteDatabase = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(COL_EMAIL_ID,email)
-        contentValues.put(COL_FIRST_NAME,firstName)
-        contentValues.put(COL_LAST_NAME,lastName)
-        contentValues.put(COL_PHONE,phone)
-        contentValues.put(COL_USER_IMAGE,userImg)
-        contentValues.put(COL_EMAIL_ID,email)
         contentValues.put(COL_USER_NAME, username)
         contentValues.put(COL_PASSWORD, password)
-        Log.d("insert user", contentValues.toString())
+        Log.d("recipeList", contentValues.toString())
         val cursor = sqliteDatabase.insert(USER_DETAILS_TABLE, null, contentValues)
         return !cursor.equals(-1)
     }
@@ -184,26 +171,17 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         val sqliteDatabase = this.readableDatabase
         val cursor = sqliteDatabase.rawQuery("SELECT * FROM $USER_DETAILS_TABLE WHERE $COL_EMAIL_ID=?", arrayOf(email))
         cursor.moveToFirst()
-        Log.d("0",cursor.getString(0))
-        Log.d("1",cursor.getString(1))
-        Log.d("2",cursor.getString(2))
-        Log.d("3",cursor.getString(3))
-        Log.d("4",cursor.getString(4))
-        Log.d("5",cursor.getString(5))
-        Log.d("6",cursor.getString(6))
-
-        val user = User(cursor.getString(1), cursor.getString(2), cursor.getString(5),cursor.getString(0),cursor.getString(6))
+        val user = User(cursor.getString(0), cursor.getString(1), cursor.getString(2))
         Log.d("logged-in user", cursor.getString(0).toString())
         return user
     }
 
-    fun updateUser(email: String,firstName:String,lastName:String): Boolean {
-        Log.d("logged-in user", firstName)
+    fun updateUser(email: String,userName: String): Boolean {
+        Log.d("logged-in user", userName)
         Log.d("logged-in email", email)
         val sqliteDatabase = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put(COL_FIRST_NAME, firstName)
-        contentValues.put(COL_LAST_NAME, lastName)
+        contentValues.put(COL_USER_NAME, userName)
         Log.d("recipeList", contentValues.toString())
         val cursor = sqliteDatabase.update(USER_DETAILS_TABLE, contentValues,"$COL_EMAIL_ID=?", arrayOf(email))
         Log.d("logged-in email", cursor.toString())
@@ -212,14 +190,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
 
     fun checkLogin(email: String, password: String): Boolean {
         val sqliteDatabase = this.readableDatabase
-        val cursor = sqliteDatabase.rawQuery("SELECT * FROM $USER_DETAILS_TABLE WHERE ($COL_EMAIL_ID=? OR $COL_USER_NAME=?) AND $COL_PASSWORD=?", arrayOf(email,email, password))
+        val cursor = sqliteDatabase.rawQuery("SELECT * FROM $USER_DETAILS_TABLE WHERE $COL_EMAIL_ID=? AND $COL_PASSWORD=?", arrayOf(email, password))
         return cursor.count > 0
-    }
-
-    fun getUserEmail(id: String): String {
-        val sqliteDatabase = this.readableDatabase
-        val cursor = sqliteDatabase.rawQuery("SELECT * FROM $USER_DETAILS_TABLE WHERE $COL_EMAIL_ID=? OR $COL_USER_NAME=?", arrayOf(id,id))
-        cursor.moveToFirst()
-        return cursor.getString(0)
     }
 }

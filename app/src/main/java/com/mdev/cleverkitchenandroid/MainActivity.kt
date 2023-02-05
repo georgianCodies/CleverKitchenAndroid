@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            navView.visibility = if(destination.id != R.id.homeFragment && destination.id != R.id.profileFragment && destination.id != R.id.favoritesFragment) {
+            navView.visibility = if(destination.id != R.id.homeFragment && destination.id != R.id.profileFragment) {
                 View.GONE
             } else {
                 View.VISIBLE

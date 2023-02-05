@@ -2,7 +2,6 @@ package com.mdev.cleverkitchenandroid.fragments.addrecipe
 
 import android.app.Activity.RESULT_OK
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,25 +11,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.ValueCallback
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import com.mdev.cleverkitchenandroid.FirebaseStorageManager
 import com.mdev.cleverkitchenandroid.R
 import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
+import android.content.Intent as Intent
 
-
-@Suppress("DEPRECATION")
 class AddRecipeFragment : Fragment() {
 
     private lateinit var recipeName: TextView
     private lateinit var ingredients: TextView
     private lateinit var description: TextView
     private lateinit var video: Button
-    private var mStorageRef: StorageReference? = null
+    private lateinit var imageView: ImageView
 
     private val pickImage = 100
     private var imageUri: Uri? = null
@@ -53,22 +49,16 @@ class AddRecipeFragment : Fragment() {
 
         recipeName = view.findViewById<TextView>(R.id.recipeNameEditText);
         ingredients = view.findViewById<TextView>(R.id.ingredientsEditText)
-        description = view.findViewById<TextView>(R.id.descriptionEditText)
+        description = view.findViewById<TextView>(R.id.descriptionEditText);
         video = view.findViewById<Button>(R.id.videoInputButton);
-        mStorageRef = FirebaseStorage.getInstance().getReference()
-//        firebaseDatabase = FirebaseDatabase.getInstance().getReference("recipeImages")
-//        firebaseDatabase.child("testing").setValue("valuye").addOnSuccessListener {
-//            Log.d("creat","successful")
-//        }.addOnFailureListener{
-//            Log.d("error",it.toString())
-//        }
+        imageView = view.findViewById(R.id.imageView_recipe_view);
+
         var isAllFieldsChecked = false;
-        var imgURI = Uri.parse("");
+
         video.setOnClickListener {
             println("upload image button clicked!")
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, pickImage)
-
         }
 
         submitButton.setOnClickListener(View.OnClickListener { // store the returned value of the dedicated function which checks
@@ -84,26 +74,15 @@ class AddRecipeFragment : Fragment() {
                 val sharedPreferences =
                     activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
                 val emailId = sharedPreferences?.getString("emailId", "")
-
-                val imgURI = video.tag as Uri?
-                if(imgURI == null){
-                    Toast.makeText(requireContext(),"Please select image first",Toast.LENGTH_SHORT).show()
-                }else{
-                    FirebaseStorageManager().uploadImage(requireContext(),"recipe-images",imgURI,emailId.toString()){ imageUri ->
-                       Log.d("Add recipe- uploaded",imageUri.toString())
-                       //insertion
-                       val insertRecipe = databaseClass.insertRecipe(recipeName.text.toString(),
-                           ingredients.text.toString(),
-                           description.text.toString(),
-                           imageUri.toString(),
-                           emailId)
-                       println(insertRecipe.toString())
-                       Log.d("insert", insertRecipe.toString())
-                   }
-
-                }
-
-
+                //insertion
+                val insertRecipe = databaseClass.insertRecipe(
+                    recipeName.text.toString(),
+                    ingredients.text.toString(),
+                    description.text.toString(),
+                    imageUri.toString(),
+                    emailId)
+                println(insertRecipe.toString())
+                Log.d("insert", insertRecipe.toString())
 
                 view.findNavController().navigate(R.id.action_addRecipeFragment_to_homeFragment)
             }
@@ -113,32 +92,30 @@ class AddRecipeFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == pickImage) {
             imageUri = data?.data
             println(imageUri);
-            Log.d("image uri",imageUri.toString())
-            video.setTag(imageUri)
-            //imageView.setImageURI(imageUri)
+            imageView.visibility=View.VISIBLE;
+            imageView.setImageURI(imageUri)
         }
-
-
     }
-
-
-
 
     private fun checkAllFields(): Boolean {
         if (recipeName.length() === 0) {
             recipeName.error = "Recipe Name is required"
-            return false
         }
         if (ingredients.length() === 0) {
             ingredients.error = "Ingredients is required"
-            return false
         }
         if (description.length() === 0) {
             description.error = "Description is required"
+        }
+
+        if (imageUri === null) {
+            Toast.makeText(this@AddRecipeFragment.requireActivity(), "Please Upload an Image!", Toast.LENGTH_SHORT).show()
+        }
+
+        if (description.length() === 0 || recipeName.length() === 0 || ingredients.length() === 0 || imageUri === null) {
             return false
         }
         // after all validation return true.
