@@ -65,7 +65,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         val contentValues = ContentValues()
         contentValues.put(COL_RECIPE_NAME, recipe_name)
         contentValues.put(COL_INGREDIENTS, ingredients)
-        contentValues.put(COL_NOTES, "Not available")
+        contentValues.put(COL_NOTES, "Add notes here...")
         contentValues.put(COL_DESCRIPTION, description)
         contentValues.put(COL_IMG_LOCATION, img_location)
         contentValues.put(COL_EMAIL_ID, email_id)

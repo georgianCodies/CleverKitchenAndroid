@@ -101,14 +101,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_baseline_event_note_24"/>
+
                         <TextView
-                            android:text="notes"
-                            android:textSize="14sp"
-                            android:textStyle="normal"
-                            android:paddingLeft="10sp"
-                            android:textColor="@color/black"
                             android:layout_width="280dp"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="match_parent"
+                            android:paddingLeft="10sp"
+                            android:text="notes"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/saveButton"
