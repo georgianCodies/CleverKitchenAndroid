@@ -36,7 +36,7 @@ class SignInFragment : Fragment() {
                 if(database.checkLogin(email,password)){
                     val sharedPreference =  activity?.getSharedPreferences("userDetails",Context.MODE_PRIVATE)
                     var editor = sharedPreference?.edit()
-                    editor?.putString("emailId",email)
+                    editor?.putString("emailId",database.getUserEmail(email))
                     editor?.commit()
                     view.findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
                 }

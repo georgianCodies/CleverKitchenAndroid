@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
             val databaseClass = CleverKitchenDatabase(requireActivity())
             val sharedPreferences =  activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
             val emailId = sharedPreferences?.getString("emailId","")
-            val recipeList:ArrayList<Recipe> =  databaseClass.getRecipeDetails(emailId.toString())
+            val recipeList:ArrayList<Recipe> =  databaseClass.getRecipeDetails(emailId.toString(),null)
             if(recipeList.isNotEmpty()) {
                 view.findNavController().navigate(R.id.action_homeFragment_to_viewRecipeFragment)
             }else{

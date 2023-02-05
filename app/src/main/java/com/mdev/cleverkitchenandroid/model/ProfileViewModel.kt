@@ -4,5 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class ProfileViewModel: ViewModel() {
-    var name = MutableLiveData<String>()
+    var firstName = MutableLiveData<String>()
+    var lastName = MutableLiveData<String>()
+    var userName = MutableLiveData<String>()
+    var mobileNumber = MutableLiveData<String>()
 }
