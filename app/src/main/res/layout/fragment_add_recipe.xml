@@ -90,10 +90,10 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/descriptionEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
+                    android:layout_height="match_parent"
                     android:gravity="center|left"
                     android:inputType="textMultiLine"
-                    android:minLines="10" />
+                    android:minLines="5" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
