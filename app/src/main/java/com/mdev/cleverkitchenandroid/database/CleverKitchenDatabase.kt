@@ -26,6 +26,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         private const val COL_DESCRIPTION = "description"
         private const val COL_IMG_LOCATION = "img_location"
         private const val COL_IS_FAVORITE = "is_favorite"
+        private const val COL_CREATED_ON = "created_on"
 
         //user-details table
         private const val USER_DETAILS_TABLE = "user"
@@ -50,6 +51,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
                 "$COL_IMG_LOCATION TEXT, " +
                 "$COL_EMAIL_ID TEXT, " +
                 "$COL_IS_FAVORITE INT DEFAULT 0, " +
+                "$COL_CREATED_ON TEXT, " +
                 " FOREIGN KEY($COL_EMAIL_ID) REFERENCES $USER_DETAILS_TABLE($COL_EMAIL_ID))")
         db.execSQL("CREATE TABLE ${USER_DETAILS_TABLE}(${COL_EMAIL_ID} TEXT PRIMARY KEY ,$COL_FIRST_NAME TEXT,$COL_LAST_NAME TEXT, $COL_PHONE TEXT, $COL_USER_IMAGE TEXT, $COL_USER_NAME TEXT, " +
                 "$COL_PASSWORD TEXT)")
@@ -64,7 +66,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         db.execSQL("DROP TABLE IF EXISTS $SHOPPING_LIST_TABLE")
     }
 
-    fun insertRecipe(recipe_name: String?, ingredients: String?, description: String?,img_location:String?, email_id:String?): Boolean {
+    fun insertRecipe(recipe_name: String?, ingredients: String?, description: String?,img_location:String?, email_id:String?, created_on:String?): Boolean {
         val sqLiteDatabase = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(COL_RECIPE_NAME, recipe_name)
@@ -72,6 +74,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         contentValues.put(COL_DESCRIPTION, description)
         contentValues.put(COL_IMG_LOCATION, img_location)
         contentValues.put(COL_EMAIL_ID, email_id)
+        contentValues.put(COL_CREATED_ON, created_on)
 
         val cursor = sqLiteDatabase.insert(RECIPE_TABLE, null, contentValues)
         Log.d("recipeList", cursor.toString())

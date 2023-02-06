@@ -21,6 +21,8 @@ import com.google.firebase.storage.StorageReference
 import com.mdev.cleverkitchenandroid.FirebaseStorageManager
 import com.mdev.cleverkitchenandroid.R
 import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
+import java.sql.Date
+import java.text.SimpleDateFormat
 
 
 @Suppress("DEPRECATION")
@@ -43,7 +45,7 @@ class AddRecipeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
 
@@ -85,6 +87,10 @@ class AddRecipeFragment : Fragment() {
                     activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
                 val emailId = sharedPreferences?.getString("emailId", "")
 
+                val timestamp = System.currentTimeMillis()
+                val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                val dateTime: String = sdf.format(Date(timestamp))
+
                 val imgURI = video.tag as Uri?
                 if(imgURI == null){
                     Toast.makeText(requireContext(),"Please select image first",Toast.LENGTH_SHORT).show()
@@ -96,15 +102,12 @@ class AddRecipeFragment : Fragment() {
                            ingredients.text.toString(),
                            description.text.toString(),
                            imageUri.toString(),
-                           emailId)
+                           emailId, dateTime)
                        println(insertRecipe.toString())
                        Log.d("insert", insertRecipe.toString())
                    }
 
                 }
-
-
-
                 view.findNavController().navigate(R.id.action_addRecipeFragment_to_homeFragment)
             }
         })
