@@ -81,13 +81,12 @@
                         android:orientation="horizontal"
                         android:padding="8dp">
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Butter"
-                            app:chipCornerRadius="5sp"
-                            android:layout_marginRight="5dp"/>
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chip_Group"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </com.google.android.material.chip.ChipGroup>
 
 
                     </LinearLayout>

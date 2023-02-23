@@ -13,7 +13,7 @@ import com.mdev.cleverkitchenandroid.model.User
 class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object{
-        private const val DATABASE_NAME = "clever_kitchen_new1.db"
+        private const val DATABASE_NAME = "clever_kitchen_new4.db"
         private const val DATABASE_VERSION = 1
 
         //shopping-list table

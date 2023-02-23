@@ -1,9 +1,9 @@
 package com.mdev.cleverkitchenandroid.fragments.recipedetails
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +11,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.mdev.cleverkitchenandroid.R
 import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
 import kotlinx.android.synthetic.main.fragment_recipe_details.*
@@ -22,6 +25,7 @@ class RecipeDetailsFragment : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,11 +48,12 @@ class RecipeDetailsFragment : Fragment() {
                     activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
                 //insertion
                 val insertRecipe = databaseClass.updateRecipeDetails(
-                    requireArguments().getString("r_id").toString(),
+                    requireArguments().getInt("recipe_id").toString(),
                     notes.text.toString()
                 )
                 println(insertRecipe.toString())
             }
+
         })
         return view
     }
@@ -62,7 +67,6 @@ class RecipeDetailsFragment : Fragment() {
         view.findViewById<TextView>(R.id.description).text = requireArguments().getString("description")
         view.findViewById<TextView>(R.id.notes).text = requireArguments().getString("notes")
         view.findViewById<TextView>(R.id.recipe_sub_name).text = requireArguments().getString("recipe_name") + ": A classic Indian dish"
-        view.findViewById<TextView>(R.id.chip).text = requireArguments().getString("chip")
         view.findViewById<TextView>(R.id.how_to).text = "How to make " + requireArguments().getString("recipe_name")+"?"
 
         var imageUriValue = Uri.parse(requireArguments().getString("img_location"))
@@ -86,6 +90,21 @@ class RecipeDetailsFragment : Fragment() {
 
             Toast.makeText(requireContext(), if (is_fav == 1) "Added to Favorites" else "Removed from Favorites", Toast.LENGTH_SHORT).show()
         }
+
+        val chipGroup: ChipGroup = view.findViewById(R.id.chip_Group)
+
+        val storedIngredientList = requireArguments().getString("ingredients")
+        val storedIngredientListArray:List<String> = storedIngredientList!!.split(",")
+
+        if(storedIngredientListArray.isNotEmpty())
+            for(item in storedIngredientListArray.filter { item -> item.isNotEmpty() }){
+                val chip = Chip(requireActivity())
+                chip.text = item
+                chipGroup.addView(chip)
+            }
+
+
+
     }
 
     private fun updateFavoriteIcon(is_fav: Int) {
