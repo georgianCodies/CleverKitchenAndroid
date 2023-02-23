@@ -5,13 +5,15 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.mdev.cleverkitchenandroid.model.Recipe
 import com.mdev.cleverkitchenandroid.model.User
 
 class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object{
-        private const val DATABASE_NAME = "clever_kitchen.db"
+        private const val DATABASE_NAME = "clever_kitchen_new1.db"
         private const val DATABASE_VERSION = 1
 
         //shopping-list table
@@ -24,6 +26,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         private const val COL_RECIPE_NAME = "recipe_name"
         private const val COL_INGREDIENTS = "ingredients"
         private const val COL_DESCRIPTION = "description"
+        private const val COL_NOTES = "notes"
         private const val COL_IMG_LOCATION = "img_location"
         private const val COL_IS_FAVORITE = "is_favorite"
         private const val COL_CREATED_ON = "created_on"
@@ -48,6 +51,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
                 "$COL_RECIPE_NAME TEXT, " +
                 "$COL_INGREDIENTS TEXT, " +
                 "$COL_DESCRIPTION TEXT, " +
+                "$COL_NOTES TEXT , " +
                 "$COL_IMG_LOCATION TEXT, " +
                 "$COL_EMAIL_ID TEXT, " +
                 "$COL_IS_FAVORITE INT DEFAULT 0, " +
@@ -71,6 +75,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         val contentValues = ContentValues()
         contentValues.put(COL_RECIPE_NAME, recipe_name)
         contentValues.put(COL_INGREDIENTS, ingredients)
+        contentValues.put(COL_NOTES, "")
         contentValues.put(COL_DESCRIPTION, description)
         contentValues.put(COL_IMG_LOCATION, img_location)
         contentValues.put(COL_EMAIL_ID, email_id)
@@ -114,6 +119,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
                         cursor.getString(3),
                         cursor.getString(4),
                         cursor.getString(5),
+                        cursor.getString(6),
                         cursor.getInt(6)
                     )
                 )
@@ -122,6 +128,14 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         }
         Log.d("recipeList", recipeList.toString())
         return recipeList;
+    }
+
+    fun updateRecipeDetails(recipe_id: String, notes: String): Boolean {
+        val sqliteDatabase = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(COL_NOTES, notes)
+        val cursor = sqliteDatabase.update(RECIPE_TABLE, contentValues,"$COL_RECIPE_ID=?", arrayOf(recipe_id))
+        return cursor != -1
     }
 
     fun insertShoppingList(shoppingList:String?,email:String?): Boolean {
