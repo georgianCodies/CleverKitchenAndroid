@@ -55,12 +55,12 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ingredientsContainer"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="match_parent"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
+                android:ems="10"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="24dp"
                 android:hint="@string/recipe_ingredients_hint"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recipeNameContainer"
                 app:startIconDrawable="@drawable/ic_recipe_inglist">
@@ -74,17 +74,42 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+
+            <Button
+                android:id="@+id/addIngredientsbutton"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="28dp"
+                android:backgroundTint="@color/button_orange"
+                android:text="+"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/ingredientsContainer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ingredientsContainer"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/ingredientsChipGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="@+id/addIngredientsbutton"
+                app:layout_constraintStart_toStartOf="@+id/ingredientsContainer"
+                app:layout_constraintTop_toBottomOf="@+id/ingredientsContainer" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/descriptionContainer"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="10dp"
                 android:hint="@string/recipe_description_hint"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ingredientsContainer"
+                app:layout_constraintTop_toBottomOf="@+id/ingredientsChipGroup"
                 app:startIconDrawable="@drawable/ic_recipe_description">
 
                 <com.google.android.material.textfield.TextInputEditText

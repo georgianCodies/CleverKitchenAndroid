@@ -16,11 +16,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.mdev.cleverkitchenandroid.FirebaseStorageManager
 import com.mdev.cleverkitchenandroid.R
 import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
+import kotlinx.android.synthetic.main.fragment_add_recipe.*
 import java.sql.Date
 import java.text.SimpleDateFormat
 
@@ -36,6 +39,10 @@ class AddRecipeFragment : Fragment() {
 
     private val pickImage = 100
     private var imageUri: Uri? = null
+
+    private lateinit var chipGroup: ChipGroup
+    private var storedIngredientsList: String = "";
+    private var finalIngredientsList: MutableList<String> = mutableListOf()
 
     //var part_image: String? = null
 
@@ -58,6 +65,8 @@ class AddRecipeFragment : Fragment() {
         description = view.findViewById<TextView>(R.id.descriptionEditText)
         video = view.findViewById<Button>(R.id.videoInputButton);
         mStorageRef = FirebaseStorage.getInstance().getReference()
+        val addIngredientsbutton = view.findViewById<Button>(R.id.addIngredientsbutton);
+        chipGroup = view.findViewById(R.id.ingredientsChipGroup)
 //        firebaseDatabase = FirebaseDatabase.getInstance().getReference("recipeImages")
 //        firebaseDatabase.child("testing").setValue("valuye").addOnSuccessListener {
 //            Log.d("creat","successful")
@@ -71,6 +80,21 @@ class AddRecipeFragment : Fragment() {
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, pickImage)
 
+        }
+
+
+        addIngredientsbutton.setOnClickListener{
+            if(ingredients.text.toString().isNotEmpty()){
+                val ingredientsList = ingredients.text.toString()
+                val ingredientsArray:List<String> = ingredientsList.split(",")
+                Log.d("shoppingList",ingredientsList);
+                Log.d("shoppingListArray",ingredientsArray.toString())
+                finalIngredientsList+=ingredientsArray;
+                addChip(ingredientsArray.filter { item -> item.isNotEmpty() })
+                Log.d("final Array",finalIngredientsList.joinToString())
+               // database.insertShoppingList(finalIngredientsList.joinToString { it },emailId)
+                ingredients.text = ""
+            }
         }
 
         submitButton.setOnClickListener(View.OnClickListener { // store the returned value of the dedicated function which checks
@@ -100,7 +124,7 @@ class AddRecipeFragment : Fragment() {
                        //insertion
                        val insertRecipe = databaseClass.insertRecipe(recipeName.text.toString(),
                            ingredients.text.toString(),
-                           description.text.toString(),
+                           finalIngredientsList.joinToString { it },
                            imageUri.toString(),
                            emailId, dateTime)
                        println(insertRecipe.toString())
@@ -124,11 +148,7 @@ class AddRecipeFragment : Fragment() {
             video.setTag(imageUri)
             //imageView.setImageURI(imageUri)
         }
-
-
     }
-
-
 
 
     private fun checkAllFields(): Boolean {
@@ -136,7 +156,7 @@ class AddRecipeFragment : Fragment() {
             recipeName.error = "Recipe Name is required"
             return false
         }
-        if (ingredients.length() === 0) {
+        if (finalIngredientsList.isEmpty()) {
             ingredients.error = "Ingredients is required"
             return false
         }
@@ -149,5 +169,20 @@ class AddRecipeFragment : Fragment() {
     }
 
 
+    private fun addChip(ingredientsListArray: List<String>){
+        Log.d("addchip",ingredientsListArray.toString())
 
+        for(item in ingredientsListArray){
+            Log.d("element",item)
+            val chip = Chip(requireActivity())
+            chip.text = item
+            chip.isCloseIconVisible = true
+            chip.setOnCloseIconClickListener{
+                finalIngredientsList.remove(chip.text);
+                chipGroup.removeView(chip)
+                Log.d("final arrayy",finalIngredientsList.joinToString { it })
+            }
+            chipGroup.addView(chip)
+        }
+    }
 }
