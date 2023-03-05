@@ -11,8 +11,8 @@ import com.mdev.cleverkitchenandroid.model.User
 class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object{
-        private const val DATABASE_NAME = "clever_kitchen.db"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_NAME = "clever_kitchen_new1.db"
+        private const val DATABASE_VERSION = 2
 
         //shopping-list table
         private const val SHOPPING_LIST_TABLE = "shopping_list"
@@ -157,12 +157,13 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
     fun insertUser(email:String?,firstName:String?,lastName:String?,phone:String?,userImg:String?,username: String?, password: String?): Boolean {
         val sqliteDatabase = this.writableDatabase
         val contentValues = ContentValues()
+
+        Log.d("userImg",userImg.toString())
         contentValues.put(COL_EMAIL_ID,email)
         contentValues.put(COL_FIRST_NAME,firstName)
         contentValues.put(COL_LAST_NAME,lastName)
         contentValues.put(COL_PHONE,phone)
         contentValues.put(COL_USER_IMAGE,userImg)
-        contentValues.put(COL_EMAIL_ID,email)
         contentValues.put(COL_USER_NAME, username)
         contentValues.put(COL_PASSWORD, password)
         Log.d("insert user", contentValues.toString())
@@ -195,7 +196,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         Log.d("5",cursor.getString(5))
         Log.d("6",cursor.getString(6))
 
-        val user = User(cursor.getString(1), cursor.getString(2), cursor.getString(5),cursor.getString(0),cursor.getString(6))
+        val user = User(cursor.getString(0), cursor.getString(1), cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),cursor.getString(6))
         Log.d("logged-in user", cursor.getString(0).toString())
         return user
     }
@@ -207,6 +208,18 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         val contentValues = ContentValues()
         contentValues.put(COL_FIRST_NAME, firstName)
         contentValues.put(COL_LAST_NAME, lastName)
+        Log.d("recipeList", contentValues.toString())
+        val cursor = sqliteDatabase.update(USER_DETAILS_TABLE, contentValues,"$COL_EMAIL_ID=?", arrayOf(email))
+        Log.d("logged-in email", cursor.toString())
+        return cursor != -1
+    }
+
+    fun updateProfilePicture(email: String,imageUri:String): Boolean {
+        Log.d("logged-in user", imageUri)
+        Log.d("logged-in email", email)
+        val sqliteDatabase = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(COL_USER_IMAGE, imageUri)
         Log.d("recipeList", contentValues.toString())
         val cursor = sqliteDatabase.update(USER_DETAILS_TABLE, contentValues,"$COL_EMAIL_ID=?", arrayOf(email))
         Log.d("logged-in email", cursor.toString())

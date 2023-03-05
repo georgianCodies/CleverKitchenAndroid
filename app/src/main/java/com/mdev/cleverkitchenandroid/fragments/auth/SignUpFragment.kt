@@ -61,7 +61,6 @@ class SignUpFragment : Fragment() {
             println("upload image button clicked!")
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, pickImage)
-
         }
 
         val signUpButton =  view.findViewById<Button>(R.id.signUpScreenSignUpButton)
@@ -77,7 +76,6 @@ class SignUpFragment : Fragment() {
             if(validateFields()){
                 if(database.checkEmail(email)) {
                     imgURI = imageButton.tag as Uri?
-                    var imageUriStr = ""
                     if(imgURI != null){
 
                         FirebaseStorageManager().uploadImage(
@@ -87,12 +85,9 @@ class SignUpFragment : Fragment() {
                             email
                         ) { imageUri ->
                             Log.d("Add profile image- uploaded", imageUri.toString())
+                            database.insertUser(email,fname,lname,mobileno,imageUri.toString(),name, password)
                         }
-                        imageUriStr = imgURI.toString()
                     }
-//                    change parameters
-                    database.insertUser(email,fname,lname,mobileno,imageUriStr,name, password)
-
                     view.findNavController().popBackStack()
                 }
                 else{
