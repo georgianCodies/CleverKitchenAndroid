@@ -98,6 +98,10 @@ class ProfileFragment : Fragment() {
         }
         profileViewModel.lastName.value = userDetails.lastName
 
+
+  
+        profileViewModel.userName.value = userDetails.userName
+
         deleteAccountButton.setOnClickListener {
             database.deleteUser(emailId.toString())
             Toast.makeText(this@ProfileFragment.requireActivity(), "Your account has been deleted", Toast.LENGTH_SHORT).show()

@@ -201,14 +201,15 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         return user
     }
 
-    fun updateUser(email: String,firstName:String,lastName:String): Boolean {
+    fun updateUser(email: String,firstName:String,lastName:String,username: String?): Boolean {
         Log.d("logged-in user", firstName)
         Log.d("logged-in email", email)
         val sqliteDatabase = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(COL_FIRST_NAME, firstName)
         contentValues.put(COL_LAST_NAME, lastName)
-        Log.d("recipeList", contentValues.toString())
+        contentValues.put(COL_USER_NAME, username)
+        Log.d("userdetails", contentValues.toString())
         val cursor = sqliteDatabase.update(USER_DETAILS_TABLE, contentValues,"$COL_EMAIL_ID=?", arrayOf(email))
         Log.d("logged-in email", cursor.toString())
         return cursor != -1
