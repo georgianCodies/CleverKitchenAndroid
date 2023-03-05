@@ -153,7 +153,8 @@
                                 android:gravity="center|left"
                                 android:inputType="textMultiLine"
                                 android:minLines="10"
-                                android:textColor="@color/black"/>
+                                android:textColor="@color/black"
+                                android:hint="Add notes here..."/>
                         </FrameLayout>
                     </LinearLayout>
                 </LinearLayout>
