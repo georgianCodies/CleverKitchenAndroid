@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +12,15 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.textfield.TextInputEditText
 import com.mdev.cleverkitchenandroid.R
 import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
+import kotlinx.android.synthetic.main.fragment_add_recipe.*
 import kotlinx.android.synthetic.main.fragment_recipe_details.*
 
 class RecipeDetailsFragment : Fragment() {
@@ -32,9 +36,13 @@ class RecipeDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_recipe_details, container, false)
-        val saveButton = view.findViewById<Button>(R.id.saveButton);
+        val saveButton = view.findViewById<ImageView>(R.id.saveButton);
+        val editButton = view.findViewById<ImageView>(R.id.editButton);
 
         var isAllFieldsChecked = false;
+        saveButton.isInvisible = true;
+        view.findViewById<TextInputEditText>(R.id.notes).isInvisible = true;
+        view.findViewById<TextInputEditText>(R.id.notesView).isInvisible = false;
 
         saveButton.setOnClickListener(View.OnClickListener {
 
@@ -50,10 +58,25 @@ class RecipeDetailsFragment : Fragment() {
                 val insertRecipe = databaseClass.updateRecipeDetails(
                     requireArguments().getInt("recipe_id").toString(),
                     notes.text.toString()
-                )
+                );
+                if(insertRecipe){
+                    editButton.isInvisible = false;
+                    saveButton.isInvisible = true;
+                    view.findViewById<TextInputEditText>(R.id.notes).isInvisible = true;
+                    view.findViewById<TextInputEditText>(R.id.notesView).isInvisible = false;
+                    view.findViewById<TextView>(R.id.notesView).text = view.findViewById<TextView>(R.id.notes).text;
+                }
+                Log.d("Value", insertRecipe.toString());
+
                 println(insertRecipe.toString())
             }
 
+        })
+        editButton.setOnClickListener({
+            view.findViewById<TextInputEditText>(R.id.notesView).isInvisible = true;
+            view.findViewById<TextInputEditText>(R.id.notes).isInvisible = false;
+            editButton.isInvisible = true;
+            saveButton.isInvisible = false;
         })
         return view
     }
@@ -66,7 +89,8 @@ class RecipeDetailsFragment : Fragment() {
         view.findViewById<TextView>(R.id.recipe_name).text = requireArguments().getString("recipe_name")
         view.findViewById<TextView>(R.id.description).text = requireArguments().getString("description")
         view.findViewById<TextView>(R.id.notes).text = requireArguments().getString("notes")
-        view.findViewById<TextView>(R.id.recipe_sub_name).text = requireArguments().getString("recipe_name") + ": A classic Indian dish"
+        view.findViewById<TextView>(R.id.notesView).text = requireArguments().getString("notes")
+        view.findViewById<TextView>(R.id.recipe_sub_name).text = requireArguments().getString("recipe_name")
         view.findViewById<TextView>(R.id.how_to).text = "How to make " + requireArguments().getString("recipe_name")+"?"
 
         var imageUriValue = Uri.parse(requireArguments().getString("img_location"))
