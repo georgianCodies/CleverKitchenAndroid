@@ -56,6 +56,8 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
                     putString("recipe_name", recipiesModelList.recipe_name)
                     putString("chip", recipiesModelList.ingredients)
                     putString("description", recipiesModelList.description)
+                    putString("ingredients", recipiesModelList.ingredients)
+                    putString("notes", recipiesModelList.notes)
                     putString("img_location", recipiesModelList.img_location)
                     putString("email_id", recipiesModelList.email_id)
                     putInt("recipe_id", recipiesModelList.recipe_id)
