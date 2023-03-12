@@ -109,6 +109,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
 
         val recipeList: ArrayList<Recipe> = ArrayList()
 
+
         if (cursor.moveToFirst()) {
             do {
                 recipeList.add(
@@ -120,7 +121,8 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
                         cursor.getString(4),
                         cursor.getString(5),
                         cursor.getString(6),
-                        cursor.getInt(6)
+                        cursor.getString(8),
+                        cursor.getInt(7)
                     )
                 )
             } while (cursor.moveToNext())
