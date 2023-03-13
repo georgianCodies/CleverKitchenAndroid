@@ -32,19 +32,36 @@ class SignInFragment : Fragment() {
         signInButton.setOnClickListener{
             email = emailTextView.text.toString()
             password = passwordTextView.text.toString()
-            if(validateFields()){
-                if(database.checkLogin(email,password)){
-                    val sharedPreference =  activity?.getSharedPreferences("userDetails",Context.MODE_PRIVATE)
+            if(validateFields()) {
+               /* if (email == "abc1@gmail.com" && password == "123456") {
+                    val sharedPreference =
+                        activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
                     var editor = sharedPreference?.edit()
-                    editor?.putString("emailId",database.getUserEmail(email))
+                    editor?.putString("emailId", database.getUserEmail(email))
                     editor?.commit()
-                    view.findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
-                }
-                else{
-                    Toast.makeText(this@SignInFragment.requireActivity(), "Please sign up before your login", Toast.LENGTH_SHORT).show()
-                }
-            }else{
-                Toast.makeText(this@SignInFragment.requireActivity(), "Invalid username or password", Toast.LENGTH_SHORT).show()
+                    view.findNavController()
+                        .navigate(R.id.action_signInFragment_to_homeFragment)
+                } else */ if (database.checkLogin(email, password)) {
+                        val sharedPreference =
+                            activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
+                        var editor = sharedPreference?.edit()
+                        editor?.putString("emailId", database.getUserEmail(email))
+                        editor?.commit()
+                        view.findNavController()
+                            .navigate(R.id.action_signInFragment_to_homeFragment)
+                    } else {
+                        Toast.makeText(
+                            this@SignInFragment.requireActivity(),
+                            "Please sign up before your login",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+            } else{
+                Toast.makeText(
+                    this@SignInFragment.requireActivity(),
+                    "Invalid username or password",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
         val signUpTextView =  view.findViewById<TextView>(R.id.signUpInSignInTextView)

@@ -31,7 +31,7 @@ class ViewRecipeFragment : Fragment() {
 
         val rvRecipies: RecyclerView = view.findViewById(R.id.rv_recipies)
         rvRecipies.layoutManager = LinearLayoutManager(view.context)
-        val receipiesAdapter = FragmentViewRecipeAdapter(dataBaseArrayList,userDetails)
+        val receipiesAdapter = FragmentViewRecipeAdapter(dataBaseArrayList,userDetails,databaseClass)
         rvRecipies.adapter = receipiesAdapter
 
         return view
