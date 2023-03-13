@@ -52,7 +52,7 @@
                 <TextView
                     android:id="@+id/tv_name"
                     android:paddingLeft="1dp"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:layout_gravity="bottom"
                     android:text="@string/micheal"
                     android:gravity="left"
