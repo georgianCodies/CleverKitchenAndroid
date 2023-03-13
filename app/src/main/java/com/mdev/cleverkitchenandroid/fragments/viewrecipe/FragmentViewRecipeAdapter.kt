@@ -52,7 +52,7 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
 
 
         holder.itemView.setOnClickListener{
-                holder.itemView.findNavController().navigate(R.id.action_viewRecipeFragment_to_recipeDetailsFragment, Bundle().apply {
+            holder.itemView.findNavController().navigate(R.id.action_viewRecipeFragment_to_recipeDetailsFragment, Bundle().apply {
                     putString("recipe_name", recipiesModelList.recipe_name)
                     putString("chip", recipiesModelList.ingredients)
                     putString("description", recipiesModelList.description)
