@@ -7,19 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.net.toUri
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mdev.cleverkitchenandroid.R
+import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
 import com.mdev.cleverkitchenandroid.model.Recipe
 import com.mdev.cleverkitchenandroid.model.User
 import java.security.AccessController.getContext
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  val profileDetails : User) :
+class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  val profileDetails : User,val databaseHelper: CleverKitchenDatabase) :
     RecyclerView.Adapter<FragmentViewRecipeAdapter.ViewHolder>() {
     // create new views
 
@@ -29,6 +31,7 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
 
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_recipe, parent, false)
+
         return ViewHolder(view)
     }
 
@@ -37,13 +40,33 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val recipiesModelList = recipiesList[position]
+
         // sets the image to the imageview from our itemHolder class
         // sets the text to the textview from our itemHolder class
         holder.tvDesc.text = recipiesModelList.description
 //        holder.ivDish.setImageResource(R.drawable.ic_dish2)
         holder.tvTag.text = recipiesModelList.ingredients
-        holder.tvDate.text = getCurrentDate()
+        holder.tvDate.text = recipiesModelList.createdOn
         holder.tvName.text = profileDetails.userName
+        if (recipiesModelList.is_fav === 1){
+            holder.isFav.setImageResource(R.drawable.heart)
+        }else{
+            holder.isFav.setImageResource(R.drawable.heart_outline)
+        }
+        holder.isFav.setOnClickListener {
+            val is_fav = if (recipiesModelList.is_fav == 1)  0 else 1
+            if (is_fav === 1){
+                holder.isFav.setImageResource(R.drawable.heart)
+            }else{
+                holder.isFav.setImageResource(R.drawable.heart_outline)
+            }
+            val recipe_id = recipiesModelList.recipe_id.toString()
+
+            databaseHelper.toggleFavorite(recipe_id, is_fav)
+
+//            Toast.makeText(requireContext(), if (is_fav == 1) "Added to Favorites" else "Removed from Favorites", Toast.LENGTH_SHORT).show()
+        }
+
 //        holder.ivDish.setImageURI(null)
 //        "https://firebasestorage.googleapis.com/v0/b/clever-kitchen-eac52.appspot.com/o/recipeImages%2FSat%20Feb%2004%2016%3A26%3A10%20EST%202"
         Glide.with(holder.itemView.context)
@@ -84,6 +107,7 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
         val tvDate: TextView = itemView.findViewById(R.id.tv_date)
         val tvTag: TextView = itemView.findViewById(R.id.tv_tag)
         val tvName: TextView = itemView.findViewById(R.id.tv_name)
+        val isFav: ImageView = itemView.findViewById(R.id.like_recipe)
     }
 }
 

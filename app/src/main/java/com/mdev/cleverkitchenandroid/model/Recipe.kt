@@ -8,5 +8,6 @@ data class Recipe(
      var notes: String,
      var img_location: String,
      var email_id: String,
+     var createdOn:String,
      var is_fav: Int
      ){}
