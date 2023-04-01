@@ -59,7 +59,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ingredientsContainer"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="280dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="24dp"
@@ -78,23 +78,75 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/quantityContainer"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.007"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ingredientsContainer">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/quantityLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:hint="@string/recipe_quantity_hint"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/quantityEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:lines="1" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/quantityUnitLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/recipe_unit_hint"
+                    android:layout_marginLeft="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.323"
+                    app:layout_constraintStart_toEndOf="@+id/quantityLayout"
+                    app:layout_constraintTop_toTopOf="@+id/quantityLayout">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/quantityUnitText"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:padding="10dp"
+                        android:inputType="textAutoComplete"
+                        android:lines="1" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
                 android:id="@+id/addIngredientsbutton"
-                android:layout_width="40dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="20dp"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="28dp"
                 android:backgroundTint="@color/button_orange"
+                android:textSize="30dp"
                 android:text="+"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@id/ingredientsContainer"
+                app:layout_constraintBottom_toBottomOf="@id/quantityContainer"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ingredientsContainer"
-                app:layout_constraintTop_toTopOf="@id/ingredientsContainer"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintStart_toEndOf="@+id/quantityContainer"
+                app:layout_constraintTop_toTopOf="@id/quantityContainer"
+                app:layout_constraintVertical_bias="0.592" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/ingredientsChipGroup"
@@ -102,8 +154,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 app:layout_constraintEnd_toEndOf="@+id/addIngredientsbutton"
-                app:layout_constraintStart_toStartOf="@+id/ingredientsContainer"
-                app:layout_constraintTop_toBottomOf="@+id/ingredientsContainer" />
+                app:layout_constraintStart_toStartOf="@+id/quantityContainer"
+                app:layout_constraintTop_toBottomOf="@+id/quantityContainer" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/descriptionContainer"

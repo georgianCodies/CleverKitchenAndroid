@@ -11,9 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.ValueCallback
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.android.material.chip.Chip
@@ -35,6 +34,7 @@ class AddRecipeFragment : Fragment() {
     private lateinit var recipeName: TextView
     private lateinit var ingredients: TextView
     private lateinit var description: TextView
+
     private lateinit var video: Button
     private var mStorageRef: StorageReference? = null
 
@@ -68,14 +68,18 @@ class AddRecipeFragment : Fragment() {
         description = view.findViewById<TextView>(R.id.descriptionEditText)
         video = view.findViewById<Button>(R.id.videoInputButton);
         mStorageRef = FirebaseStorage.getInstance().getReference()
+
+        val quantity = view.findViewById<EditText>(R.id.quantityEditText);
+        val unitText = view.findViewById<AutoCompleteTextView>(R.id.quantityUnitText)
+        val unitOptions = arrayOf("grams", "kilograms", "liters", "milliliters", "cups", "teaspoons", "tablespoons")
+        val unitAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, unitOptions)
+        unitText.setAdapter(unitAdapter);
+        unitText.threshold = 1;
+
         val addIngredientsbutton = view.findViewById<Button>(R.id.addIngredientsbutton);
+
+
         chipGroup = view.findViewById(R.id.ingredientsChipGroup)
-//        firebaseDatabase = FirebaseDatabase.getInstance().getReference("recipeImages")
-//        firebaseDatabase.child("testing").setValue("valuye").addOnSuccessListener {
-//            Log.d("creat","successful")
-//        }.addOnFailureListener{
-//            Log.d("error",it.toString())
-//        }
         var isAllFieldsChecked = false;
         var imgURI = Uri.parse("");
         video.setOnClickListener {
@@ -85,38 +89,43 @@ class AddRecipeFragment : Fragment() {
 
         }
 
-
         addIngredientsbutton.setOnClickListener{
             if(ingredients.text.toString().isNotEmpty()){
 
-                val ingredientsText = ingredients.text.toString()
+                val quantityAdd = quantity.text.toString();
+                val unitAdd = unitText.text.toString();
+                val ingredientsList = ingredients.text.toString()
 
-// Split the text into lines
-                val lines = ingredientsText.split("\\r?\\n".toRegex()).toTypedArray()
-
-// Regular expression pattern to extract ingredient and quantity
-                val pattern = Pattern.compile("(?<ingredient>.+)\\s+-\\s+(?<quantity>.+)")
-
-                for (line in lines) {
-                    // Match the pattern against each line
-                    val matcher = pattern.matcher(line)
-                    if (!matcher.matches()) {
-                        ingredientsEditText.error = "Please enter ingredients in the format: Ingredient - Quantity (Ex: Sugar - 2 Spoons)"
+                    if(quantityAdd.isNullOrEmpty() ){
+                        quantity.error = "Please enter quantity!"
                         return@setOnClickListener;
                     }
+                    if(unitAdd.isNullOrEmpty() ){
+                        unitText.error = "Please enter units!"
+                        return@setOnClickListener;
+                    }
+
+
+
+                val ingredientsArray:List<String> = ingredientsList.split(",")
+
+                val updatedIngredientsArray = mutableListOf<String>()
+                for (ingredient in ingredientsArray) {
+                    updatedIngredientsArray.add("$ingredient: $quantityAdd $unitAdd")
                 }
 
-
-
-                val ingredientsList = ingredients.text.toString()
-                val ingredientsArray:List<String> = ingredientsList.split(",")
                 Log.d("shoppingList",ingredientsList);
                 Log.d("shoppingListArray",ingredientsArray.toString())
-                finalIngredientsList+=ingredientsArray;
-                addChip(ingredientsArray.filter { item -> item.isNotEmpty() })
+                finalIngredientsList+=updatedIngredientsArray;
+                addChip(updatedIngredientsArray.filter { item -> item.isNotEmpty() })
                 Log.d("final Array",finalIngredientsList.joinToString())
                // database.insertShoppingList(finalIngredientsList.joinToString { it },emailId)
                 ingredients.text = ""
+                quantity.text = null;
+                unitText.text = null;
+
+            }else{
+                ingredients.error = "Please enter ingredient!"
             }
         }
 
