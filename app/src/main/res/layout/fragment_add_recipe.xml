@@ -9,10 +9,14 @@
     tools:context=".fragments.addrecipe.AddRecipeFragment">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="15dp"
         android:scrollbars="none"
-        android:layout_margin="15dp">
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="15dp">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -57,9 +61,9 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="24dp"
+                android:ems="10"
                 android:hint="@string/recipe_ingredients_hint"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recipeNameContainer"
@@ -78,7 +82,8 @@
             <Button
                 android:id="@+id/addIngredientsbutton"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginEnd="28dp"
                 android:backgroundTint="@color/button_orange"
                 android:text="+"
@@ -87,6 +92,7 @@
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@id/ingredientsContainer"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ingredientsContainer"
                 app:layout_constraintTop_toTopOf="@id/ingredientsContainer"
                 app:layout_constraintVertical_bias="0.0" />
 
@@ -138,27 +144,51 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
+                    android:clickable="true"
                     android:gravity="center"
                     android:text="Upload Image"
                     android:textColor="@color/black"
                     app:strokeColor="@color/black"
-                    android:clickable="true"
-                    app:strokeWidth="1dp"/>
+                    app:strokeWidth="1dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/submitButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="@color/button_orange"
-                android:text="@string/submit_button_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/videoContainer" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/buttonContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/videoContainer">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/cancelButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/button_gray"
+                    android:text="Cancel"
+                    app:layout_constraintEnd_toStartOf="@id/submitButton"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/submitButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:backgroundTint="@color/button_orange"
+                    android:text="@string/submit_button_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@id/cancelButton"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

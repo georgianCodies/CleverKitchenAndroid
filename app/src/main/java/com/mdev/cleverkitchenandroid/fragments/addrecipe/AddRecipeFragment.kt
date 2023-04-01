@@ -26,6 +26,7 @@ import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
 import kotlinx.android.synthetic.main.fragment_add_recipe.*
 import java.sql.Date
 import java.text.SimpleDateFormat
+import java.util.regex.Pattern
 
 
 @Suppress("DEPRECATION")
@@ -60,6 +61,8 @@ class AddRecipeFragment : Fragment() {
 
         val submitButton = view.findViewById<Button>(R.id.submitButton);
 
+        val cancelButton = view.findViewById<Button>(R.id.cancelButton);
+
         recipeName = view.findViewById<TextView>(R.id.recipeNameEditText);
         ingredients = view.findViewById<TextView>(R.id.ingredientsEditText)
         description = view.findViewById<TextView>(R.id.descriptionEditText)
@@ -85,6 +88,26 @@ class AddRecipeFragment : Fragment() {
 
         addIngredientsbutton.setOnClickListener{
             if(ingredients.text.toString().isNotEmpty()){
+
+                val ingredientsText = ingredients.text.toString()
+
+// Split the text into lines
+                val lines = ingredientsText.split("\\r?\\n".toRegex()).toTypedArray()
+
+// Regular expression pattern to extract ingredient and quantity
+                val pattern = Pattern.compile("(?<ingredient>.+)\\s+-\\s+(?<quantity>.+)")
+
+                for (line in lines) {
+                    // Match the pattern against each line
+                    val matcher = pattern.matcher(line)
+                    if (!matcher.matches()) {
+                        ingredientsEditText.error = "Please enter ingredients in the format: Ingredient - Quantity (Ex: Sugar - 2 Spoons)"
+                        return@setOnClickListener;
+                    }
+                }
+
+
+
                 val ingredientsList = ingredients.text.toString()
                 val ingredientsArray:List<String> = ingredientsList.split(",")
                 Log.d("shoppingList",ingredientsList);
@@ -116,6 +139,7 @@ class AddRecipeFragment : Fragment() {
                 val dateTime: String = sdf.format(Date(timestamp))
 
                 val imgURI = video.tag as Uri?
+                this.imageUri = imgURI;
                 if(imgURI == null){
                     Toast.makeText(requireContext(),"Please select image first",Toast.LENGTH_SHORT).show()
                 }else{
@@ -135,9 +159,15 @@ class AddRecipeFragment : Fragment() {
                 }
                 view.findNavController().navigate(R.id.action_addRecipeFragment_to_homeFragment)
             }
-        })
+        });
 
-        return view
+        cancelButton.setOnClickListener(View.OnClickListener {
+            println("cancel clicked!")
+            view.findNavController().navigate(R.id.action_addRecipeFragment_to_homeFragment)
+        });// store the returned value of the dedicated function which checks
+
+
+            return view;
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -163,6 +193,11 @@ class AddRecipeFragment : Fragment() {
         }
         if (description.length() === 0) {
             description.error = "Description is required"
+            return false
+        }
+        if(this.imageUri == null){
+            video.error = "Please Upload an Image"
+            Toast.makeText(requireContext(),"Please Upload an Image!",Toast.LENGTH_SHORT).show()
             return false
         }
         // after all validation return true.

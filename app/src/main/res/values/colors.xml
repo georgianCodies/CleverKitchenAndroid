@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="button_orange">#FF5722</color>
+    <color name="button_gray">#6A6766</color>
     <color name="themecolor">#FF5722</color>
     <color name="errortextcolor">#E94057</color>
 </resources>

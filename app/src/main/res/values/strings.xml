@@ -28,7 +28,7 @@
     <string name="recipe_name_text">Recipe Name:</string>
     <string name="recipe_name_hint">Enter Recipe Name</string>
     <string name="ingredients_text">Ingredients:</string>
-    <string name="recipe_ingredients_hint">Enter recipe ingredients</string>
+    <string name="recipe_ingredients_hint">Add ingredients and quantity</string>
     <string name="description_text">Description:</string>
     <string name="recipe_description_hint">Enter recipe description</string>
     <string name="video_text">Video:</string>
