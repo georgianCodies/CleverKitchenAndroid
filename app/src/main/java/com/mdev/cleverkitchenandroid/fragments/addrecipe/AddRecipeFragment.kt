@@ -123,8 +123,9 @@ class AddRecipeFragment : Fragment() {
                        Log.d("Add recipe- uploaded",imageUri.toString())
                        //insertion
                        val insertRecipe = databaseClass.insertRecipe(recipeName.text.toString(),
-                           ingredients.text.toString(),
+//                           ingredients.text.toString(),
                            finalIngredientsList.joinToString { it },
+                           description.text.toString(),
                            imageUri.toString(),
                            emailId, dateTime)
                        println(insertRecipe.toString())

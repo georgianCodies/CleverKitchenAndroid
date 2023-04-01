@@ -24,13 +24,6 @@
                 android:layout_width="65dp"
                 android:layout_height="65dp">
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/iv_profile"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_baseline_account_circle_24" />
-
                 <ImageView
                     android:layout_width="18dp"
                     android:layout_height="18dp"
@@ -50,18 +43,33 @@
                 android:layout_toEndOf="@+id/rl_pic"
                 android:orientation="vertical"
                 android:padding="8dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                >
 
                 <TextView
                     android:id="@+id/tv_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:padding="5dp"
+                    android:paddingLeft="1dp"
+                    android:textSize="20sp"
+                    android:layout_gravity="bottom"
                     android:text="@string/micheal"
-                    android:textSize="16sp"
+                    android:gravity="left"
                     android:textColor="@color/black"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
                     android:textStyle="bold" />
 
+                <ImageView
+                    android:id="@+id/like_recipe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:src="@drawable/heart_outline"
+                    android:layout_weight="0.1"/>
+            </LinearLayout>
                 <TextView
                     android:id="@+id/tv_date"
                     android:layout_width="match_parent"
@@ -69,10 +77,18 @@
                     android:layout_gravity="center_vertical"
                     android:padding="5dp"
                     android:text="@string/mar_25_2022"
-                    android:textSize="12sp" />
+                    android:textSize="17sp" />
 
             </LinearLayout>
 
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+
+                android:src="@drawable/ic_baseline_account_circle_24" />
 
 
         </RelativeLayout>

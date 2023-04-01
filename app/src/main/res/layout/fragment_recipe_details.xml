@@ -55,26 +55,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:gravity="center_vertical"
                         android:padding="8dp">
 
                         <TextView
                             android:id="@+id/recipe_sub_name"
-                            android:text="Butter Chicken: A classic Indian dish"
+                            android:text="Butter Chicken"
                             android:textSize="14sp"
                             android:textStyle="bold"
                             android:textColor="@color/black"
-                            android:layout_width="wrap_content"
+                            android:layout_width="330dp"
                             android:layout_height="wrap_content"/>
 
                         <ImageView
                             android:id="@+id/like_recipe"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
                             android:layout_marginStart="6dp"
                             android:src="@drawable/heart_outline" />
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -83,22 +81,22 @@
                         android:orientation="horizontal"
                         android:padding="8dp">
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Butter"
-                            app:chipCornerRadius="5sp"
-                            android:layout_marginRight="5dp"/>
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chip_Group"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </com.google.android.material.chip.ChipGroup>
 
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="60dp"
                         android:orientation="horizontal"
-                        android:padding="8dp">
+                        android:padding="8dp"
+                        android:background="#FFE79E">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -110,8 +108,54 @@
                             android:textStyle="normal"
                             android:paddingLeft="10sp"
                             android:textColor="@color/black"
+                            android:layout_width="320dp"
+                            android:layout_height="match_parent"/>
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/editButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_baseline_edit_notes" />
+
+                            <ImageView
+                                android:id="@+id/saveButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_baseline_save_24" />
+                        </FrameLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:padding="8dp"
+                        android:background="#FFE79E">
+
+                        <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/notes"
+                                android:layout_width="match_parent"
+                                android:layout_height="54dp"
+                                android:gravity="center|left"
+                                android:inputType="textMultiLine"
+                                android:minLines="10"
+                                android:hint="Add notes here..."/>
+                            <TextView
+                                android:id="@+id/notesView"
+                                android:layout_width="match_parent"
+                                android:layout_height="54dp"
+                                android:gravity="center|left"
+                                android:inputType="textMultiLine"
+                                android:minLines="10"
+                                android:textColor="@color/black"
+                                android:hint="Add notes here..."/>
+                        </FrameLayout>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

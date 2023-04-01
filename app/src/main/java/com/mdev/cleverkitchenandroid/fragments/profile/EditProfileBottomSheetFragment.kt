@@ -36,6 +36,10 @@ class EditProfileBottomSheetFragment(email: String) : BottomSheetDialogFragment(
             binding.lastName.setText(userDetails.lastName)
         }
 
+        profileViewModel.userName.observe(viewLifecycleOwner){
+            binding.userName.setText(userDetails.userName)
+        }
+
         binding.saveButton.setOnClickListener {
             saveAction()
         }
@@ -52,15 +56,16 @@ class EditProfileBottomSheetFragment(email: String) : BottomSheetDialogFragment(
         val emailId = sharedPreferences?.getString("emailId","")
         val firstName = binding.firstName.text.toString();
         val lastName = binding.lastName.text.toString();
-
+        val userName = binding.userName.text.toString();
         profileViewModel.firstName.value = firstName
         profileViewModel.lastName.value = lastName
-
+        profileViewModel.userName.value = userName
         binding.firstName.setText(firstName)
         binding.lastName.setText(lastName)
+        binding.userName.setText(userName)
         dismiss()
-//        update paramss -------
-        database.updateUser(emailId.toString(), firstName,lastName)
+//        update params -------
+        database.updateUser(emailId.toString(), firstName,lastName,userName)
     }
 
 }

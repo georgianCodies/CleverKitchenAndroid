@@ -13,6 +13,7 @@
     <string name="enterName">Enter username</string>
     <string name="enterFName">Firstname</string>
     <string name="enterLName">Lastname</string>
+    <string name="browse">Browse Profile Image</string>
     <string name="enterMNO">Enter mobile number</string>
     <string name="confirmPassword">Confirm Password</string>
     <string name="nameText">Name</string>
@@ -41,4 +42,7 @@
     <string name="text_label_1">Home</string>
     <string name="text_label_2">Profile</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="logout">Logout</string>
+    <string name="edit_profile">Edit Profile</string>
 </resources>

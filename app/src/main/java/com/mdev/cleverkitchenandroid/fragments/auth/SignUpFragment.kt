@@ -1,17 +1,25 @@
 package com.mdev.cleverkitchenandroid.fragments.auth
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.ValueCallback
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
+import com.mdev.cleverkitchenandroid.FirebaseStorageManager
 import com.mdev.cleverkitchenandroid.R
 import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
 import cz.msebera.android.httpclient.Header
@@ -25,6 +33,12 @@ class SignUpFragment : Fragment() {
     var email:String = ""
     var password:String = ""
     var confirmPassword:String = ""
+    private var mStorageRef: StorageReference? = null
+    private val pickImage = 100
+    private var imageUri: Uri? = null
+    var filePath: ValueCallback<Array<Uri>>? = null
+    private lateinit var imageButton: Button
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +52,16 @@ class SignUpFragment : Fragment() {
         val passwordTextView = view.findViewById<TextView>(R.id.inputPasswordSignUp)
         val confirmPasswordTextView = view.findViewById<TextView>(R.id.inputConfirmPasswordSignUp)
         val database = CleverKitchenDatabase(requireActivity())
+        mStorageRef = FirebaseStorage.getInstance().getReference()
+
+        var isAllFieldsChecked = false;
+        var imgURI = Uri.parse("");
+        imageButton =  view.findViewById<Button>(R.id.signUpScreenImageButton)
+        imageButton.setOnClickListener {
+            println("upload image button clicked!")
+            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+            startActivityForResult(gallery, pickImage)
+        }
 
         val signUpButton =  view.findViewById<Button>(R.id.signUpScreenSignUpButton)
         signUpButton.setOnClickListener{
@@ -48,12 +72,22 @@ class SignUpFragment : Fragment() {
             email = emailTextView.text.toString()
             password = passwordTextView.text.toString()
             confirmPassword = confirmPasswordTextView.text.toString()
+
             if(validateFields()){
                 if(database.checkEmail(email)) {
+                    imgURI = imageButton.tag as Uri?
+                    if(imgURI != null){
 
-//                    change parameters
-                    database.insertUser(email,fname,lname,mobileno,"",name, password)
-
+                        FirebaseStorageManager().uploadImage(
+                            requireContext(),
+                            "profile-images",
+                            imgURI,
+                            email
+                        ) { imageUri ->
+                            Log.d("Add profile image- uploaded", imageUri.toString())
+                            database.insertUser(email,fname,lname,mobileno,imageUri.toString(),name, password)
+                        }
+                    }
                     view.findNavController().popBackStack()
                 }
                 else{
@@ -67,6 +101,19 @@ class SignUpFragment : Fragment() {
             view.findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
         }
         return view
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == pickImage) {
+            imageUri = data?.data
+            println(imageUri);
+            Log.d("image uri",imageUri.toString())
+           imageButton.setTag(imageUri)
+            //imageView.setImageURI(imageUri)
+        }
+
+
     }
 
     private fun validateFields(): Boolean {

@@ -5,13 +5,15 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.mdev.cleverkitchenandroid.model.Recipe
 import com.mdev.cleverkitchenandroid.model.User
 
 class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object{
-        private const val DATABASE_NAME = "clever_kitchen.db"
+        private const val DATABASE_NAME = "clever_kitchen_new4.db"
         private const val DATABASE_VERSION = 1
 
         //shopping-list table
@@ -24,6 +26,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         private const val COL_RECIPE_NAME = "recipe_name"
         private const val COL_INGREDIENTS = "ingredients"
         private const val COL_DESCRIPTION = "description"
+        private const val COL_NOTES = "notes"
         private const val COL_IMG_LOCATION = "img_location"
         private const val COL_IS_FAVORITE = "is_favorite"
         private const val COL_CREATED_ON = "created_on"
@@ -48,6 +51,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
                 "$COL_RECIPE_NAME TEXT, " +
                 "$COL_INGREDIENTS TEXT, " +
                 "$COL_DESCRIPTION TEXT, " +
+                "$COL_NOTES TEXT , " +
                 "$COL_IMG_LOCATION TEXT, " +
                 "$COL_EMAIL_ID TEXT, " +
                 "$COL_IS_FAVORITE INT DEFAULT 0, " +
@@ -71,6 +75,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         val contentValues = ContentValues()
         contentValues.put(COL_RECIPE_NAME, recipe_name)
         contentValues.put(COL_INGREDIENTS, ingredients)
+        contentValues.put(COL_NOTES, "")
         contentValues.put(COL_DESCRIPTION, description)
         contentValues.put(COL_IMG_LOCATION, img_location)
         contentValues.put(COL_EMAIL_ID, email_id)
@@ -104,6 +109,7 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
 
         val recipeList: ArrayList<Recipe> = ArrayList()
 
+
         if (cursor.moveToFirst()) {
             do {
                 recipeList.add(
@@ -114,7 +120,9 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
                         cursor.getString(3),
                         cursor.getString(4),
                         cursor.getString(5),
-                        cursor.getInt(6)
+                        cursor.getString(6),
+                        cursor.getString(8),
+                        cursor.getInt(7)
                     )
                 )
             } while (cursor.moveToNext())
@@ -122,6 +130,14 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         }
         Log.d("recipeList", recipeList.toString())
         return recipeList;
+    }
+
+    fun updateRecipeDetails(recipe_id: String, notes: String): Boolean {
+        val sqliteDatabase = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(COL_NOTES, notes)
+        val cursor = sqliteDatabase.update(RECIPE_TABLE, contentValues,"$COL_RECIPE_ID=?", arrayOf(recipe_id))
+        return cursor != -1
     }
 
     fun insertShoppingList(shoppingList:String?,email:String?): Boolean {
@@ -157,12 +173,13 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
     fun insertUser(email:String?,firstName:String?,lastName:String?,phone:String?,userImg:String?,username: String?, password: String?): Boolean {
         val sqliteDatabase = this.writableDatabase
         val contentValues = ContentValues()
+
+        Log.d("userImg",userImg.toString())
         contentValues.put(COL_EMAIL_ID,email)
         contentValues.put(COL_FIRST_NAME,firstName)
         contentValues.put(COL_LAST_NAME,lastName)
         contentValues.put(COL_PHONE,phone)
         contentValues.put(COL_USER_IMAGE,userImg)
-        contentValues.put(COL_EMAIL_ID,email)
         contentValues.put(COL_USER_NAME, username)
         contentValues.put(COL_PASSWORD, password)
         Log.d("insert user", contentValues.toString())
@@ -195,18 +212,31 @@ class CleverKitchenDatabase(context:Context) : SQLiteOpenHelper(context, DATABAS
         Log.d("5",cursor.getString(5))
         Log.d("6",cursor.getString(6))
 
-        val user = User(cursor.getString(1), cursor.getString(2), cursor.getString(5),cursor.getString(0),cursor.getString(6))
+        val user = User(cursor.getString(0), cursor.getString(1), cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),cursor.getString(6))
         Log.d("logged-in user", cursor.getString(0).toString())
         return user
     }
 
-    fun updateUser(email: String,firstName:String,lastName:String): Boolean {
+    fun updateUser(email: String,firstName:String,lastName:String,username: String?): Boolean {
         Log.d("logged-in user", firstName)
         Log.d("logged-in email", email)
         val sqliteDatabase = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(COL_FIRST_NAME, firstName)
         contentValues.put(COL_LAST_NAME, lastName)
+        contentValues.put(COL_USER_NAME, username)
+        Log.d("userdetails", contentValues.toString())
+        val cursor = sqliteDatabase.update(USER_DETAILS_TABLE, contentValues,"$COL_EMAIL_ID=?", arrayOf(email))
+        Log.d("logged-in email", cursor.toString())
+        return cursor != -1
+    }
+
+    fun updateProfilePicture(email: String,imageUri:String): Boolean {
+        Log.d("logged-in user", imageUri)
+        Log.d("logged-in email", email)
+        val sqliteDatabase = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(COL_USER_IMAGE, imageUri)
         Log.d("recipeList", contentValues.toString())
         val cursor = sqliteDatabase.update(USER_DETAILS_TABLE, contentValues,"$COL_EMAIL_ID=?", arrayOf(email))
         Log.d("logged-in email", cursor.toString())

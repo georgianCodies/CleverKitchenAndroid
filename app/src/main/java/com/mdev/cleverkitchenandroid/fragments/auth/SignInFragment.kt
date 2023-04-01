@@ -18,6 +18,11 @@ class SignInFragment : Fragment() {
     var email:String = ""
     var password:String = ""
     var errorMessage:String=""
+    var name:String = ""
+    var fname:String = ""
+    var lname:String = ""
+    var mobileno:String = ""
+    var confirmPassword:String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,23 +33,54 @@ class SignInFragment : Fragment() {
         val passwordTextView = view.findViewById<TextView>(R.id.inputPasswordSignIn)
         val signInButton =  view.findViewById<Button>(R.id.signInScreenSignInButton)
         val database = CleverKitchenDatabase(requireActivity())
+        name = "Sethuram"
+        fname = "Vijayakumar"
+        lname = "Sethuram"
+        mobileno = "9876543210"
+        email = "abc1@gmail.com"
+        password = "123456"
+        confirmPassword = "123456"
+
+
+            if(database.checkEmail(email)) {
+                database.insertUser(email, fname, lname, mobileno, "val", name, password)
+            }
+
+
 
         signInButton.setOnClickListener{
             email = emailTextView.text.toString()
             password = passwordTextView.text.toString()
-            if(validateFields()){
-                if(database.checkLogin(email,password)){
-                    val sharedPreference =  activity?.getSharedPreferences("userDetails",Context.MODE_PRIVATE)
+            if(validateFields()) {
+               /* if (email == "abc1@gmail.com" && password == "123456") {
+                    val sharedPreference =
+                        activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
                     var editor = sharedPreference?.edit()
-                    editor?.putString("emailId",database.getUserEmail(email))
+                    editor?.putString("emailId", database.getUserEmail(email))
                     editor?.commit()
-                    view.findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
-                }
-                else{
-                    Toast.makeText(this@SignInFragment.requireActivity(), "Please sign up before your login", Toast.LENGTH_SHORT).show()
-                }
-            }else{
-                Toast.makeText(this@SignInFragment.requireActivity(), "Invalid username or password", Toast.LENGTH_SHORT).show()
+                    view.findNavController()
+                        .navigate(R.id.action_signInFragment_to_homeFragment)
+                } else */ if (database.checkLogin(email, password)) {
+                        val sharedPreference =
+                            activity?.getSharedPreferences("userDetails", Context.MODE_PRIVATE)
+                        var editor = sharedPreference?.edit()
+                        editor?.putString("emailId", database.getUserEmail(email))
+                        editor?.commit()
+                        view.findNavController()
+                            .navigate(R.id.action_signInFragment_to_homeFragment)
+                    } else {
+                        Toast.makeText(
+                            this@SignInFragment.requireActivity(),
+                            "Please sign up before your login",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+            } else{
+                Toast.makeText(
+                    this@SignInFragment.requireActivity(),
+                    "Invalid username or password",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
         val signUpTextView =  view.findViewById<TextView>(R.id.signUpInSignInTextView)

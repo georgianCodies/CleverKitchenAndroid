@@ -5,7 +5,9 @@ data class Recipe(
      var recipe_name: String,
      var ingredients: String,
      var description: String,
+     var notes: String,
      var img_location: String,
      var email_id: String,
+     var createdOn:String,
      var is_fav: Int
-){}
+     ){}
