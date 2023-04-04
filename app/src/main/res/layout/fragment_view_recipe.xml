@@ -3,16 +3,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-<!--        -->
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/material_switch"
         android:layout_width="match_parent"
