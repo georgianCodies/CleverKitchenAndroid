@@ -30,7 +30,7 @@
     <string name="ingredients_text">Ingredients:</string>
     <string name="recipe_ingredients_hint">Ingredients</string>
     <string name="recipe_unit_hint">  Units</string>
-    <string name="recipe_quantity_hint">Quanity</string>
+    <string name="recipe_quantity_hint">Quantity</string>
 
     <string name="description_text">Description:</string>
     <string name="recipe_description_hint">Recipe description</string>
