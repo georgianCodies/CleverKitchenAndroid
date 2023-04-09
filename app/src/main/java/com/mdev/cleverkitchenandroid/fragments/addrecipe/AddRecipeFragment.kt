@@ -11,9 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.ValueCallback
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.android.material.chip.Chip
@@ -26,6 +25,7 @@ import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
 import kotlinx.android.synthetic.main.fragment_add_recipe.*
 import java.sql.Date
 import java.text.SimpleDateFormat
+import java.util.regex.Pattern
 
 
 @Suppress("DEPRECATION")
@@ -34,6 +34,7 @@ class AddRecipeFragment : Fragment() {
     private lateinit var recipeName: TextView
     private lateinit var ingredients: TextView
     private lateinit var description: TextView
+
     private lateinit var video: Button
     private var mStorageRef: StorageReference? = null
 
@@ -60,19 +61,25 @@ class AddRecipeFragment : Fragment() {
 
         val submitButton = view.findViewById<Button>(R.id.submitButton);
 
+        val cancelButton = view.findViewById<Button>(R.id.cancelButton);
+
         recipeName = view.findViewById<TextView>(R.id.recipeNameEditText);
         ingredients = view.findViewById<TextView>(R.id.ingredientsEditText)
         description = view.findViewById<TextView>(R.id.descriptionEditText)
         video = view.findViewById<Button>(R.id.videoInputButton);
         mStorageRef = FirebaseStorage.getInstance().getReference()
+
+        val quantity = view.findViewById<EditText>(R.id.quantityEditText);
+        val unitText = view.findViewById<AutoCompleteTextView>(R.id.quantityUnitText)
+        val unitOptions = arrayOf("grams", "kilograms", "liters", "milliliters", "cups", "teaspoons", "tablespoons")
+        val unitAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, unitOptions)
+        unitText.setAdapter(unitAdapter);
+        unitText.threshold = 1;
+
         val addIngredientsbutton = view.findViewById<Button>(R.id.addIngredientsbutton);
+
+
         chipGroup = view.findViewById(R.id.ingredientsChipGroup)
-//        firebaseDatabase = FirebaseDatabase.getInstance().getReference("recipeImages")
-//        firebaseDatabase.child("testing").setValue("valuye").addOnSuccessListener {
-//            Log.d("creat","successful")
-//        }.addOnFailureListener{
-//            Log.d("error",it.toString())
-//        }
         var isAllFieldsChecked = false;
         var imgURI = Uri.parse("");
         video.setOnClickListener {
@@ -82,18 +89,43 @@ class AddRecipeFragment : Fragment() {
 
         }
 
-
         addIngredientsbutton.setOnClickListener{
             if(ingredients.text.toString().isNotEmpty()){
+
+                val quantityAdd = quantity.text.toString();
+                val unitAdd = unitText.text.toString();
                 val ingredientsList = ingredients.text.toString()
+
+                    if(quantityAdd.isNullOrEmpty() ){
+                        quantity.error = "Please enter quantity!"
+                        return@setOnClickListener;
+                    }
+                    if(unitAdd.isNullOrEmpty() ){
+                        unitText.error = "Please enter units!"
+                        return@setOnClickListener;
+                    }
+
+
+
                 val ingredientsArray:List<String> = ingredientsList.split(",")
+
+                val updatedIngredientsArray = mutableListOf<String>()
+                for (ingredient in ingredientsArray) {
+                    updatedIngredientsArray.add("$ingredient: $quantityAdd $unitAdd")
+                }
+
                 Log.d("shoppingList",ingredientsList);
                 Log.d("shoppingListArray",ingredientsArray.toString())
-                finalIngredientsList+=ingredientsArray;
-                addChip(ingredientsArray.filter { item -> item.isNotEmpty() })
+                finalIngredientsList+=updatedIngredientsArray;
+                addChip(updatedIngredientsArray.filter { item -> item.isNotEmpty() })
                 Log.d("final Array",finalIngredientsList.joinToString())
                // database.insertShoppingList(finalIngredientsList.joinToString { it },emailId)
                 ingredients.text = ""
+                quantity.text = null;
+                unitText.text = null;
+
+            }else{
+                ingredients.error = "Please enter ingredient!"
             }
         }
 
@@ -116,6 +148,7 @@ class AddRecipeFragment : Fragment() {
                 val dateTime: String = sdf.format(Date(timestamp))
 
                 val imgURI = video.tag as Uri?
+                this.imageUri = imgURI;
                 if(imgURI == null){
                     Toast.makeText(requireContext(),"Please select image first",Toast.LENGTH_SHORT).show()
                 }else{
@@ -135,9 +168,15 @@ class AddRecipeFragment : Fragment() {
                 }
                 view.findNavController().navigate(R.id.action_addRecipeFragment_to_homeFragment)
             }
-        })
+        });
 
-        return view
+        cancelButton.setOnClickListener(View.OnClickListener {
+            println("cancel clicked!")
+            view.findNavController().navigate(R.id.action_addRecipeFragment_to_homeFragment)
+        });// store the returned value of the dedicated function which checks
+
+
+            return view;
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -163,6 +202,11 @@ class AddRecipeFragment : Fragment() {
         }
         if (description.length() === 0) {
             description.error = "Description is required"
+            return false
+        }
+        if(this.imageUri == null){
+            video.error = "Please Upload an Image"
+            Toast.makeText(requireContext(),"Please Upload an Image!",Toast.LENGTH_SHORT).show()
             return false
         }
         // after all validation return true.
