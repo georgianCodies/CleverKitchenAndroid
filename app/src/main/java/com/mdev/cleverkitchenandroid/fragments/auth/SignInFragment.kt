@@ -33,18 +33,19 @@ class SignInFragment : Fragment() {
         val passwordTextView = view.findViewById<TextView>(R.id.inputPasswordSignIn)
         val signInButton =  view.findViewById<Button>(R.id.signInScreenSignInButton)
         val database = CleverKitchenDatabase(requireActivity())
-        name = "Sethuram"
-        fname = "Vijayakumar"
-        lname = "Sethuram"
-        mobileno = "9876543210"
-        email = "abc1@gmail.com"
-        password = "123456"
-        confirmPassword = "123456"
 
-
-            if(database.checkEmail(email)) {
-                database.insertUser(email, fname, lname, mobileno, "val", name, password)
-            }
+//        name = "Sethuram"
+//        fname = "Vijayakumar"
+//        lname = "Sethuram"
+//        mobileno = "9876543210"
+//        email = "abc1@gmail.com"
+//        password = "123456"
+//        confirmPassword = "123456"
+//
+//
+//            if(database.checkEmail(email)) {
+//                database.insertUser(email, fname, lname, mobileno, "val", name, password)
+//            }
 
 
 

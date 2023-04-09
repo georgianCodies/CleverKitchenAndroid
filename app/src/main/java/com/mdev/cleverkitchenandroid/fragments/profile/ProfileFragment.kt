@@ -21,11 +21,8 @@ import com.bumptech.glide.Glide
 import com.mdev.cleverkitchenandroid.FirebaseStorageManager
 import com.mdev.cleverkitchenandroid.R
 import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
-import com.mdev.cleverkitchenandroid.fragments.profile.EditProfileBottomSheetFragment
 import com.mdev.cleverkitchenandroid.model.ProfileViewModel
 import com.mdev.cleverkitchenandroid.model.User
-import kotlinx.android.synthetic.main.fragment_edit_profile_bottom_sheet.view.*
-
 
 @Suppress("DEPRECATION")
 class ProfileFragment : Fragment() {
@@ -34,6 +31,8 @@ class ProfileFragment : Fragment() {
     private var imageUri: Uri? = null
     private lateinit var profilePictureView: ImageView;
     private var emailId: String = "";
+    private var defaultImgURI = "https://firebasestorage.googleapis.com/v0/b/clever-kitchen-eac52.appspot.com/o/default%2Favatar6.png?alt=media&token=45ac622e-fcd9-4877-8a97-4541abd8fce9"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,13 +48,17 @@ class ProfileFragment : Fragment() {
         val emailIdView = view.findViewById<TextView>(R.id.profile_emailId)
         val userNameView = view.findViewById<TextView>(R.id.profile_userName)
 
-        val userDetails: User = database.getUser(emailId.toString())
+        val userDetails: User = database.getUser(emailId)
         Log.d("userdetails",userDetails.toString())
 
-        var imageUriValue = Uri.parse(userDetails.user_img_location)
+        var imageUriValue = Uri.parse(defaultImgURI)
+
+        if(userDetails.user_img_location.isNotEmpty()) {
+            imageUriValue = Uri.parse(userDetails.user_img_location)
+        }
 
         Glide.with(requireContext())
-            .load(Uri.parse(userDetails.user_img_location)) // firebase url
+            .load(imageUriValue) // firebase url
             .into(view.findViewById(R.id.profilePicture));
         profilePictureView = view.findViewById(R.id.profilePicture)
         profilePictureView.setImageURI(imageUriValue)
@@ -99,7 +102,7 @@ class ProfileFragment : Fragment() {
         profileViewModel.lastName.value = userDetails.lastName
 
 
-  
+
         profileViewModel.userName.value = userDetails.userName
 
         deleteAccountButton.setOnClickListener {
