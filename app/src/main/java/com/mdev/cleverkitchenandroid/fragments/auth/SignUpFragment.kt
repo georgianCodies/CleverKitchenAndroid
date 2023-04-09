@@ -33,6 +33,7 @@ class SignUpFragment : Fragment() {
     var email:String = ""
     var password:String = ""
     var confirmPassword:String = ""
+    var defaultImageUri:String = "https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-profile-line-black-icon-png-image_691051.jpg"
     private var mStorageRef: StorageReference? = null
     private val pickImage = 100
     private var imageUri: Uri? = null
@@ -76,9 +77,11 @@ class SignUpFragment : Fragment() {
             if(validateFields()){
                 if(database.checkEmail(email)) {
                     imgURI = imageButton.tag as Uri?
-                    if(imgURI != null){
+                    if(imgURI == null){
+                        imgURI = Uri.parse(defaultImageUri)
+                    }
 
-                        FirebaseStorageManager().uploadImage(
+                    FirebaseStorageManager().uploadImage(
                             requireContext(),
                             "profile-images",
                             imgURI,
@@ -87,7 +90,7 @@ class SignUpFragment : Fragment() {
                             Log.d("Add profile image- uploaded", imageUri.toString())
                             database.insertUser(email,fname,lname,mobileno,imageUri.toString(),name, password)
                         }
-                    }
+
                     view.findNavController().popBackStack()
                 }
                 else{
