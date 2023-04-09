@@ -1,15 +1,10 @@
 package com.mdev.cleverkitchenandroid.fragments.viewrecipe
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.net.toUri
+import android.widget.*
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -17,13 +12,18 @@ import com.mdev.cleverkitchenandroid.R
 import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
 import com.mdev.cleverkitchenandroid.model.Recipe
 import com.mdev.cleverkitchenandroid.model.User
-import java.security.AccessController.getContext
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  val profileDetails : User,val databaseHelper: CleverKitchenDatabase) :
-    RecyclerView.Adapter<FragmentViewRecipeAdapter.ViewHolder>() {
+class FragmentViewRecipeAdapter(private val recipesList: List<Recipe>,private  val profileDetails : User, val databaseHelper: CleverKitchenDatabase) :
+    RecyclerView.Adapter<FragmentViewRecipeAdapter.ViewHolder>(), Filterable {
     // create new views
+
+    var filteredRecipeList = ArrayList<Recipe>()
+
+    init {
+        filteredRecipeList = recipesList as ArrayList<Recipe>
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflates the card_view_design view
@@ -36,36 +36,20 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
     }
 
 
-
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val recipiesModelList = recipiesList[position]
+        val recipiesModelList = filteredRecipeList[position]
 
         // sets the image to the imageview from our itemHolder class
         // sets the text to the textview from our itemHolder class
         holder.tvDesc.text = recipiesModelList.description
-//        holder.ivDish.setImageResource(R.drawable.ic_dish2)
         holder.tvTag.text = recipiesModelList.ingredients
         holder.tvDate.text = recipiesModelList.createdOn
         holder.tvName.text = profileDetails.userName
-        if (recipiesModelList.is_fav === 1){
-            holder.isFav.setImageResource(R.drawable.heart)
-        }else{
-            holder.isFav.setImageResource(R.drawable.heart_outline)
-        }
-        holder.isFav.setOnClickListener {
-            val is_fav = if (recipiesModelList.is_fav == 1)  0 else 1
-            if (is_fav === 1){
-                holder.isFav.setImageResource(R.drawable.heart)
-            }else{
-                holder.isFav.setImageResource(R.drawable.heart_outline)
-            }
-            val recipe_id = recipiesModelList.recipe_id.toString()
 
-            databaseHelper.toggleFavorite(recipe_id, is_fav)
+        val isFav = if (recipiesModelList.is_fav == 1)  1 else 0
 
-//            Toast.makeText(requireContext(), if (is_fav == 1) "Added to Favorites" else "Removed from Favorites", Toast.LENGTH_SHORT).show()
-        }
+        holder.isFav.setImageResource(if (isFav === 1) R.drawable.heart else 0)
 
 //        holder.ivDish.setImageURI(null)
 //        "https://firebasestorage.googleapis.com/v0/b/clever-kitchen-eac52.appspot.com/o/recipeImages%2FSat%20Feb%2004%2016%3A26%3A10%20EST%202"
@@ -76,23 +60,22 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
 
         holder.itemView.setOnClickListener{
             holder.itemView.findNavController().navigate(R.id.action_viewRecipeFragment_to_recipeDetailsFragment, Bundle().apply {
-                    putString("recipe_name", recipiesModelList.recipe_name)
-                    putString("chip", recipiesModelList.ingredients)
-                    putString("description", recipiesModelList.description)
-                    putString("ingredients", recipiesModelList.ingredients)
-                    putString("notes", recipiesModelList.notes)
-                    putString("img_location", recipiesModelList.img_location)
-                    putString("email_id", recipiesModelList.email_id)
-                    putInt("recipe_id", recipiesModelList.recipe_id)
-                    putInt("is_fav", recipiesModelList.is_fav)
-                })
-            }
-
+                putString("recipe_name", recipiesModelList.recipe_name)
+                putString("chip", recipiesModelList.ingredients)
+                putString("description", recipiesModelList.description)
+                putString("ingredients", recipiesModelList.ingredients)
+                putString("notes", recipiesModelList.notes)
+                putString("img_location", recipiesModelList.img_location)
+                putString("email_id", recipiesModelList.email_id)
+                putInt("recipe_id", recipiesModelList.recipe_id)
+                putInt("is_fav", recipiesModelList.is_fav)
+            })
+        }
     }
 
     // return the number of the items in the list
     override fun getItemCount(): Int {
-        return recipiesList.size
+        return filteredRecipeList.size
     }
 
     fun getCurrentDate():String{
@@ -108,6 +91,35 @@ class FragmentViewRecipeAdapter(private val recipiesList: List<Recipe>,private  
         val tvTag: TextView = itemView.findViewById(R.id.tv_tag)
         val tvName: TextView = itemView.findViewById(R.id.tv_name)
         val isFav: ImageView = itemView.findViewById(R.id.like_recipe)
+    }
+
+    // filter the results based on "show favorites" switch
+    // empty string means show all results
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charSearch = constraint.toString()
+                if (charSearch.isEmpty()) {
+                    filteredRecipeList = recipesList as ArrayList<Recipe>
+                } else {
+                    val resultList = ArrayList<Recipe>()
+                    for (row in recipesList) {
+                        if (row.is_fav === 1) {
+                            resultList.add(row)
+                        }
+                    }
+                    filteredRecipeList = resultList
+                }
+                val filterResults = FilterResults()
+                filterResults.values = filteredRecipeList
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filteredRecipeList = results?.values as ArrayList<Recipe>
+                notifyDataSetChanged()
+            }
+        }
     }
 }
 
