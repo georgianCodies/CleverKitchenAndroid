@@ -76,8 +76,7 @@ class SignUpFragment : Fragment() {
             if(validateFields()){
                 if(database.checkEmail(email)) {
                     imgURI = imageButton.tag as Uri?
-                    if(imgURI != null){
-
+                    if(imgURI !== null) {
                         FirebaseStorageManager().uploadImage(
                             requireContext(),
                             "profile-images",
@@ -85,8 +84,27 @@ class SignUpFragment : Fragment() {
                             email
                         ) { imageUri ->
                             Log.d("Add profile image- uploaded", imageUri.toString())
-                            database.insertUser(email,fname,lname,mobileno,imageUri.toString(),name, password)
+                            database.insertUser(
+                                email,
+                                fname,
+                                lname,
+                                mobileno,
+                                imageUri.toString(),
+                                name,
+                                password
+                            )
                         }
+                    }else{
+                        Log.d("Add profile image - default ", imageUri.toString())
+                        database.insertUser(
+                            email,
+                            fname,
+                            lname,
+                            mobileno,
+                            "",
+                            name,
+                            password
+                        )
                     }
                     view.findNavController().popBackStack()
                 }
