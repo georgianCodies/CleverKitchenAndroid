@@ -47,7 +47,6 @@ class AddRecipeFragment : Fragment() {
     private lateinit var chipGroup: ChipGroup
     private var storedIngredientsList: String = "";
     private var finalIngredientsList: MutableList<String> = mutableListOf()
-    private var CHANNEL_ID = "MY_CHANNEL"
     private var Notification_ID = 1
     //var part_image: String? = null
 

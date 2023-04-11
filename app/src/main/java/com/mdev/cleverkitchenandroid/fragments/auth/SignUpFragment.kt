@@ -1,8 +1,13 @@
 package com.mdev.cleverkitchenandroid.fragments.auth
 
 import android.app.Activity
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -13,6 +18,7 @@ import android.webkit.ValueCallback
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.firebase.storage.FirebaseStorage
@@ -38,7 +44,7 @@ class SignUpFragment : Fragment() {
     private var imageUri: Uri? = null
     var filePath: ValueCallback<Array<Uri>>? = null
     private lateinit var imageButton: Button
-
+    private var Notification_ID = 2
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -94,6 +100,7 @@ class SignUpFragment : Fragment() {
                                 password
                             )
                         }
+                        showNotification();
                     }else{
                         Log.d("Add profile image - default ", imageUri.toString())
                         database.insertUser(
@@ -132,6 +139,29 @@ class SignUpFragment : Fragment() {
         }
 
 
+    }
+
+    fun showNotification() {
+        val NOTIFICATION_CHANNEL_ID = "my_channel_id_01"
+        val notificationManager =
+            requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = NotificationChannel(
+                NOTIFICATION_CHANNEL_ID,
+                "My Notifications",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            notificationChannel.description = "Channel description"
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
+        val builder = NotificationCompat.Builder(requireContext(), NOTIFICATION_CHANNEL_ID)
+        val mNotification: Notification = builder
+            .setContentTitle("Account created")
+            .setContentText("Your account created successfully")
+            .setAutoCancel(true)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .build()
+        notificationManager.notify( Notification_ID, mNotification)
     }
 
     private fun validateFields(): Boolean {
