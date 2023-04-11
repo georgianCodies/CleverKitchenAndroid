@@ -1,9 +1,13 @@
 package com.mdev.cleverkitchenandroid.fragments.addrecipe
 
 import android.app.Activity.RESULT_OK
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -12,7 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.ValueCallback
 import android.widget.*
-import androidx.core.content.ContextCompat
+import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.android.material.chip.Chip
@@ -25,7 +29,6 @@ import com.mdev.cleverkitchenandroid.database.CleverKitchenDatabase
 import kotlinx.android.synthetic.main.fragment_add_recipe.*
 import java.sql.Date
 import java.text.SimpleDateFormat
-import java.util.regex.Pattern
 
 
 @Suppress("DEPRECATION")
@@ -44,7 +47,8 @@ class AddRecipeFragment : Fragment() {
     private lateinit var chipGroup: ChipGroup
     private var storedIngredientsList: String = "";
     private var finalIngredientsList: MutableList<String> = mutableListOf()
-
+    private var CHANNEL_ID = "MY_CHANNEL"
+    private var Notification_ID = 1
     //var part_image: String? = null
 
 
@@ -166,6 +170,8 @@ class AddRecipeFragment : Fragment() {
                    }
 
                 }
+
+                showNotification()
                 view.findNavController().navigate(R.id.action_addRecipeFragment_to_homeFragment)
             }
         });
@@ -177,6 +183,30 @@ class AddRecipeFragment : Fragment() {
 
 
             return view;
+    }
+
+
+    fun showNotification() {
+        val NOTIFICATION_CHANNEL_ID = "my_channel_id_01"
+        val notificationManager =
+            requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = NotificationChannel(
+                NOTIFICATION_CHANNEL_ID,
+                "My Notifications",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            notificationChannel.description = "Channel description"
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
+        val builder = NotificationCompat.Builder(requireContext(), NOTIFICATION_CHANNEL_ID)
+        val mNotification: Notification = builder
+            .setContentTitle("New recipe added")
+            .setContentText("New recipe added successfully")
+            .setAutoCancel(true)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .build()
+        notificationManager.notify( Notification_ID, mNotification)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
